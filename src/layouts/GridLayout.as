@@ -1,0 +1,61 @@
+package layouts
+{
+	import components.LGrid;
+	
+	import core.IlayoutContainer;
+	import core.IlayoutElement;
+	import core.IlayoutManager;
+	
+	/**
+	 *@author swellee
+	 *2013-8-29
+	 *网格布局
+	 */
+	public class GridLayout implements IlayoutManager
+	{
+		public function GridLayout()
+		{
+		}
+		
+		public function doLayout(contianer:IlayoutContainer):void
+		{
+			var grid:LGrid=contianer as LGrid;
+			if(!grid)return;
+			
+			var eles:Vector.<IlayoutElement>=grid.layoutElements;
+			var curCol:int;
+			var curRow:int;
+			var count:int=eles.length;
+			var lockCols:Boolean=grid.lockCols;
+			var cols:int=grid.cols;
+			var rows:int=grid.rows;
+			if(!lockCols)//不以cols为准
+			{
+				cols=count/rows;
+				if(count%rows>0)
+					cols++;
+			}
+			var cellWidth:int = (grid.width-grid.hGap*(cols-1))/cols;
+			var cellHeight:int = (grid.height-grid.vGap*(rows-1))/rows;
+			
+			for (var i:int = 0; i < count; i++) 
+			{
+				curRow=i/cols;
+				curCol=i%cols;
+				var eleComp:IlayoutElement=eles[i];
+				var eleWidth:int=-1;
+				var eleHeight:int=-1;
+				if(eleComp.canScaleX)
+					eleWidth=cellWidth;
+				if(eleComp.canScaleY)
+					eleHeight=cellHeight;
+				eleComp.setWH(cellWidth,cellHeight);
+				eleComp.setXY(curCol*(grid.hGap+cellWidth),curRow*(grid.vGap+cellHeight));
+			}
+			//如果子对象不可缩放，则有可能应用布局后超出容器边界
+			if(!(eleComp.canScaleX&&eleComp.canScaleY))
+				trace("容器对象>>LGrid<<应用了GridLayout布局，但该容器包含不可缩放的子对象，有可能应用布局后子对象超出容器边界");
+			
+		}
+	}
+}

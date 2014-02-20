@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="core.LSprite"/>
+    <classEntry path="core.Istyle"/>
+    <classEntry path="core.IlayoutElement"/>
+    <classEntry path="core.IlayoutContainer"/>
+    <classEntry path="core.IlayoutManager"/>
+    <classEntry path="core.Idecorator"/>
+    <classEntry path="vos.StyleVO"/>
+    <classEntry path="decorators.LDecorator"/>
+    <classEntry path="core.IstyleSheet"/>
+    <classEntry path="components.LComponent"/>
+    <classEntry path="components.LContainer"/>
+    <classEntry path="components.LMultiState"/>
+    <classEntry path="errors.LOverrideError"/>
+    <classEntry path="components.LButton"/>
+    <classEntry path="decorators.LMultiStateDecorator"/>
+    <classEntry path="core.Icombine"/>
+    <classEntry path="components.LCombine"/>
+    <classEntry path="components.LToggleButton"/>
+    <classEntry path="components.LRadioButton"/>
+    <classEntry path="components.LCheckBox"/>
+    <classEntry path="components.LScrollBar"/>
+    <classEntry path="components.LStyleSheet"/>
+    <classEntry path="decorators.LCombineDecorator"/>
+    <classEntry path="layouts.ScrollbarLayout"/>
+    <classEntry path="core.IDispose"/>
+    <classEntry path="components.LScrollPane"/>
+    <classEntry path="layouts.ScrollPaneLayout"/>
+    <classEntry path="core.IViewport"/>
+    <classEntry path="components.LList"/>
+    <classEntry path="layouts.ListLayout"/>
+    <classEntry path="events.LScrollBarEvent"/>
+    <classEntry path="core.IMatrixContainer"/>
+    <classEntry path="components.LTextArea"/>
+    <classEntry path="components.LGrid"/>
+    <classEntry path="layouts.GridLayout"/>
+    <classEntry path="components.LSeprator"/>
+    <classEntry path="components.Stepper"/>
+    <classEntry path="events.LStepperEvent"/>
+    <classEntry path="components.LStepperH"/>
+    <classEntry path="components.LStepperV"/>
+    <classEntry path="layouts.StepperVLayout"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
