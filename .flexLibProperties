@@ -42,6 +42,11 @@
     <classEntry path="components.LStepperH"/>
     <classEntry path="components.LStepperV"/>
     <classEntry path="layouts.StepperVLayout"/>
+    <classEntry path="components.LTreeNode"/>
+    <classEntry path="components.LTree"/>
+    <classEntry path="layouts.TreeLayout"/>
+    <classEntry path="events.LTreeEvent"/>
+    <classEntry path="components.LBox"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

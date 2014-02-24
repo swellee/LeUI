@@ -1,6 +1,7 @@
 package core
 {
 	import flash.display.DisplayObject;
+	import flash.geom.Rectangle;
 
 	/**
 	 *可布局的容器 
@@ -57,6 +58,12 @@ package core
 		function removeAll(dispose:Boolean=true):void;
 		/**立即更新布局*/
 		function updateLayout():void;
+		/**
+		 *获取内容边界矩形（包含了所有已添加到该容器的显示对象的最小边界） 
+		 * @return 
+		 * 
+		 */
+		function getContentBounds():Rectangle;
 		/**自动缩放尺寸到刚好能够包裹子对象*/
 		function pack():void;
 	}

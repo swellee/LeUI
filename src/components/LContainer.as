@@ -1,13 +1,13 @@
 package components
 {
-	import flash.display.DisplayObject;
-	import flash.events.Event;
-	import flash.geom.Rectangle;
-	
 	import core.IDispose;
 	import core.IlayoutContainer;
 	import core.IlayoutElement;
 	import core.LSprite;
+	
+	import flash.display.DisplayObject;
+	import flash.events.Event;
+	import flash.geom.Rectangle;
 	
 	import layouts.BasicLayout;
 	
@@ -69,7 +69,7 @@ package components
 		public function remove(child:DisplayObject,dispose:Boolean=true):DisplayObject
 		{
 			checkAndPopElement(child);
-			view.removeChild(child);
+			if(view.contains(child))	view.removeChild(child);
 			if(dispose&&(child is IDispose))
 			{
 				(child as IDispose).dispose();
@@ -189,16 +189,23 @@ package components
 			needRenderLayout=true;
 			render();
 		}
-		public function pack():void
+		
+		public function getContentBounds():Rectangle
 		{
 			var rec:Rectangle;
-			var i:int=numChildren;
+			var i:int=view.numChildren;
 			while(--i>-1)
 			{
-				var child:DisplayObject=getChildAt(i);
+				var child:DisplayObject=view.getChildAt(i);
 				var childRect:Rectangle=child.getBounds(this);
 				rec=rec?rec.union(childRect):childRect;
 			}
+			return rec||=new Rectangle();
+		}
+		
+		public function pack():void
+		{
+			var rec:Rectangle=getContentBounds();
 			width=rec.width;
 			height=rec.height;
 		}

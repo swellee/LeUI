@@ -37,13 +37,13 @@ package components
 		public function LComponent()
 		{
 			super();
+			init();
 			addEventListener(Event.ADDED_TO_STAGE,onActive);
 		}
 		
 		/**初次被添加到显示列表时，激活*/
 		protected function onActive(event:Event):void
 		{
-			init();
 			addEvents();
 			updateStyle();
 		}
