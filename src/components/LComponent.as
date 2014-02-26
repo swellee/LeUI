@@ -1,14 +1,14 @@
 package components
 {
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.events.Event;
-	import flash.geom.Rectangle;
-	
 	import core.Icomponent;
 	import core.LSprite;
 	
 	import events.LEvent;
+	
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	import flash.events.Event;
+	import flash.geom.Rectangle;
 	
 	import utils.LFilters;
 	import utils.LUIManager;
@@ -205,13 +205,14 @@ package components
 				asset.width=_width;
 				asset.height=_height;
 				resizeMask();
+				bgAsset=asset;
 			}
 			else
 			{
 				needRenderBg=true;
+				bgAsset=asset;
 				render();
 			}
-			bgAsset=asset;
 		}
 		/**重置背景图尺寸*/
 		private function resizeBgAsset():void
