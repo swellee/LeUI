@@ -4,8 +4,8 @@ package decorators
 	
 	import components.LCombine;
 	
-	import core.Idecorator;
-	import core.Istyle;
+	import core.IDecorator;
+	import core.IStyle;
 	
 	import utils.LFactory;
 	import utils.LTrace;
@@ -18,13 +18,13 @@ package decorators
 	 *2013-5-26
 	 * 复合组件装饰类
 	 */
-	public class LCombineDecorator implements Idecorator
+	public class LCombineDecorator implements IDecorator
 	{
 		public function LCombineDecorator()
 		{
 		}
 		
-		public function decorate(ui:Istyle, styleVo:StyleVO):void
+		public function decorate(ui:IStyle, styleVo:StyleVO):void
 		{
 			var combUI:LCombine=ui as LCombine;
 			if(!combUI)return;

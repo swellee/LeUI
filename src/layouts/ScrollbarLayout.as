@@ -4,8 +4,8 @@ package layouts
 	
 	import components.LScrollBar;
 	
-	import core.IlayoutContainer;
-	import core.IlayoutManager;
+	import core.ILayoutContainer;
+	import core.ILayoutManager;
 	
 	import utils.LTrace;
 
@@ -14,13 +14,13 @@ package layouts
 	 *2013-6-3
 	 * 为滚动条提供布局管理
 	 */
-	public class ScrollbarLayout implements IlayoutManager
+	public class ScrollbarLayout implements ILayoutManager
 	{
 		public function ScrollbarLayout()
 		{
 		}
 		
-		public function doLayout(contianer:IlayoutContainer):void
+		public function doLayout(contianer:ILayoutContainer):void
 		{
 			var scrBar:LScrollBar=contianer as LScrollBar;
 			if(!scrBar)return;

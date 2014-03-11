@@ -6,7 +6,7 @@ package core
 	 * @author swellee
 	 * 
 	 */
-	public interface Istyle extends IDispose
+	public interface IStyle extends IDispose
 	{
 		/**样式名*/
 		function get style():String;

@@ -2,21 +2,21 @@
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="core.LSprite"/>
-    <classEntry path="core.Istyle"/>
-    <classEntry path="core.IlayoutElement"/>
-    <classEntry path="core.IlayoutContainer"/>
-    <classEntry path="core.IlayoutManager"/>
-    <classEntry path="core.Idecorator"/>
+    <classEntry path="core.IStyle"/>
+    <classEntry path="core.ILayoutElement"/>
+    <classEntry path="core.ILayoutContainer"/>
+    <classEntry path="core.ILayoutManager"/>
+    <classEntry path="core.IDecorator"/>
     <classEntry path="vos.StyleVO"/>
     <classEntry path="decorators.LDecorator"/>
-    <classEntry path="core.IstyleSheet"/>
+    <classEntry path="core.IStyleSheet"/>
     <classEntry path="components.LComponent"/>
     <classEntry path="components.LContainer"/>
     <classEntry path="components.LMultiState"/>
     <classEntry path="errors.LOverrideError"/>
     <classEntry path="components.LButton"/>
     <classEntry path="decorators.LMultiStateDecorator"/>
-    <classEntry path="core.Icombine"/>
+    <classEntry path="core.ICombine"/>
     <classEntry path="components.LCombine"/>
     <classEntry path="components.LToggleButton"/>
     <classEntry path="components.LRadioButton"/>
@@ -32,7 +32,7 @@
     <classEntry path="components.LList"/>
     <classEntry path="layouts.ListLayout"/>
     <classEntry path="events.LScrollBarEvent"/>
-    <classEntry path="core.IMatrixContainer"/>
+    <classEntry path="core.IMatirxContainer"/>
     <classEntry path="components.LTextArea"/>
     <classEntry path="components.LGrid"/>
     <classEntry path="layouts.GridLayout"/>
@@ -47,6 +47,8 @@
     <classEntry path="layouts.TreeLayout"/>
     <classEntry path="events.LTreeEvent"/>
     <classEntry path="components.LBox"/>
+    <classEntry path="core.InnerContainer"/>
+    <classEntry path="components.LMenuItem"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -1,9 +1,10 @@
 package layouts
 {
-	import core.IMatrixContainer;
-	import core.IlayoutContainer;
-	import core.IlayoutElement;
-	import core.IlayoutManager;
+	import components.LList;
+	
+	import core.ILayoutContainer;
+	import core.ILayoutElement;
+	import core.ILayoutManager;
 	
 	import utils.UiConst;
 	
@@ -12,21 +13,21 @@ package layouts
 	 *2013-7-10
 	 *列表容器布局管理
 	 */
-	public class ListLayout implements IlayoutManager
+	public class ListLayout implements ILayoutManager
 	{
 		public function ListLayout()
 		{
 		}
 		
-		public function doLayout(contianer:IlayoutContainer):void
+		public function doLayout(contianer:ILayoutContainer):void
 		{
-			var list:IMatrixContainer=contianer as IMatrixContainer;
+			var list:LList=contianer as LList;
 			if(!list)return;
 			
-			var eles:Vector.<IlayoutElement>=list.layoutElements;
+			var eles:Vector.<ILayoutElement>=list.layoutElements;
 			for (var i:int = 0; i < eles.length; i++) 
 			{
-				var child:IlayoutElement=eles[i];
+				var child:ILayoutElement=eles[i];
 				var loc:int;
 				if(list.direction==UiConst.VERTICAL)
 				{

@@ -2,8 +2,8 @@ package decorators
 {
 	import components.LMultiState;
 	
-	import core.Idecorator;
-	import core.Istyle;
+	import core.IDecorator;
+	import core.IStyle;
 	
 	import utils.LTrace;
 	
@@ -15,13 +15,13 @@ package decorators
 	 *2013-4-24
 	 *
 	 */
-	public class LMultiStateDecorator implements Idecorator
+	public class LMultiStateDecorator implements IDecorator
 	{
 		public function LMultiStateDecorator()
 		{
 		}
 		
-		public function decorate(ui:Istyle, styleVo:StyleVO):void
+		public function decorate(ui:IStyle, styleVo:StyleVO):void
 		{
 			var multiStateUi:LMultiState=ui as LMultiState;
 			if(!multiStateUi)

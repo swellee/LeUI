@@ -3,7 +3,7 @@ package components
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	
-	import core.IMatrixContainer;
+	import core.IMatirxContainer;
 	
 	import layouts.BoxLayout;
 	
@@ -18,7 +18,7 @@ package components
 	 * </br>注意：圆点的宽高默认使用UiConst.ICON_DEFAULT_SIZE，并在垂直方向居中；
 	 * </br>文本的宽高默认为UiConst.TEXT_DEFAULT_WIDTH,UiConst.TEXT_DEFAULT_HEIGHT；
 	 */
-	public class LRadioButton extends LCombine implements IMatrixContainer
+	public class LRadioButton extends LCombine implements IMatirxContainer
 	{
 		public var ele_btn:LToggleButton;
 		public var ele_text:LText;

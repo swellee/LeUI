@@ -5,12 +5,12 @@ package core
 	 * @author swellee
 	 * 
 	 */	
-	public interface IMatrixContainer extends IlayoutContainer
+	public interface IMatirxContainer extends ILayoutContainer
 	{
 		
 		function set direction(val:int):void;
 		/**
-		 *布局朝向，可用值为 UiConst.VERTICAL、UiConst.HORIZONTAL、UiConst.VERTICAL_HORIZONTAL
+		 *布局朝向，可用值为 UiConst.VERTICAL、UiConst.HORIZONTAL
 		 * @return 
 		 * 
 		 */

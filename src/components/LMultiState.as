@@ -1,6 +1,6 @@
 package components
 {
-	import core.ImultiState;
+	import core.IMultiState;
 	
 	import vos.ChildStyleHashVO;
 	
@@ -9,7 +9,7 @@ package components
 	 *2013-4-10
 	 *
 	 */
-	public class LMultiState extends LComponent implements ImultiState
+	public class LMultiState extends LComponent implements IMultiState
 	{
 		protected var _stateStyleHash:Vector.<ChildStyleHashVO>;
 		/**用于表现状态的内部组件*/

@@ -7,7 +7,7 @@ package core
 	 * @author swellee
 	 * 
 	 */
-	public interface IstyleSheet
+	public interface IStyleSheet
 	{
 		/**
 		 *存入样式对象 

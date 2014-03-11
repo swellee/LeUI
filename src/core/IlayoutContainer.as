@@ -8,7 +8,7 @@ package core
 	 * @author swellee
 	 * 
 	 */
-	public interface IlayoutContainer extends IlayoutElement
+	public interface ILayoutContainer extends ILayoutElement
 	{
 		
 		/**
@@ -28,7 +28,7 @@ package core
 		 * @return 
 		 * 
 		 */
-		function get layoutElements():Vector.<IlayoutElement>;
+		function get layoutElements():Vector.<ILayoutElement>;
 		/**
 		 *添加子元素到容器中 
 		 * @param child 显示对象

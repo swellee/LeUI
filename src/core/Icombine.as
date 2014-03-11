@@ -7,7 +7,7 @@ package core
 	 * @author swellee
 	 * 
 	 */	
-	public interface Icombine
+	public interface ICombine
 	{
 		/**
 		 *子组件名称－样式映射表 

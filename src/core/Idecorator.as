@@ -7,7 +7,7 @@ package core
 	 * @author swellee
 	 * 
 	 */	
-	public interface Idecorator
+	public interface IDecorator
 	{
 		/**
 		 *装饰组件 
@@ -15,6 +15,6 @@ package core
 		 * @param styleVo 样式对象
 		 * 
 		 */		
-		function decorate(ui:Istyle,styleVo:StyleVO):void;
+		function decorate(ui:IStyle,styleVo:StyleVO):void;
 	}
 }

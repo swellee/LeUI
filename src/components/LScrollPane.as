@@ -3,7 +3,7 @@ package components
 	import flash.display.DisplayObject;
 	
 	import core.IViewport;
-	import core.IlayoutContainer;
+	import core.ILayoutContainer;
 	
 	import events.LScrollBarEvent;
 	
@@ -102,14 +102,14 @@ package components
 		{
 			if(!transferContainer)
 				super.append(child,layoutImmediately);
-			else if(ele_view_port is IlayoutContainer)
+			else if(ele_view_port is ILayoutContainer)
 			{
-				(ele_view_port as IlayoutContainer).append(child,true);
+				(ele_view_port as ILayoutContainer).append(child,true);
 			}
 		}
 		override public function remove(child:DisplayObject,dispose:Boolean=true):DisplayObject
 		{
-			var viewCon:IlayoutContainer=ele_view_port as IlayoutContainer;
+			var viewCon:ILayoutContainer=ele_view_port as ILayoutContainer;
 			if(viewCon)
 			{
 				try

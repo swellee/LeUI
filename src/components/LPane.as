@@ -25,17 +25,17 @@ package components
 		
 		public function setViewPosition(posX:Number, posY:Number):void
 		{
-			this.view.x=posX;
-			this.view.y=posY;
+			this.container.x=posX;
+			this.container.y=posY;
 		}
 		
 		public function get viewWidth():int
 		{
-			return view.width;
+			return container.width;
 		}
 		public function get viewHeight():int
 		{
-			return view.height;
+			return container.height;
 		}
 		
 		public function addViewSizeListener(fun:Function):void

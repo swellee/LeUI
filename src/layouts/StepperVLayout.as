@@ -2,21 +2,21 @@ package layouts
 {
 	import components.LStepperV;
 	
-	import core.IlayoutContainer;
-	import core.IlayoutManager;
+	import core.ILayoutContainer;
+	import core.ILayoutManager;
 	
 	/**
 	 *@author swellee
 	 *2013-12-25
 	 *LStepperV布局管理器
 	 */
-	public class StepperVLayout implements IlayoutManager
+	public class StepperVLayout implements ILayoutManager
 	{
 		public function StepperVLayout()
 		{
 		}
 		
-		public function doLayout(contianer:IlayoutContainer):void
+		public function doLayout(contianer:ILayoutContainer):void
 		{
 			var stp:LStepperV=contianer as LStepperV;
 			if(!stp)return;

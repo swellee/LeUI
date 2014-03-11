@@ -1,16 +1,15 @@
 package components
 {
-	import core.IMatrixContainer;
+	import layouts.GridLayout;
+	
 	
 	/**
 	 *@author swellee
 	 *2013-8-28
 	 *
 	 */
-	public class LGrid extends LPane implements IMatrixContainer
+	public class LGrid extends LList
 	{
-		private var _hGap:int;
-		private var _vGap:int;
 		private var _lockCols:Boolean;
 		private var _cols:int;
 		private var _rows:int;
@@ -25,11 +24,9 @@ package components
 		 */
 		public function LGrid(cols:int,rows:int=1,hGap:int=0,vGap:int=0,lockCols:Boolean=true)
 		{
-			super();
+			super(hGap,vGap);
 			this._cols=cols;
 			this._rows=rows;
-			this._hGap=hGap;
-			this._vGap=vGap;
 			this._lockCols=lockCols;
 		}
 		
@@ -67,38 +64,11 @@ package components
 		{
 			_lockCols = value;
 		}
-
-		public function set direction(val:int):void
+		
+		override public function getLayoutManager():Class
 		{
+			return _layoutManager||=GridLayout;
 		}
 		
-		public function get direction():int
-		{
-			return 0;
-		}
-		
-		public function set hGap(val:int):void
-		{
-			if(val==_hGap)return;
-			_hGap=val;
-			updateLayout();
-		}
-		
-		public function get hGap():int
-		{
-			return _hGap;
-		}
-		
-		public function set vGap(val:int):void
-		{
-			if(val==_vGap)return;
-			_vGap=val;
-			updateLayout();
-		}
-		
-		public function get vGap():int
-		{
-			return _vGap;
-		}
 	}
 }

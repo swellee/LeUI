@@ -5,13 +5,13 @@ package core
 	 * @author Administrator
 	 * 
 	 */
-	public interface IlayoutManager
+	public interface ILayoutManager
 	{
 		/**
 		 *管理容器的布局 
 		 * @param contianer
 		 * 
 		 */
-		function doLayout(contianer:IlayoutContainer):void;
+		function doLayout(contianer:ILayoutContainer):void;
 	}
 }

@@ -3,8 +3,8 @@ package layouts
 	import components.LTree;
 	import components.LTreeNode;
 	
-	import core.IlayoutContainer;
-	import core.IlayoutManager;
+	import core.ILayoutContainer;
+	import core.ILayoutManager;
 	
 	import utils.LeSpace;
 
@@ -14,13 +14,13 @@ package layouts
 	 *2014-2-22
 	 *树容器 布局管理器
 	 */
-	public class TreeLayout implements IlayoutManager
+	public class TreeLayout implements ILayoutManager
 	{
 		public function TreeLayout()
 		{
 		}
 		
-		public function doLayout(contianer:IlayoutContainer):void
+		public function doLayout(contianer:ILayoutContainer):void
 		{
 			var tree:LTree=contianer as LTree;
 			if(!tree)return;

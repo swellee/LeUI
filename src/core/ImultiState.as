@@ -7,7 +7,7 @@ package core
 	 * @author swellee
 	 * </br>装饰类对组件完成样式组装后，会显示stateStyleHash中第一个状态的样式
 	 */	
-	public interface ImultiState
+	public interface IMultiState
 	{
 		/**
 		 *状态名-状态样式映射数组, 

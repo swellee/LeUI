@@ -2,8 +2,8 @@ package layouts
 {
 	import components.LScrollPane;
 	
-	import core.IlayoutContainer;
-	import core.IlayoutManager;
+	import core.ILayoutContainer;
+	import core.ILayoutManager;
 	
 	import utils.UiConst;
 	
@@ -12,13 +12,13 @@ package layouts
 	 *2013-7-6
 	 *滚动面板布局管理
 	 */
-	public class ScrollPaneLayout implements IlayoutManager
+	public class ScrollPaneLayout implements ILayoutManager
 	{
 		public function ScrollPaneLayout()
 		{
 		}
 		
-		public function doLayout(contianer:IlayoutContainer):void
+		public function doLayout(contianer:ILayoutContainer):void
 		{
 			var scrPane:LScrollPane=contianer as LScrollPane;
 			if(!scrPane)return;

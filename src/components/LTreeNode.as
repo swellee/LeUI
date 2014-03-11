@@ -1,6 +1,6 @@
 package components
 {
-	import core.IMatrixContainer;
+	import core.IMatirxContainer;
 	
 	import errors.LError;
 	
@@ -22,7 +22,7 @@ package components
 	 *2014-2-22
 	 *树节点
 	 */
-	public class LTreeNode extends LCombine implements IMatrixContainer
+	public class LTreeNode extends LCombine implements IMatirxContainer
 	{
 		
 		public var ele_extra_btn:LToggleButton;

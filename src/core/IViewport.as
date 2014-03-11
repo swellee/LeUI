@@ -8,7 +8,7 @@ package core
 	 * @author swellee
 	 * 
 	 */
-	public interface IViewport extends Icomponent
+	public interface IViewport extends IComponent
 	{
 		/**
 		 *设置视口左上点坐标 

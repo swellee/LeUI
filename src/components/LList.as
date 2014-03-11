@@ -1,69 +1,71 @@
 package components
 {
-	import core.IMatrixContainer;
+	import events.LEvent;
+	
+	import flash.display.DisplayObject;
+	import flash.events.MouseEvent;
 	
 	import layouts.ListLayout;
 	
+	import utils.LUIManager;
+	import utils.LeSpace;
 	import utils.UiConst;
 
+	use namespace LeSpace;
 	/**
 	 *@author swellee
 	 *2013-7-10
 	 *列表容器
 	 */
-	public class LList extends LPane implements IMatrixContainer
+	public class LList extends LBox
 	{
-		private var _gap:int;
-		private var _direction:int;
+		
+		protected var _selectedItem:LComponent;
 		/**
 		 *列表容器 
 		 * @param gap 间距  /像素
 		 * @param vertical 是否为竖向滚动条，默认为true
 		 * 
 		 */
-		public function LList(gap:int=0,vertical:Boolean=true)
+		public function LList(hGap:int=0,vGap:int=0,vertical:Boolean=true)
 		{
-			super();
-			if(vertical)
-			{
-				this.vGap=gap;
-				this.direction=UiConst.VERTICAL;
-			}
-			else
-			{
-				this.hGap=gap;
-				this.direction=UiConst.HORIZONTAL;
-			}
+			super(hGap,vGap);
+			container.isListContainer=true;
+			this._direction=vertical?UiConst.VERTICAL:UiConst.HORIZONTAL;
+			
 		}
-		
+		override protected function addEvents():void
+		{
+			super.addEvents();
+			container.addEventListener(MouseEvent.CLICK,mouseClickHandler);
+		}
+		override protected function removeEvents():void
+		{
+			super.removeEvents();
+			container.removeEventListener(MouseEvent.CLICK,mouseClickHandler);
+		}
 		override public function getLayoutManager():Class
 		{
 			return _layoutManager||=ListLayout;
 		}
 
-		public function set direction(val:int):void
+		protected function mouseClickHandler(event:MouseEvent):void
 		{
-			_direction=val;
+			var item:LComponent=LUIManager.findChildByProperty(container,{isListCell:true},event.target as DisplayObject);
+			if(item)	selectedItem=item;
 		}
-		public function get direction():int
+		
+		public function get selectedItem():LComponent
 		{
-			return _direction;
+			return _selectedItem;
 		}
-		public function set hGap(val:int):void
+		public function set selectedItem(item:LComponent):void
 		{
-			_gap=val;
-		}
-		public	function get hGap():int
-		{
-			return _gap;
-		}
-		public	function set vGap(val:int):void
-		{
-			_gap=val;
-		}
-		public	function get vGap():int
-		{
-			return _gap;
+			if(!container.contains(item))
+				return;
+			if(_selectedItem==item)return;
+			_selectedItem=item;
+			dispatchEvent(new LEvent(LEvent.SELECTED_IN_LIST));
 		}
 
 	}

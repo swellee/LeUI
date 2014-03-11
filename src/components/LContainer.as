@@ -1,9 +1,9 @@
 package components
 {
 	import core.IDispose;
-	import core.IlayoutContainer;
-	import core.IlayoutElement;
-	import core.LSprite;
+	import core.ILayoutContainer;
+	import core.ILayoutElement;
+	import core.InnerContainer;
 	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
@@ -22,13 +22,13 @@ package components
 	 *容器,定义了作为容器的基本方法。
 	 *</br>推荐使用其功能封装更全面的子类，如LPane、LBox、LList、LGrid等
 	 */
-	public class LContainer extends LComponent implements IlayoutContainer
+	public class LContainer extends LComponent implements ILayoutContainer
 	{
-		protected var _layoutElements:Vector.<IlayoutElement>;
+		protected var _layoutElements:Vector.<ILayoutElement>;
 		protected var _layoutManager:Class;
 		private var needRenderLayout:Boolean;
 		/**显示对象的真正容器*/
-		protected var view:LSprite;
+		protected var container:InnerContainer;
 		/**
 		 *容器 
 		 */
@@ -39,11 +39,11 @@ package components
 		override protected function init():void
 		{
 			super.init();
-			if(!view)
+			if(!container)
 			{
-				view=new LSprite();
-				view.scrollRect=null;
-				super.addChild(view);
+				container=new InnerContainer();
+				container.scrollRect=null;
+				super.addChild(container);
 			}
 		}
 		override protected function onActive(event:Event):void
@@ -62,14 +62,14 @@ package components
 			return _layoutManager||=BasicLayout;
 		}
 		
-		public function get layoutElements():Vector.<IlayoutElement>
+		public function get layoutElements():Vector.<ILayoutElement>
 		{
-			return _layoutElements||=new Vector.<IlayoutElement>();
+			return _layoutElements||=new Vector.<ILayoutElement>();
 		}
 		public function remove(child:DisplayObject,dispose:Boolean=true):DisplayObject
 		{
 			checkAndPopElement(child);
-			if(view.contains(child))	view.removeChild(child);
+			if(container.contains(child))	container.removeChild(child);
 			if(dispose&&(child is IDispose))
 			{
 				(child as IDispose).dispose();
@@ -80,7 +80,7 @@ package components
 		{
 			while(layoutElements.length>0)
 			{
-				var ele:IlayoutElement=layoutElements[0] ;
+				var ele:ILayoutElement=layoutElements[0] ;
 				remove(ele as DisplayObject);
 				if(ele&&dispose)
 				{
@@ -95,7 +95,7 @@ package components
 			{
 				updateLayout();
 			}
-			view.addChild(child);
+			container.addChild(child);
 		}
 		public function appendAll(...elements):void
 		{
@@ -118,7 +118,7 @@ package components
 		override public function addChildAt(child:DisplayObject, index:int):DisplayObject
 		{
 			checkAndPushElement(child);
-			view.addChildAt(child,index);
+			container.addChildAt(child,index);
 			updateLayout();
 			return child;
 		}
@@ -128,7 +128,7 @@ package components
 		}
 		override public function  removeChildAt(index:int):DisplayObject
 		{
-			var child:DisplayObject=view.removeChildAt(index);
+			var child:DisplayObject=container.removeChildAt(index);
 			checkAndPopElement(child);
 			return child;
 		}
@@ -143,9 +143,9 @@ package components
 			needRenderLayout=true;
 			super.height=value;
 		}
-		private function checkAndPushElement(child:DisplayObject):void
+		protected function checkAndPushElement(child:DisplayObject):void
 		{
-			var element:IlayoutElement=child as IlayoutElement;
+			var element:ILayoutElement=child as ILayoutElement;
 			if(!element)
 			{
 				return;
@@ -156,9 +156,9 @@ package components
 			}
 			layoutElements.push(element);
 		}
-		private function checkAndPopElement(child:DisplayObject):void
+		protected function checkAndPopElement(child:DisplayObject):void
 		{
-			var element:IlayoutElement=child as IlayoutElement;
+			var element:ILayoutElement=child as ILayoutElement;
 			if(!element)
 			{
 				return;
@@ -193,10 +193,10 @@ package components
 		public function getContentBounds():Rectangle
 		{
 			var rec:Rectangle;
-			var i:int=view.numChildren;
+			var i:int=container.numChildren;
 			while(--i>-1)
 			{
-				var child:DisplayObject=view.getChildAt(i);
+				var child:DisplayObject=container.getChildAt(i);
 				var childRect:Rectangle=child.getBounds(this);
 				rec=rec?rec.union(childRect):childRect;
 			}

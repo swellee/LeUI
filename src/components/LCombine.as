@@ -1,6 +1,6 @@
 package components
 {
-	import core.Icombine;
+	import core.ICombine;
 	
 	import vos.ChildStyleHashVO;
 	
@@ -9,7 +9,7 @@ package components
 	 *@author swellee
 	 *2013-4-29
 	 */
-	public class LCombine extends LContainer implements Icombine
+	public class LCombine extends LContainer implements ICombine
 	{
 		protected var _elementStyleHash:Vector.<ChildStyleHashVO>;
 		public function LCombine()

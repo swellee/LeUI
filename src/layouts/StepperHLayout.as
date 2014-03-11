@@ -6,22 +6,22 @@ package layouts
 	import components.LStepperH;
 	import components.LText;
 	
-	import core.IlayoutContainer;
-	import core.IlayoutElement;
-	import core.IlayoutManager;
+	import core.ILayoutContainer;
+	import core.ILayoutElement;
+	import core.ILayoutManager;
 	
 	/**
 	 *@author swellee
 	 *2013-12-5
 	 *LStepperH组件布局管理器
 	 */
-	public class StepperHLayout implements IlayoutManager
+	public class StepperHLayout implements ILayoutManager
 	{
 		public function StepperHLayout()
 		{
 		}
 		
-		public function doLayout(contianer:IlayoutContainer):void
+		public function doLayout(contianer:ILayoutContainer):void
 		{
 			var stepper:LStepperH=contianer as LStepperH;
 			if(!stepper)return;

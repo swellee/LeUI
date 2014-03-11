@@ -1,18 +1,19 @@
 package utils
 {
+	import core.IDecorator;
+	import core.ILayoutContainer;
+	import core.ILayoutManager;
+	import core.IStyle;
+	import core.IStyleSheet;
+	
+	import events.LEvent;
+	
+	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.utils.getQualifiedClassName;
-	
-	import core.Idecorator;
-	import core.IlayoutContainer;
-	import core.IlayoutManager;
-	import core.Istyle;
-	import core.IstyleSheet;
-	
-	import events.LEvent;
 	
 	import vos.StyleVO;
 
@@ -27,7 +28,7 @@ package utils
 	{
 		private var stg:Stage;
 		private var uiContanier:DisplayObjectContainer;
-		private var styleSheet:IstyleSheet;
+		private var styleSheet:IStyleSheet;
 		private var _styleObserver:EventDispatcher;
 		private var enterFrameFuns:Vector.<Function>=new Vector.<Function>();
 		
@@ -40,7 +41,7 @@ package utils
 		 * 
 		 */
 		public static function initAsStandard(root:Stage,uiContainer:DisplayObjectContainer,
-											  styleSheet:IstyleSheet,
+											  styleSheet:IStyleSheet,
 											  SharedEventDispatcher:EventDispatcher=null):void
 		{
 			getInstance().stg=root;
@@ -55,7 +56,7 @@ package utils
 		 * @param styleSheet
 		 * 
 		 */
-		public static function setStyleSheet(styleSheet:IstyleSheet):void
+		public static function setStyleSheet(styleSheet:IStyleSheet):void
 		{
 			if(styleSheet!=getInstance().styleSheet)
 			{
@@ -124,7 +125,7 @@ package utils
 		 * @param ui
 		 * 
 		 */
-		LeSpace static function updateStyle(ui:Istyle):void
+		LeSpace static function updateStyle(ui:IStyle):void
 		{
 			var styleVo:StyleVO=getInstance().styleSheet.getStyleVO(ui.style);
 			if(!styleVo)
@@ -141,7 +142,7 @@ package utils
 				}
 				return;
 			}
-			var decorator:Idecorator=LPool.find(styleVo.decoratorClass)as Idecorator;
+			var decorator:IDecorator=LPool.find(styleVo.decoratorClass)as IDecorator;
 			decorator.decorate(ui,styleVo);
 		}
 		/**
@@ -149,9 +150,9 @@ package utils
 		 * @param ui 容器
 		 * 
 		 */		
-		LeSpace static function updateLayout(ui:IlayoutContainer):void
+		LeSpace static function updateLayout(ui:ILayoutContainer):void
 		{
-			var layoutManager:IlayoutManager=LPool.find(ui.getLayoutManager())as IlayoutManager;
+			var layoutManager:ILayoutManager=LPool.find(ui.getLayoutManager())as ILayoutManager;
 			if(layoutManager)
 			{
 				layoutManager.doLayout(ui);
@@ -171,13 +172,50 @@ package utils
 		 * @param ui
 		 * 
 		 */
-		public static function clearStyle(ui:Istyle):void
+		public static function clearStyle(ui:IStyle):void
 		{
 			var styleVo:StyleVO=getInstance().styleSheet.getStyleVO(ui.style);
-			var decorator:Idecorator=LPool.find(styleVo.decoratorClass)as Idecorator;
+			var decorator:IDecorator=LPool.find(styleVo.decoratorClass)as IDecorator;
 			LPool.pop(styleVo.decoratorClass);
 			ui.resetStyle();
 		}
 		
+		/**
+		 *在指定容器中查找符合给定属性值的子显示对象 
+		 * @param container 指定容器
+		 * @param keyAndValue 键值对，用于表示要匹配的属性名及值
+		 * @param subChild 该容器的某一子级对象，从此对象上溯查找直到容器本身
+		 * @return 
+		 * 
+		 */
+		public static function findChildByProperty(container:DisplayObjectContainer,keyAndValue:Object,subChild:DisplayObject):*
+		{
+			if(container==subChild)return null;   
+			var hasKey:Boolean=false;
+			var flag:Boolean=true;
+			var obj:DisplayObject=null;
+			for (var key:String in keyAndValue) 
+			{
+				if(subChild.hasOwnProperty(key))
+				{
+					hasKey=true;
+					if(subChild[key]!=keyAndValue[key])
+					{
+						flag=false;
+					}
+				}
+			}
+			
+			if(hasKey&&flag)
+			{
+				obj=subChild;
+			}
+			else if(subChild.parent)
+			{
+				obj=findChildByProperty(container,keyAndValue,subChild.parent);
+			}
+			
+			return obj;
+		}
 	}
 }

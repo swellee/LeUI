@@ -7,7 +7,7 @@ package core
 	 * @author swellee
 	 * 
 	 */
-	public interface Icomponent extends  IlayoutElement
+	public interface IComponent extends  ILayoutElement
 	{
 		/**
 		 *派发全局事件 

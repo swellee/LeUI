@@ -2,27 +2,29 @@ package layouts
 {
 	import components.LGrid;
 	
-	import core.IlayoutContainer;
-	import core.IlayoutElement;
-	import core.IlayoutManager;
+	import core.ILayoutContainer;
+	import core.ILayoutElement;
+	import core.ILayoutManager;
+	
+	import utils.LTrace;
 	
 	/**
 	 *@author swellee
 	 *2013-8-29
 	 *网格布局
 	 */
-	public class GridLayout implements IlayoutManager
+	public class GridLayout implements ILayoutManager
 	{
 		public function GridLayout()
 		{
 		}
 		
-		public function doLayout(contianer:IlayoutContainer):void
+		public function doLayout(contianer:ILayoutContainer):void
 		{
 			var grid:LGrid=contianer as LGrid;
 			if(!grid)return;
 			
-			var eles:Vector.<IlayoutElement>=grid.layoutElements;
+			var eles:Vector.<ILayoutElement>=grid.layoutElements;
 			var curCol:int;
 			var curRow:int;
 			var count:int=eles.length;
@@ -42,7 +44,7 @@ package layouts
 			{
 				curRow=i/cols;
 				curCol=i%cols;
-				var eleComp:IlayoutElement=eles[i];
+				var eleComp:ILayoutElement=eles[i];
 				var eleWidth:int=-1;
 				var eleHeight:int=-1;
 				if(eleComp.canScaleX)
@@ -54,8 +56,7 @@ package layouts
 			}
 			//如果子对象不可缩放，则有可能应用布局后超出容器边界
 			if(!(eleComp.canScaleX&&eleComp.canScaleY))
-				trace("容器对象>>LGrid<<应用了GridLayout布局，但该容器包含不可缩放的子对象，有可能应用布局后子对象超出容器边界");
-			
+				LTrace.warnning("容器对象>>LGrid<<应用了GridLayout布局，但该容器包含不可缩放的子对象，有可能应用布局后子对象超出容器边界");
 		}
 	}
 }

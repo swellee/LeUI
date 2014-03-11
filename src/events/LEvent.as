@@ -13,6 +13,10 @@ package events
 		 *更换整体样式表 收到此消息后，组件实例需要更新样式 
 		 */
 		public static const STYLE_SHEET_CHANGED:String="leui_style_sheet_changed";
+		/**
+		 *列表项被选中 
+		 */
+		public static var SELECTED_IN_LIST:String = "leui_selected_in_list";
 		
 		public function LEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{

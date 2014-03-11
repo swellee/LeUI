@@ -1,6 +1,7 @@
 package components
 {
-	import core.Icomponent;
+	import core.IComponent;
+	import core.InnerContainer;
 	import core.LSprite;
 	
 	import events.LEvent;
@@ -21,7 +22,7 @@ package components
 	 *2013-4-3
 	 *
 	 */
-	public class LComponent extends LSprite implements Icomponent
+	public class LComponent extends LSprite implements IComponent
 	{
 		private var _styleName:String;
 		private var _contentMask:Rectangle;
@@ -77,6 +78,7 @@ package components
 		protected function onDeactive(event:Event):void
 		{
 			removeEvents();
+			addEventListener(Event.ADDED_TO_STAGE,onActive);
 		}
 		
 		/**样式表变化时，更新样式*/
@@ -107,6 +109,12 @@ package components
 		public function set selected(value:Boolean):void
 		{
 			_selected=value;
+		}
+		public function get isListCell():Boolean
+		{
+			if(parent&&parent is InnerContainer)
+				return(parent as InnerContainer).isListContainer;
+			return false;
 		}
 		public function setXY(x:int, y:int):void
 		{

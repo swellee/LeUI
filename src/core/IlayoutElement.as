@@ -7,7 +7,7 @@ package core
 	 * @author swellee
 	 * 
 	 */
-	public interface IlayoutElement extends Istyle
+	public interface ILayoutElement extends IStyle
 	{
 		/**作为被布局的元素时，是否可横向缩放,默认为true*/
 		function get canScaleX():Boolean;
@@ -17,6 +17,12 @@ package core
 		function set canScaleY(value:Boolean):void;
 		/**边界矩形*/
 		function get bounds():Rectangle;
+		/**
+		 *是否作为列表项；当直接父容器是IlistContainer类型时，此值为true 
+		 * @return 
+		 * 
+		 */
+		function get isListCell():Boolean;
 		/**
 		 *设置XY坐标 
 		 * @param x
@@ -31,5 +37,6 @@ package core
 		 * 
 		 */
 		function setWH(width:int=-1,height:int=-1):void;
+		
 	}
 }

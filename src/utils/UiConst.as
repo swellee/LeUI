@@ -40,10 +40,6 @@ package utils
 		 */
 		public static const HORIZONTAL:int=1;
 		/**
-		 *竖向且横向 
-		 */
-		public static const VERTICAL_HORIZONTAL:int=3;
-		/**
 		 *位置 左 
 		 */
 		public static const LEFT:int=2;

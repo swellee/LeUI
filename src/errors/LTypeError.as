@@ -9,7 +9,7 @@ package errors
 	{
 		public function LTypeError(message:*="", id:*=0)
 		{
-			super("targetType is not "+message, id);
+			super("targetType Error  "+message, id);
 		}
 	}
 }

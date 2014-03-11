@@ -1,8 +1,8 @@
 package components
 {
 	import core.IDispose;
-	import core.IMatrixContainer;
-	import core.IlayoutElement;
+	import core.IMatirxContainer;
+	import core.ILayoutElement;
 	
 	import errors.LError;
 	
@@ -22,7 +22,7 @@ package components
 	 *2014-2-22
 	 *树容器,初始化时必须提供根节点
 	 */
-	public class LTree extends LPane implements IMatrixContainer
+	public class LTree extends LPane implements IMatirxContainer
 	{
 		private var rootNode:LTreeNode;
 		private var _hGap:int;
@@ -57,7 +57,7 @@ package components
 		
 		public function getDisplayNodesCount():int
 		{
-			return view.numChildren;
+			return container.numChildren;
 		}
 
 		private function setRootNode(node:LTreeNode):void
@@ -145,19 +145,19 @@ package components
 		
 		override public function addChild(child:DisplayObject):DisplayObject
 		{
-			view.addChild(child);
+			container.addChild(child);
 			return child;
 		}
 		override public function addChildAt(child:DisplayObject, index:int):DisplayObject
 		{
-			view.addChildAt(child,index);
+			container.addChildAt(child,index);
 			return child;
 		}
 		override public function removeAll(dispose:Boolean=true):void
 		{
-			while(view.numChildren)
+			while(container.numChildren)
 			{
-				var child:IlayoutElement=view.removeChildAt(0)as IlayoutElement;
+				var child:ILayoutElement=container.removeChildAt(0)as ILayoutElement;
 				if(dispose&&child)
 				{
 					child.dispose();
@@ -167,7 +167,7 @@ package components
 		
 		override public function remove(child:DisplayObject, dispose:Boolean=true):DisplayObject
 		{
-			view.removeChild(child);
+			container.removeChild(child);
 			if(dispose&&(child is IDispose))
 			{
 				(child as IDispose).dispose();
@@ -176,7 +176,7 @@ package components
 		}
 		override public function  removeChildAt(index:int):DisplayObject
 		{
-			var child:DisplayObject=view.removeChildAt(index);
+			var child:DisplayObject=container.removeChildAt(index);
 			return child;
 		}
 		

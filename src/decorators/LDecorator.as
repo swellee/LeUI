@@ -2,8 +2,8 @@ package decorators
 {
 	import flash.display.DisplayObject;
 	
-	import core.Idecorator;
-	import core.Istyle;
+	import core.IDecorator;
+	import core.IStyle;
 	
 	import utils.LFactory;
 	
@@ -14,13 +14,13 @@ package decorators
 	 *2013-4-3
 	 *
 	 */
-	public class LDecorator implements Idecorator
+	public class LDecorator implements IDecorator
 	{
 		public function LDecorator()
 		{
 		}
 		
-		public function decorate(ui:Istyle, styleVo:StyleVO):void
+		public function decorate(ui:IStyle, styleVo:StyleVO):void
 		{
 			var bg:DisplayObject=LFactory.getDisplayObj(styleVo.assetClass);
 			if(bg)

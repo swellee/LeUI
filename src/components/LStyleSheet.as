@@ -1,6 +1,6 @@
 package components
 {
-	import core.IstyleSheet;
+	import core.IStyleSheet;
 	
 	import utils.LHash;
 	
@@ -11,7 +11,7 @@ package components
 	 *2013-5-23
 	 *样式表基类
 	 */
-	public class LStyleSheet implements IstyleSheet
+	public class LStyleSheet implements IStyleSheet
 	{
 		private var styleHash:LHash;
 		public function LStyleSheet()
