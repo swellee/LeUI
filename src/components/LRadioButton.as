@@ -1,9 +1,9 @@
 package components
 {
+	import core.IMatirxContainer;
+	
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
-	
-	import core.IMatirxContainer;
 	
 	import layouts.BoxLayout;
 	
@@ -55,19 +55,19 @@ package components
 		override protected function addEvents():void
 		{
 			super.addEvents();
-			ele_text.addEventListener(MouseEvent.CLICK,shareMouseEventHandler);
-			ele_text.addEventListener(MouseEvent.MOUSE_OUT,shareMouseEventHandler);
-			ele_text.addEventListener(MouseEvent.MOUSE_OVER,shareMouseEventHandler);
+			ele_text.addEventListener(MouseEvent.ROLL_OUT,shareMouseEventHandler);
+			ele_text.addEventListener(MouseEvent.ROLL_OVER,shareMouseEventHandler);
 			ele_text.addEventListener(MouseEvent.MOUSE_DOWN,shareMouseEventHandler);
+			ele_text.addEventListener(MouseEvent.MOUSE_UP,shareMouseEventHandler);
 			ele_text.addEventListener(MouseEvent.CLICK,shareMouseEventHandler);
 		}
 		override protected function removeEvents():void
 		{
 			super.removeEvents();
-			ele_text.removeEventListener(MouseEvent.CLICK,shareMouseEventHandler);
-			ele_text.removeEventListener(MouseEvent.MOUSE_OUT,shareMouseEventHandler);
-			ele_text.removeEventListener(MouseEvent.MOUSE_OVER,shareMouseEventHandler);
+			ele_text.removeEventListener(MouseEvent.ROLL_OUT,shareMouseEventHandler);
+			ele_text.removeEventListener(MouseEvent.ROLL_OVER,shareMouseEventHandler);
 			ele_text.removeEventListener(MouseEvent.MOUSE_DOWN,shareMouseEventHandler);
+			ele_text.removeEventListener(MouseEvent.MOUSE_UP,shareMouseEventHandler);
 			ele_text.removeEventListener(MouseEvent.CLICK,shareMouseEventHandler);
 		}
 		

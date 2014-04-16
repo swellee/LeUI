@@ -14,6 +14,11 @@ package components
 		protected var _direction:int;
 		protected var _hGap:int;
 		protected var _vGap:int;
+		/**
+		 * @param hGap 横向间距  /像素
+		 * @param vGap 竖向间距  /像素		
+		 * 
+		 */
 		public function LBox(hGap:int=0,vGap:int=0)
 		{
 			super();
@@ -60,7 +65,7 @@ package components
 		{
 			return _vGap;
 		}
-		
+
 		override public function getLayoutManager():Class
 		{
 			return _layoutManager||=BoxLayout;

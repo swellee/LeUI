@@ -35,6 +35,7 @@ package components
 			if(!stateUI)
 			{
 				stateUI=new LText("",false);
+				stateUI.mouseChildren=false;
 				LText(stateUI).setAlign(UiConst.TEXT_ALIGN_MIDDLE_CENTER,0,-2);
 				addChild(stateUI);
 			}
@@ -54,8 +55,8 @@ package components
 		override protected function addEvents():void
 		{
 			super.addEvents();
-			addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
-			addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);
+			addEventListener(MouseEvent.ROLL_OUT,onMouseOutHandler);
+			addEventListener(MouseEvent.ROLL_OVER,onMouseOverHandler);
 			addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
 			addEventListener(MouseEvent.MOUSE_UP,onMouseUpHandler);
 		}
@@ -63,8 +64,8 @@ package components
 		override protected function removeEvents():void
 		{
 			super.removeEvents();
-			removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
-			removeEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);
+			removeEventListener(MouseEvent.ROLL_OUT,onMouseOutHandler);
+			removeEventListener(MouseEvent.ROLL_OVER,onMouseOverHandler);
 			removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
 			removeEventListener(MouseEvent.MOUSE_UP,onMouseUpHandler);
 		}
@@ -94,8 +95,7 @@ package components
 		
 		protected function onMouseUpHandler(event:MouseEvent):void
 		{
-			dispatchEvent(new MouseEvent(MouseEvent.CLICK,event.bubbles,event.cancelable,event.localX,event.localY,
-				event.relatedObject,event.ctrlKey,event.altKey,event.shiftKey));
+			onMouseOutHandler(event);
 		}		
 		
 		/**
@@ -108,5 +108,14 @@ package components
 			LText(stateUI).text=text;
 		}
 		
+		/**
+		 *获取标签文本 
+		 * @return 
+		 * 
+		 */
+		public function getText():String
+		{
+			return LText(stateUI).text;
+		}
 	}
 }

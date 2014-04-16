@@ -1,14 +1,15 @@
 package components
 {
-	import flash.display.DisplayObject;
-	
-	import core.IViewport;
 	import core.ILayoutContainer;
+	import core.IViewport;
 	
 	import events.LScrollBarEvent;
 	
+	import flash.display.DisplayObject;
+	
 	import layouts.ScrollPaneLayout;
 	
+	import utils.LTrace;
 	import utils.UiConst;
 	
 	import vos.ChildStyleHashVO;
@@ -34,7 +35,7 @@ package components
 		 */
 		public var hsbPolicy:int;
 		/**
-		 *当组件初始化完成时，禁用自身的容器属性，而是将自身的容器功能转嫁给视口对象 
+		 *当组件初始化完成时，使用自身的容器属性时给予警告
 		 */
 		private var transferContainer:Boolean;
 		private var needRenderScrollBar:Boolean;
@@ -89,6 +90,7 @@ package components
 		{
 			needRenderScrollBar=true;
 			render();
+			onScrollbarValueChange(null);
 		}
 		protected function onScrollbarValueChange(event:LScrollBarEvent):void
 		{
@@ -100,30 +102,12 @@ package components
 		//重写添加子对象的函数，将容器属性转嫁给视口对象
 		override public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
 		{
-			if(!transferContainer)
-				super.append(child,layoutImmediately);
-			else if(ele_view_port is ILayoutContainer)
+			super.append(child,layoutImmediately);
+			if(transferContainer)
 			{
-				(ele_view_port as ILayoutContainer).append(child,true);
+				LTrace.warnning("promote not to calll 'append/appendAll/addChild...' function of a LScrollPane, cause it's not a really container");
 			}
 		}
-		override public function remove(child:DisplayObject,dispose:Boolean=true):DisplayObject
-		{
-			var viewCon:ILayoutContainer=ele_view_port as ILayoutContainer;
-			if(viewCon)
-			{
-				try
-				{
-					viewCon.remove(child);
-				} 
-				catch(error:Error) 
-				{
-					super.remove(child);
-				}
-			}
-			return child;
-		}
-		
 		override protected function render():void
 		{
 			super.render();
@@ -168,6 +152,7 @@ package components
 				else
 				{
 					ele_h_scroll_bar.visible=false;
+					ele_h_scroll_bar.value=0;
 				}
 			}
 			if(vsbPolicy!=UiConst.SCROLLPANE_BAR_POLICY_NEVER)//竖向滚动条
@@ -183,6 +168,7 @@ package components
 				else
 				{
 					ele_v_scroll_bar.visible=false;
+					ele_v_scroll_bar.value=0;
 				}
 			}
 		}

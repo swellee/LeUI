@@ -70,11 +70,23 @@ package components
 		{
 			super.width=value;
 			stateUI.width=value;
+			resizeMask();
 		}
 		override public function set height(value:Number):void
 		{
 			super.height=value;
 			stateUI.height=value;
+			resizeMask();
+		}
+		
+		override public function get width():Number
+		{
+			return stateUI.width;
+		}
+		
+		override public function get height():Number
+		{
+			return stateUI.height;
 		}
 		
 		override public function dispose():void

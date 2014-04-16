@@ -79,6 +79,7 @@ package components
 			value=Math.max(_minValue,value);
 			value=Math.min(_maxValue,value);
 			_curValue = value;
+			ele_text.text=_curValue.toString();
 			dispatchEvent(new LStepperEvent(LStepperEvent.VALUE_CHANGED));
 		}
 
@@ -89,6 +90,7 @@ package components
 			ele_increase_btn=new LButton();
 			ele_decrease_btn=new LButton();
 			ele_text.setAlign(UiConst.TEXT_ALIGN_MIDDLE_CENTER);
+			ele_text.text=_curValue.toString();
 			appendAll(ele_text,ele_increase_btn,ele_decrease_btn);
 		}
 		override protected function initElementStyleHash():void

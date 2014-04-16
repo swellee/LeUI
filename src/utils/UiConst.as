@@ -80,6 +80,10 @@ package utils
 		 */
 		public static const SCROLLPANE_BAR_INIT_SIZE:int=20;
 		/**
+		 *LText组件的文本布局——无布局
+		 */
+		public static const TEXT_ALIGN_NONE:int=-1;
+		/**
 		 *LText组件的文本布局——上左 
 		 */
 		public static const TEXT_ALIGN_TOP_LEFT:int=0;
@@ -119,6 +123,34 @@ package utils
 		 * LSeprator的固定尺寸
 		 */
 		public static const SEPRATOR_INIT_SIZE:int=2;
+		/**
+		 *一级菜单的默认宽度 
+		 */
+		public static const MENU_PRIMARY_WIDTH:int=120;
+		/**
+		 *二级菜单的默认宽度 
+		 */
+		public static const MENU_SUB_WIDTH:int=80;
+		/**
+		 *菜单项的行间距 
+		 */
+		public static const MENU_ITEM_GAP:int=1;
+		/**
+		 *菜单项的高 
+		 */
+		public static const MENU_ITEM_HEIGHT:int=22;
+		/**
+		 *菜单项内，示意有子级菜单的箭头线颜色 
+		 */
+		public static const MENU_ITEM_SUB_TAG_COLOR:uint=0x0;
+		/**
+		 * 下拉菜单子元素--下拉按钮的默认宽度,默认使用滚动条的缺省宽度
+		 */
+		public static const COMBOX_BTN_SIZE:int=SCROLLPANE_BAR_INIT_SIZE;
+		/**
+		 * 下拉菜单子元素--下拉列表的默认高度
+		 */
+		public static var COMBOX_LIST_HEIGHT:int=160;
 		
 	}
 }

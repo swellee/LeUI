@@ -1,7 +1,5 @@
 package layouts
 {
-	import mx.controls.Button;
-	
 	import components.LButton;
 	import components.LStepperH;
 	import components.LText;
@@ -9,6 +7,10 @@ package layouts
 	import core.ILayoutContainer;
 	import core.ILayoutElement;
 	import core.ILayoutManager;
+	
+	import mx.controls.Button;
+	
+	import utils.LGeom;
 	
 	/**
 	 *@author swellee
@@ -34,6 +36,9 @@ package layouts
 			stepper.ele_decrease_btn.setXY(0,0);
 			stepper.ele_text.setXY(stepper.ele_decrease_btn.width+stepper.eleGap,0);
 			stepper.ele_increase_btn.setXY(stepper.ele_text.x+stepper.ele_text.width+stepper.eleGap,0);
+			
+			LGeom.centerInCoordY(stepper.ele_decrease_btn,stepper);
+			LGeom.centerInCoordY(stepper.ele_increase_btn,stepper);
 		}
 	}
 }

@@ -1,8 +1,8 @@
 package components
 {
-	import flash.display.DisplayObject;
-	
 	import core.IViewport;
+	
+	import flash.display.DisplayObject;
 	
 	/**
 	 *@author swellee
@@ -51,40 +51,48 @@ package components
 		{
 			if(value==width)return;
 			
-			if(viewSizeListenFun!=null)
-			{
-				viewSizeListenFun.call(null);
-			}
 			super.width=value;
+			callViewListenFun();
 		}
 		override public function set height(value:Number):void
 		{
 			if(value==height)return;
 			
-			if(viewSizeListenFun!=null)
-			{
-				viewSizeListenFun.call(null);
-			}
 			super.height=value;
+			callViewListenFun();
 		}
 		
 		override public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
 		{
 			super.append(child,layoutImmediately);
-			if(viewSizeListenFun!=null)
-			{
-				viewSizeListenFun.call(null);
-			}
+			callViewListenFun();
 		}
 		override public function remove(child:DisplayObject, dispose:Boolean=true):DisplayObject
 		{
 			super.remove(child,dispose);
+			callViewListenFun();
+			return child;
+		}
+		override public function removeChildAt(index:int):DisplayObject
+		{
+			var child:DisplayObject=super.removeChildAt(index);
+			callViewListenFun();
+			return child;
+		}
+		
+		private function callViewListenFun():void
+		{
+			if(viewHeight<=height)container.y=0;
+			if(viewWidth<=width)container.x=0;
 			if(viewSizeListenFun!=null)
 			{
 				viewSizeListenFun.call(null);
 			}
-			return child;
 		}
-		///--------------------------------------------------
+		override public function dispose():void
+		{
+			removeViewSizeListener();
+			super.dispose();
+		}
 	}
 }

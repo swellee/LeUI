@@ -1,0 +1,256 @@
+package components
+{
+	import core.IPopup;
+	
+	import events.LEvent;
+	import events.LStageEvent;
+	
+	import layouts.MenuLayout;
+	
+	import utils.LUIManager;
+	import utils.UiConst;
+	import vos.MenuItemVO;
+
+	/**
+	 * LMenu 控件创建可分别选择的选项的弹出菜单，弹出菜单可以具有所需的任何数目的子菜单级别。
+	 * 菜单的及子菜单的创建通过MenuItemVO数据集实现，具体请参考例子。
+	 * 打开 Menu 控件后，此控件将一直可见，直到通过下列任一操作将其关闭：
+	 * </br>1.调用 LMenu.hide() 方法。
+	 * </br>2.用户选择已启用的菜单项。
+	 * </br>3.用户在 Menu 控件外部单击。 
+	 *2014-3-20
+	 *@author swellee
+	 */
+	public class LMenu extends LList implements IPopup
+	{
+		private var itemClickHandler:Function;
+		private var _isPrimary:Boolean;
+		private var menuItemVos:Vector.<MenuItemVO>;
+		private var subMenu:LMenu;
+		private var menuInvoker:MenuInvoker;
+		/**
+		 *是否为显示状态 
+		 */
+		private var isShowing:Boolean;
+		/**
+		 *是否允许invoker重复点击时，重置menu的位置 
+		 */
+		private var allowInvokerReclick:Boolean;
+		/**
+		 *弹出点坐标X 
+		 */
+		public var popX:int;
+		/**
+		 *弹出点坐标Y 
+		 */
+		public var popY:int;
+
+		/**
+		 *菜单 ，推荐使用静态函数LMenu.createMenu()创建菜单。
+		 * 若使用构造函数实例化，应手动调用以下两个函数设置菜单数据：setInvoker()、setMenuData()
+		 * @see LMenu.setInvoker()
+		 * @see LMenu.setMenuData()
+		 * @see LMenu.createMenu()
+		 */
+		public function LMenu()
+		{
+			super(0, UiConst.MENU_ITEM_GAP, true);
+		}
+		
+		public function get isPrimary():Boolean
+		{
+			return _isPrimary;
+		}
+		
+		public function hide(disposeThis:Boolean=false):void
+		{
+			if(parent)
+			{
+				parent.removeChild(this);
+				if(subMenu)
+				{
+					subMenu.hide(disposeThis);
+				}
+				if(disposeThis)
+				{
+					dispose();
+				}
+			}
+			isShowing=false;
+		}
+		
+		/**
+		 * 设置触发者
+		 * @param invoker 触发者（通常是一个button对象），menu会为invoker自动添加点击的监听函数。
+		 * @param allowInvokerReclick 当重复点击触发者时，是否重新以单击点坐标放置菜单
+		 * 
+		 */
+		public function setInvoker(invoker:LComponent=null,allowInvokerReclick:Boolean=false):void
+		{
+			if(menuInvoker)menuInvoker.dispose();
+			if(invoker)	this.menuInvoker=new MenuInvoker(invoker,this);
+			this.allowInvokerReclick=allowInvokerReclick;
+		}
+		
+		public function show():void
+		{
+			//检测invoker重复点击
+			if(!allowInvokerReclick&&isShowing)return;
+			if(!menuItemVos)return;
+			removeAll();
+			if(itemClickHandler!=null)
+			{
+				addEventListener(LEvent.SELECTED_IN_LIST,onScelectedItemHandler);
+			}
+			var items:Array=[];
+			for (var i:int = 0; i < menuItemVos.length; i++) 
+			{
+				var item:LMenuItem=new LMenuItem(menuItemVos[i],itemClickHandler);
+				item.addEventListener(LEvent.MOUSE_OVER_MENU_ITEM,onMouseOverItem)
+				item.setWH(isPrimary?UiConst.MENU_PRIMARY_WIDTH:UiConst.MENU_SUB_WIDTH,UiConst.MENU_ITEM_HEIGHT);
+				items.push(item);
+			}
+			if(items.length)
+			{
+				appendAll.apply(null,items);
+			}			
+			
+			LUIManager.uiContainer.addChild(this);
+			isShowing=true;
+		}
+		
+		protected function onMouseOverItem(event:LEvent):void
+		{
+			var item:LMenuItem=event.target as LMenuItem;
+			if(item&&item.vo)
+			{
+				if(subMenu)subMenu.hide(true);
+				if(item.hasSubMenu)
+				{
+					subMenu=new LMenu();
+					subMenu.setMenuData(item.vo.subMenuItemVos,false,itemClickHandler);
+					subMenu.popX=this.x+item.width-8;
+					subMenu.popY=this.y+item.y;
+					subMenu.show();
+				}
+			}
+		}
+		
+		/**
+		 * 创建一个菜单
+		 * @param invoker 触发者（通常是一个button对象），menu会为invoker自动添加点击的监听函数。
+		 *  @param menuItemVos 菜单数据
+		 * @param isPrimary 是否为主菜单
+		 * @param itemClickHandler 菜单项点击回调函数，形式为：function(vo:MenuItemVO):void{xxx....};函数形参为被点击项的数据
+		 * @return menu实例
+		 * 
+		 */
+		public static function createMenu(invoker:LComponent, menuItemVos:Vector.<MenuItemVO>,isPrimary:Boolean=true,  itemClickHandler:Function=null):LMenu
+		{
+			var menu:LMenu=new LMenu();
+			menu.setInvoker(invoker);
+			menu.setMenuData(menuItemVos,isPrimary,itemClickHandler);
+			return menu;
+		}
+		
+		override public function getLayoutManager():Class
+		{
+			return _layoutManager||=MenuLayout;
+		}
+		
+		/**
+		 *选中菜单项时回调 
+		 * @param event
+		 * 
+		 */
+		protected function onScelectedItemHandler(event:LEvent):void
+		{
+			if(null!=itemClickHandler)
+			{
+				itemClickHandler.call(null,getSelectedItem().vo);
+			}
+		}
+		
+		
+		/**
+		 *获取 点中的菜单项 
+		 * @return 
+		 * 
+		 */
+		private function getSelectedItem():LMenuItem
+		{
+			return selectedItem as LMenuItem;
+		}
+		
+		/**
+		 *设置菜单数据 
+		 * @param menuItemVos 菜单数据
+		 * @param isPrimary 是否为主菜单
+		 * @param itemClickHandler 菜单项点击回调函数，形式为：function(vo:MenuItemVO):void{xxx....};函数形参为被点击项的数据
+		 */
+		public function setMenuData(menuItemVos:Vector.<MenuItemVO>, isPrimary:Boolean, itemClickHandler:Function=null):void
+		{
+			_isPrimary=isPrimary;
+			this.menuItemVos=menuItemVos;
+			this.itemClickHandler=itemClickHandler;
+		}
+		
+		override public function dispose():void
+		{
+			this.itemClickHandler=null;
+			this.menuItemVos=null;
+			if(menuInvoker)menuInvoker.dispose();
+			this.menuInvoker=null;
+			this.subMenu=null;
+			super.dispose();
+		}
+
+	}
+}
+import components.LComponent;
+import components.LMenu;
+
+import core.IDispose;
+
+import events.LStageEvent;
+
+import utils.LUIManager;
+
+class MenuInvoker implements IDispose
+{
+	private var invoker:LComponent;
+	private var menu:LMenu;
+	public function MenuInvoker(invoker:LComponent,menu:LMenu)
+	{
+		setInvoker(invoker,menu);
+	}
+	
+	public function setInvoker(invoker:LComponent,menu:LMenu):void
+	{
+		this.invoker=invoker;
+		this.menu=menu;
+		invoker.addGlobalEventListener(LStageEvent.STAGE_CLICK_EVENT,onStageClick);
+	}
+	
+	private function onStageClick(evt:LStageEvent):void
+	{
+		if(invoker==evt.clickTarget||invoker.contains(evt.clickTarget))
+		{
+			menu.popX=LUIManager.uiContainer.mouseX;
+			menu.popY=LUIManager.uiContainer.mouseY;
+			menu.show();
+		}
+		else
+		{
+			menu.hide();
+		}
+	}
+	
+	public function dispose():void
+	{
+		if(invoker)
+			invoker.removeGlobalEventListener(LStageEvent.STAGE_CLICK_EVENT,onStageClick);
+		this.invoker=null;
+		this.menu=null;
+	}
+}

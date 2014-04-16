@@ -1,10 +1,10 @@
 package components
 {
+	import events.LScrollBarEvent;
+	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.utils.getTimer;
-	
-	import events.LScrollBarEvent;
 	
 	import layouts.ScrollbarLayout;
 	
@@ -19,7 +19,7 @@ package components
 	/**
 	 *@author swellee
 	 *2013-5-23
-	 * 滚动条（竖向）
+	 * 滚动条
 	 */
 	public class LScrollBar extends LCombine
 	{
@@ -96,11 +96,10 @@ package components
 		override protected function addEvents():void
 		{
 			super.addEvents();
-			for (var i:int = 0; i<_layoutElements.length; i++) 
-			{
-				var ele:LComponent = _layoutElements[i]as LComponent;
-				ele.addEventListener(MouseEvent.MOUSE_DOWN,onMsDownHandler);
-			}
+			ele_bg.addEventListener(MouseEvent.MOUSE_DOWN,onMsDownHandler);
+			ele_decrease_btn.addEventListener(MouseEvent.MOUSE_DOWN,onMsDownHandler);
+			ele_increase_btn.addEventListener(MouseEvent.MOUSE_DOWN,onMsDownHandler);
+			ele_slider.addEventListener(MouseEvent.MOUSE_DOWN,onMsDownHandler);
 			ele_decrease_btn.addEventListener(MouseEvent.CLICK,decreaseByClick);
 			ele_increase_btn.addEventListener(MouseEvent.CLICK,increaseByClick);
 		}
@@ -109,18 +108,13 @@ package components
 		override protected function removeEvents():void
 		{
 			super.removeEvents();
-			for (var i:int = 0; i<_layoutElements.length; i++) 
-			{
-				var ele:LComponent = _layoutElements[i]as LComponent;
-				ele.removeEventListener(MouseEvent.CLICK,onMsDownHandler);
-			}
-			removeEventListener(Event.ENTER_FRAME,onEnterFrameHandler);
-			if(stage)
-			{
-				stage.removeEventListener(MouseEvent.MOUSE_UP,onMsUpHandler);
-			}
+			ele_bg.removeEventListener(MouseEvent.MOUSE_DOWN,onMsDownHandler);
+			ele_decrease_btn.removeEventListener(MouseEvent.MOUSE_DOWN,onMsDownHandler);
+			ele_increase_btn.removeEventListener(MouseEvent.MOUSE_DOWN,onMsDownHandler);
+			ele_slider.removeEventListener(MouseEvent.MOUSE_DOWN,onMsDownHandler);
 			ele_decrease_btn.removeEventListener(MouseEvent.CLICK,decreaseByClick);
 			ele_increase_btn.removeEventListener(MouseEvent.CLICK,increaseByClick);
+			LUIManager.removeEnterFrameListener(onEnterFrameHandler);
 		}
 		
 		override protected function onActive(event:Event):void

@@ -16,8 +16,15 @@ package events
 		/**
 		 *列表项被选中 
 		 */
-		public static var SELECTED_IN_LIST:String = "leui_selected_in_list";
-		
+		public static const SELECTED_IN_LIST:String = "leui_selected_in_list";
+		/**
+		 *菜单项鼠标悬停 
+		 */
+		public static const MOUSE_OVER_MENU_ITEM:String="leui_mouse_over_menu_item";
+		/**
+		 *事件附带的数据 
+		 */
+		public var data:*;
 		public function LEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);

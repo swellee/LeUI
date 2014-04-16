@@ -49,6 +49,14 @@
     <classEntry path="components.LBox"/>
     <classEntry path="core.InnerContainer"/>
     <classEntry path="components.LMenuItem"/>
+    <classEntry path="components.LMenu"/>
+    <classEntry path="vos.MenuItemVO"/>
+    <classEntry path="layouts.MenuLayout"/>
+    <classEntry path="events.LStageEvent"/>
+    <classEntry path="core.IPopup"/>
+    <classEntry path="components.LCombox"/>
+    <classEntry path="layouts.ComboxLayout"/>
+    <classEntry path="vos.ComboxListVO"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

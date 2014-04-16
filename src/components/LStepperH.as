@@ -16,7 +16,7 @@ package components
 		 * @param eleGap 子元素横向布局的间距
 		 * 
 		 */
-		public function LStepperH(eleGap:int=0,eleBtnSize:int=26)
+		public function LStepperH(eleBtnSize:int=26,eleGap:int=0)
 		{
 			super(eleBtnSize);
 			this._eleGap=eleGap;

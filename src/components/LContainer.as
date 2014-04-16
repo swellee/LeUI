@@ -13,6 +13,7 @@ package components
 	
 	import utils.LUIManager;
 	import utils.LeSpace;
+	import utils.UiConst;
 
 	use namespace LeSpace
 	
@@ -36,6 +37,8 @@ package components
 		{
 			super();
 		}
+
+
 		override protected function init():void
 		{
 			super.init();
@@ -49,7 +52,10 @@ package components
 		override protected function onActive(event:Event):void
 		{
 			super.onActive(event);
-			updateLayout();
+			if(!isCompElement)
+			{
+				updateLayout();
+			}
 		}
 		public function setLayoutManager(layoutManager:Class):void
 		{
@@ -74,6 +80,7 @@ package components
 			{
 				(child as IDispose).dispose();
 			}
+			updateLayout();
 			return child;
 		}
 		public function removeAll(dispose:Boolean=true):void
@@ -130,7 +137,18 @@ package components
 		{
 			var child:DisplayObject=container.removeChildAt(index);
 			checkAndPopElement(child);
+			updateLayout();
 			return child;
+		}
+		override public function get width():Number
+		{
+			if(resized) return super.width;
+			else return container.width;
+		}
+		override public function get height():Number
+		{
+			if(resized) return super.height;
+			else return container.height;
 		}
 		override public function set width(value:Number):void
 		{
@@ -142,6 +160,11 @@ package components
 		{
 			needRenderLayout=true;
 			super.height=value;
+		}
+		
+		override public function get numChildren():int
+		{
+			return container.numChildren;
 		}
 		protected function checkAndPushElement(child:DisplayObject):void
 		{
@@ -177,6 +200,8 @@ package components
 		/**重绘时检测更新布局*/
 		private function renderLayout():void
 		{
+			if(!stage)return;
+			if(width==UiConst.UI_MIN_SIZE||height==UiConst.UI_MIN_SIZE)return;
 			if(needRenderLayout)
 			{
 				needRenderLayout=false;
@@ -185,33 +210,24 @@ package components
 		}
 		public function updateLayout():void
 		{
-			if(!stage)return;
 			needRenderLayout=true;
 			render();
 		}
 		
 		public function getContentBounds():Rectangle
 		{
-			var rec:Rectangle;
-			var i:int=container.numChildren;
-			while(--i>-1)
-			{
-				var child:DisplayObject=container.getChildAt(i);
-				var childRect:Rectangle=child.getBounds(this);
-				rec=rec?rec.union(childRect):childRect;
-			}
-			return rec||=new Rectangle();
+			return container.getBounds(this);
 		}
 		
 		public function pack():void
 		{
-			var rec:Rectangle=getContentBounds();
-			width=rec.width;
-			height=rec.height;
+			width=container.width;
+			height=container.height;
 		}
 
 		override public function dispose():void
 		{
+			removeAll();
 			_layoutManager=null;
 			_layoutElements=null;
 			super.dispose();

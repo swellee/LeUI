@@ -212,8 +212,8 @@ package components
 		}
 		public function set hGap(val:int):void
 		{
+			if(_hGap==val)return;
 			_hGap=val;
-			//test
 			updateLayout();
 		}
 		public	function get hGap():int

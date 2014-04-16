@@ -1,5 +1,7 @@
 package components
 {
+	import core.ILayoutElement;
+	
 	import events.LEvent;
 	
 	import flash.display.DisplayObject;
@@ -23,8 +25,9 @@ package components
 		protected var _selectedItem:LComponent;
 		/**
 		 *列表容器 
-		 * @param gap 间距  /像素
-		 * @param vertical 是否为竖向滚动条，默认为true
+		 * @param hGap 横向间距  /像素
+		 * @param vGap 竖向间距  /像素
+		 * @param vertical 是否为竖向列表，默认为true
 		 * 
 		 */
 		public function LList(hGap:int=0,vGap:int=0,vertical:Boolean=true)
@@ -66,6 +69,33 @@ package components
 			if(_selectedItem==item)return;
 			_selectedItem=item;
 			dispatchEvent(new LEvent(LEvent.SELECTED_IN_LIST));
+		}
+		
+		/**
+		 *根据列表中子项的属性名-属性值 查找子项 
+		 * @param propertyName 属性名
+		 * @param propertyValue 属性值
+		 * @return 按子项被添加的顺序返回第一个匹配的项
+		 * 
+		 */
+		public function getItemByProperty(propertyName:String,propertyValue:*):LComponent
+		{
+			for each (var ele:ILayoutElement in _layoutElements) 
+			{
+				var item:LComponent=ele as LComponent;
+				if(!item)continue;
+				if(item.hasOwnProperty(propertyName)&&item[propertyName]==propertyValue)
+				{
+					return item;
+				}
+			}
+			return null;
+		}
+		
+		override public function dispose():void
+		{
+			_selectedItem=null;
+			super.dispose();
 		}
 
 	}

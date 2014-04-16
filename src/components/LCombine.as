@@ -2,8 +2,11 @@ package components
 {
 	import core.ICombine;
 	
-	import vos.ChildStyleHashVO;
+	import utils.LeSpace;
 	
+	import vos.ChildStyleHashVO;
+
+	use namespace LeSpace;
 	/**
 	 *组合UI,由多个子组件拼合而成，典型子类如LScrollBar、LScrollPane
 	 *@author swellee
@@ -21,6 +24,7 @@ package components
 			super.init();
 			initElementStyleHash();
 			initElements();
+			container.isCombineContainer=true;
 		}
 		/**初始化子组件名－子组件样式映射列表*/
 		protected function initElementStyleHash():void

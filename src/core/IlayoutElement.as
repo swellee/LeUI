@@ -33,7 +33,7 @@ package core
 		/**
 		 *设置宽高 
 		 * @param width 传入-1将不改变原宽度
-		 * @param height 传入－1将不改变原高度
+		 * @param height 传入-1将不改变原高度
 		 * 
 		 */
 		function setWH(width:int=-1,height:int=-1):void;

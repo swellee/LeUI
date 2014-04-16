@@ -7,12 +7,14 @@ package utils
 	import core.IStyleSheet;
 	
 	import events.LEvent;
+	import events.LStageEvent;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.MouseEvent;
 	import flash.utils.getQualifiedClassName;
 	
 	import vos.StyleVO;
@@ -46,6 +48,7 @@ package utils
 		{
 			getInstance().stg=root;
 			getInstance().stg.addEventListener(Event.ENTER_FRAME,onEnterFrame);
+			getInstance().stg.addEventListener(MouseEvent.CLICK,onMouseClick);
 			getInstance().uiContanier=uiContainer;
 			
 			setStyleSheet(styleSheet);
@@ -61,8 +64,48 @@ package utils
 			if(styleSheet!=getInstance().styleSheet)
 			{
 				getInstance().styleSheet=styleSheet;
-				styleObserver.dispatchEvent(new LEvent(LEvent.STYLE_SHEET_CHANGED));
+				dispatchGlobalEvent(new LEvent(LEvent.STYLE_SHEET_CHANGED));
 			}
+		}
+		
+		public static function get uiContainer():DisplayObjectContainer
+		{
+			return getInstance().uiContanier;
+		}
+		
+		/**
+		 *派发全局事件 
+		 * @param event
+		 * 
+		 */
+		public static function dispatchGlobalEvent(event:Event):void
+		{
+			styleObserver.dispatchEvent(event);
+		}
+		/**
+		 *添加全局事件监听 
+		 * @param eventType
+		 * @param listenFun
+		 * 
+		 */
+		public static function addGlobalEventListener(eventType:String, listenFun:Function):void
+		{
+			styleObserver.addEventListener(eventType,listenFun);
+		}
+		/**
+		 *移除全局事件监听 
+		 * @param eventType
+		 * @param listenFun
+		 * 
+		 */
+		public static function removeGlobalEventListener(eventType:String, listenFun:Function):void
+		{
+			styleObserver.removeEventListener(eventType,listenFun);
+		}
+
+		public static function get stage():Stage
+		{
+			return getInstance().stg;
 		}
 		protected static function onEnterFrame(event:Event):void
 		{
@@ -72,7 +115,11 @@ package utils
 				fun.call(null,event);
 			}
 		}
-		
+		private static function onMouseClick(event:MouseEvent):void
+		{
+			var comp:DisplayObject=event.target as DisplayObject;
+			if(comp) 	dispatchGlobalEvent(new LStageEvent(LStageEvent.STAGE_CLICK_EVENT,comp));
+		}
 		/**
 		 *LexUI组件共用的事件派发器，UI组件均使用此对象 监听和派发事件
 		 * @param value

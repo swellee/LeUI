@@ -25,7 +25,7 @@ package components
 		/**
 		 *文字与外框边距 
 		 */
-		private var textFrameSpace:Number=4;
+		protected static const textFrameSpace:Number=4;
 		private var textOffX:int;
 		private var textOffY:int;
 		private var textAlign:int;

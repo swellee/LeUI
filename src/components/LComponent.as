@@ -35,6 +35,11 @@ package components
 		private var _canScaleX:Boolean=true;
 		private var _canScaleY:Boolean=true;
 		private var _data:*;
+		protected var disposed:Boolean;
+		/**
+		 *是否改变过尺寸 
+		 */
+		protected var resized:Boolean;
 		public function LComponent()
 		{
 			super();
@@ -46,7 +51,11 @@ package components
 		protected function onActive(event:Event):void
 		{
 			addEvents();
-			updateStyle();
+			//作为复杂组件的元素时，当被添加到显示列表时，不再执行更新样式，因为组件对象会对子元素在适当的时候执行更新
+			if(!isCompElement)
+			{
+				updateStyle();
+			}
 		}
 		
 		/**
@@ -116,6 +125,20 @@ package components
 				return(parent as InnerContainer).isListContainer;
 			return false;
 		}
+		/**
+		 *是否为复杂组件的元素对象 ，如果为true，则onActive方法中将不再自动更新样式或布局，而是由父组件在适当时候执行该子元素的更新
+		 */
+		protected function get isCompElement():Boolean
+		{
+			if(parent)
+			{
+				if(parent is InnerContainer)
+					return (parent as InnerContainer).isCombineContainer;
+				else if(parent is LMultiState)
+					return true;
+			}
+			return false;
+		}
 		public function setXY(x:int, y:int):void
 		{
 			this.x=x;
@@ -132,17 +155,17 @@ package components
 		
 		public function dispatchGlobalEvent(event:Event):void
 		{
-			LUIManager.styleObserver.dispatchEvent(event);
+			LUIManager.dispatchGlobalEvent(event);
 		}
 		
 		public function addGlobalEventListener(eventType:String, listenFun:Function):void
 		{
-			LUIManager.styleObserver.addEventListener(eventType,listenFun);
+			LUIManager.addGlobalEventListener(eventType,listenFun);
 		}
 		
 		public function removeGlobalEventListener(eventType:String, listenFun:Function):void
 		{
-			LUIManager.styleObserver.removeEventListener(eventType,listenFun);
+			LUIManager.removeGlobalEventListener(eventType,listenFun);
 		}
 		
 		public function get style():String
@@ -152,6 +175,7 @@ package components
 		
 		public function set style(value:String):void
 		{
+			value=value||getDefaultStyleName();
 			if(_styleName!=value)
 			{
 				_styleName=value;
@@ -270,22 +294,26 @@ package components
 		
 		override public function set width(value:Number):void
 		{
+			value=value>UiConst.UI_MIN_SIZE?value:UiConst.UI_MIN_SIZE;
 			if(value==_width)return;
 			
 			_width=value;
+			resized=true;
 			needRenderBg=true;
 			render();
 		}
 		override public function set height(value:Number):void
 		{
+			value=value>UiConst.UI_MIN_SIZE?value:UiConst.UI_MIN_SIZE;
 			if(value==_height)return;
 			
 			_height=value;
+			resized=true;
 			needRenderBg=true;
 			render();
 		}
 		/**重置遮罩尺寸*/
-		private function resizeMask():void
+		protected function resizeMask():void
 		{
 			contentMask.width=width;
 			contentMask.height=height;
@@ -315,11 +343,13 @@ package components
 		
 		public function dispose():void
 		{
+			if(disposed)return;
 			removeEvents();
 			removeEventListener(Event.ADDED_TO_STAGE,onActive);
 			removeAllChild(this);
 			_data=null;
 			_contentMask=null;
+			disposed=true;
 		}
 	}
 }

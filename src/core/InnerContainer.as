@@ -14,6 +14,10 @@ package core
 		 *是否是IlistContainer的内部容器 
 		 */
 		LeSpace var isListContainer:Boolean;
+		/**
+		 *是否是ICombine的内部容器 
+		 */
+		LeSpace var isCombineContainer:Boolean;
 		public function InnerContainer()
 		{
 			super();
