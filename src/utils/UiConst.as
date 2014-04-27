@@ -150,7 +150,27 @@ package utils
 		/**
 		 * 下拉菜单子元素--下拉列表的默认高度
 		 */
-		public static var COMBOX_LIST_HEIGHT:int=160;
+		public static const COMBOX_LIST_HEIGHT:int=160;
+		/**
+		 *视窗--边界尺寸；即视窗内的子元素与视窗最外缘的间距 
+		 */
+		public static const WINDOW_BORDER_SIZE:int=6;
+		/**
+		 *视窗--标题高度 
+		 */
+		public static const WINDOW_TITLE_HEIGHT:int=30;
+		/**
+		 *视窗--按钮的宽（建议自行修改）
+		 */
+		public static var WINDOW_BUTTON_WIDTH:int=25;
+		/**
+		 *视窗--按钮的高 （建议自行修改）
+		 */
+		public static var WINDOW_BUTTON_HEIGHT:int=25;
+		/**
+		 *视窗--标题元素与视窗边界的距离 （建议自行修改）
+		 */
+		public static var WINDOW_TITLE_BORDER_MARGIN:int=50;
 		
 	}
 }

@@ -9,6 +9,7 @@ package components
 	
 	import utils.LUIManager;
 	import utils.UiConst;
+	
 	import vos.MenuItemVO;
 
 	/**
@@ -23,15 +24,12 @@ package components
 	 */
 	public class LMenu extends LList implements IPopup
 	{
+
 		private var itemClickHandler:Function;
 		private var _isPrimary:Boolean;
 		private var menuItemVos:Vector.<MenuItemVO>;
 		private var subMenu:LMenu;
 		private var menuInvoker:MenuInvoker;
-		/**
-		 *是否为显示状态 
-		 */
-		private var isShowing:Boolean;
 		/**
 		 *是否允许invoker重复点击时，重置menu的位置 
 		 */
@@ -62,6 +60,11 @@ package components
 			return _isPrimary;
 		}
 		
+		public function get isShowing():Boolean
+		{
+			return null!=parent;
+		}
+		
 		public function hide(disposeThis:Boolean=false):void
 		{
 			if(parent)
@@ -76,7 +79,6 @@ package components
 					dispose();
 				}
 			}
-			isShowing=false;
 		}
 		
 		/**
@@ -116,7 +118,6 @@ package components
 			}			
 			
 			LUIManager.uiContainer.addChild(this);
-			isShowing=true;
 		}
 		
 		protected function onMouseOverItem(event:LEvent):void
