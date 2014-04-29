@@ -156,21 +156,41 @@ package utils
 		 */
 		public static const WINDOW_BORDER_SIZE:int=6;
 		/**
-		 *视窗--标题高度 
+		 *视窗--标题高度 （建议自行修改）
 		 */
-		public static const WINDOW_TITLE_HEIGHT:int=30;
+		public static var WINDOW_TITLE_HEIGHT:int=30;
 		/**
 		 *视窗--按钮的宽（建议自行修改）
 		 */
-		public static var WINDOW_BUTTON_WIDTH:int=25;
+		public static var WINDOW_BUTTON_WIDTH:int=22;
 		/**
 		 *视窗--按钮的高 （建议自行修改）
 		 */
-		public static var WINDOW_BUTTON_HEIGHT:int=25;
+		public static var WINDOW_BUTTON_HEIGHT:int=18;
 		/**
 		 *视窗--标题元素与视窗边界的距离 （建议自行修改）
 		 */
-		public static var WINDOW_TITLE_BORDER_MARGIN:int=50;
+		public static var WINDOW_TITLE_BORDER_MARGIN:int=60;
+		/**
+		 *消息弹窗（LAlert) 控制按钮的尺寸--宽度 （建议自行修改）
+		 */
+		public static var ALERT_BUTTON_WIDTH:int=60;
+		/**
+		 *消息弹窗（LAlert) 控制按钮的尺寸--高度 （建议自行修改）
+		 */
+		public static var ALERT_BUTTON_HEIGHT:int=26;
+		/**
+		 *消息弹窗（LAlert) 控制按钮距离内容面板底边的距离 （建议自行修改）
+		 */
+		public static var ALERT_BUTTON_BODER_MARGIN:int=50;
+		/**
+		 * 消息弹窗（LAlert) 初始化尺寸--宽度
+		 */
+		public static var ALERT_INIT_WIDTH:int=350;
+		/**
+		 * 消息弹窗（LAlert) 初始化尺寸--高度
+		 */
+		public static var ALERT_INIT_HEIGHT:int=200;
 		
 	}
 }

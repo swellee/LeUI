@@ -59,6 +59,7 @@
     <classEntry path="vos.ComboxListVO"/>
     <classEntry path="components.LWindow"/>
     <classEntry path="layouts.WindowLayout"/>
+    <classEntry path="components.ALert"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

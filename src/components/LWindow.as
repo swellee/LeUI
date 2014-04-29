@@ -49,12 +49,12 @@ package components
 		 * @param canDrag 视窗是否可拖动
 		 * 
 		 */
-		public function LWindow(title:String="",autoDisposeOnClose:Boolean=false,canDrag:Boolean=true)
+		public function LWindow(title:String=null,autoDisposeOnClose:Boolean=false,canDrag:Boolean=true)
 		{
 			super();
 			this.autoDisposeOnClose=autoDisposeOnClose;
 			this.canDrag=canDrag;
-			setTitle(title);
+			if(title)setTitle(title);
 		}
 		
 		override protected function initElements():void
@@ -92,15 +92,15 @@ package components
 			this.removeEventListener(MouseEvent.MOUSE_DOWN,dragStart);
 			this.removeEventListener(MouseEvent.MOUSE_UP,dragEnd);
 		}
-		protected function dragEnd(event:MouseEvent):void
+		private function dragEnd(event:MouseEvent):void
 		{
 			stopDrag();
 		}
 		
-		protected function dragStart(event:MouseEvent):void
+		private function dragStart(event:MouseEvent):void
 		{
 			//拖动时，限定鼠标按下的位置在标题条范围内
-			if(this.mouseX<width-UiConst.WINDOW_BUTTON_WIDTH&&
+			if(this.mouseX<width-UiConst.WINDOW_BUTTON_WIDTH-20&&
 				this.mouseY<UiConst.WINDOW_BORDER_SIZE+UiConst.WINDOW_BUTTON_HEIGHT)
 			{
 				startDrag(false,new Rectangle(0,0,stage.stageWidth-width,stage.stageHeight-height));
@@ -130,7 +130,7 @@ package components
 		 */
 		public function addContent(...childs):void
 		{
-			ele_content_pane.append.apply(null,childs);
+			ele_content_pane.appendAll.apply(null,childs);
 		}
 		public function show():void
 		{

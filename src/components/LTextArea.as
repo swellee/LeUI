@@ -3,16 +3,17 @@ package components
 	import core.IViewport;
 	
 	import flash.events.Event;
-	
-	import utils.UiConst;
-	
+
 	/**
+	 *文本域，用于大段文字及需要配合滚动面板的文本。
+	 * </br>注意，setAlign方法在此组件中不可用，需要文字布局的，需使用其父类LText
+	 * @see LText.setAlign()
 	 *@author swellee
 	 *2013-8-18
-	 *
 	 */
 	public class LTextArea extends LText implements IViewport
 	{
+
 		/**
 		 * 作为IViewport时，尺寸变化的侦听函数
 		 */		
@@ -22,12 +23,10 @@ package components
 		public function LTextArea(text:String="", editable:Boolean=true)
 		{
 			super(text, editable);
-			setAlign(UiConst.TEXT_ALIGN_NONE);
 			textField.mouseWheelEnabled=false;
 			textField.wordWrap=true;
 			textField.multiline=true;
 		}
-		
 		override protected function addEvents():void
 		{
 			super.addEvents();
@@ -48,7 +47,7 @@ package components
 			{
 				textField.height=textField.textHeight+textFrameSpace;
 				oldNumLines=textField.numLines;
-				viewSizeListenFun.call(null);
+				if(viewSizeListenFun!=null)viewSizeListenFun.call(null);
 			}
 		}
 		override public function set text(value:String):void
@@ -92,7 +91,9 @@ package components
 				viewSizeListenFun.call(null);
 			}
 		}
-		
+		override protected function updateAlign():void
+		{
+		}
 		public function get viewWidth():int
 		{
 			return textField.width;

@@ -1,6 +1,5 @@
 package components
 {
-	import core.ILayoutContainer;
 	import core.IViewport;
 	
 	import events.LScrollBarEvent;

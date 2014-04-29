@@ -11,9 +11,9 @@ package components
 	import utils.UiConst;
 
 	/**
+	 *文本组件
 	 *@author swellee
 	 *2013-4-6
-	 *
 	 */
 	public class LText extends LComponent
 	{
@@ -125,7 +125,7 @@ package components
 			height=textField.textHeight+textFrameSpace;
 		}
 		
-		private function updateAlign():void
+		protected function updateAlign():void
 		{
 			switch(textAlign)
 			{
