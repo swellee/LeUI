@@ -2,6 +2,7 @@ package utils
 {
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
+	import flash.ui.Keyboard;
 
 	/**
 	 *@author swellee
@@ -191,6 +192,11 @@ package utils
 		 * 消息弹窗（LAlert) 初始化尺寸--高度
 		 */
 		public static var ALERT_INIT_HEIGHT:int=200;
+		
+		/**
+		 *LTrace信息窗口的默认快捷键， 配合ctrl使用。（建议自行修改）
+		 */
+		public static var LTRACE_HOTKEY:uint=120;//F9
 		
 	}
 }

@@ -1,5 +1,7 @@
 package utils
 {
+	import flash.events.KeyboardEvent;
+
 	/**
 	 *@author swellee
 	 *2013-2-14
@@ -8,6 +10,7 @@ package utils
 	public class LTrace
 	{
 		private static var _log:String;
+		private static var infoWindow:LTraceWindow;
 		/**
 		 *打印日志 
 		 * @param msg
@@ -35,6 +38,10 @@ package utils
 		{
 			trace(str);
 			_log+=str;
+			if(infoWindow)
+			{
+				infoWindow.appendLog(str);
+			}
 		}
 		
 		private static function toString(msg:*):String
@@ -53,10 +60,29 @@ package utils
 		 */
 		public static function showLogFrame():void
 		{
+			infoWindow.show();
 		}
 		
 		public static function hideLogFrame():void
 		{
+			infoWindow.hide();
+		}
+		
+		public static function init():void
+		{
+			if(!infoWindow)
+			{
+				infoWindow=new LTraceWindow();
+				LUIManager.addKeyUpListener(listenKeyUp);
+			}
+		}
+		
+		private static function listenKeyUp(evt:KeyboardEvent):void
+		{
+			if(evt.ctrlKey&&evt.keyCode==UiConst.LTRACE_HOTKEY)
+			{
+				infoWindow.isShowing?infoWindow.hide():infoWindow.show();
+			}
 		}
 	}
 }

@@ -56,6 +56,16 @@ package components
 			super.text=value;
 			textChangeHandler(null);
 		}
+		/**
+		 *将 newTxt 参数指定的字符串追加到文本字段的文本的末尾。此方法要比对 text 属性的加法赋值 (+=)（如 someTextField.text += moreText）更有效，对于包含大量内容的文本字段尤其有效。 
+		 * @param newTxt
+		 * 
+		 */
+		public function appendText(newTxt:String):void
+		{
+			textField.appendText(newTxt);
+			textChangeHandler(null);
+		}
 		public function setViewPosition(posX:Number, posY:Number):void
 		{
 			textField.x=posX;

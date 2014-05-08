@@ -14,6 +14,7 @@ package utils
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.utils.getQualifiedClassName;
 	
@@ -32,7 +33,8 @@ package utils
 		private var uiContanier:DisplayObjectContainer;
 		private var styleSheet:IStyleSheet;
 		private var _styleObserver:EventDispatcher;
-		private var enterFrameFuns:Vector.<Function>=new Vector.<Function>();
+		private var enterFrameFuns:Array=[];
+		private var keyUpFuns:Array=[];
 		
 		/**
 		 *标准初始化 
@@ -49,10 +51,13 @@ package utils
 			getInstance().stg=root;
 			getInstance().stg.addEventListener(Event.ENTER_FRAME,onEnterFrame);
 			getInstance().stg.addEventListener(MouseEvent.CLICK,onMouseClick);
+			getInstance().stg.addEventListener(KeyboardEvent.KEY_UP,onKeyUp);
 			getInstance().uiContanier=uiContainer;
 			
 			setStyleSheet(styleSheet);
 			styleObserver=SharedEventDispatcher;
+			
+			LTrace.init();
 		}
 		/**
 		 *设置样式表，设置新的样式表后，所有组件会重新渲染 
@@ -109,7 +114,7 @@ package utils
 		}
 		protected static function onEnterFrame(event:Event):void
 		{
-			var funs:Vector.<Function>=getInstance().enterFrameFuns;
+			var funs:Array=getInstance().enterFrameFuns;
 			for each (var fun:Function in funs)
 			{
 				fun.call(null,event);
@@ -119,6 +124,15 @@ package utils
 		{
 			var comp:DisplayObject=event.target as DisplayObject;
 			if(comp) 	dispatchGlobalEvent(new LStageEvent(LStageEvent.STAGE_CLICK_EVENT,comp));
+		}
+		
+		private static function onKeyUp(event:KeyboardEvent):void
+		{
+			var funs:Array=getInstance().keyUpFuns;
+			for each (var fun:Function in funs)
+			{
+				fun.call(null,event);
+			}
 		}
 		/**
 		 *LexUI组件共用的事件派发器，UI组件均使用此对象 监听和派发事件
@@ -167,6 +181,28 @@ package utils
 				getInstance().enterFrameFuns.splice(idx,1);
 			}
 		}
+		
+		/**
+		 *添加键盘事件（KEY_UP）
+		 * @param fun 函数，需以键盘事件类型为参数
+		 * </br>eg:  function aaa(e:KeyboardEvent):void{}
+		 */
+		public static function addKeyUpListener(fun:Function):void
+		{
+			if(getInstance().keyUpFuns.indexOf(fun)==-1)
+			{
+				getInstance().keyUpFuns.push(fun);
+			}
+		}
+		public static function removeKeyUpListener(fun:Function):void
+		{
+			var idx:int=getInstance().keyUpFuns.indexOf(fun);
+			if(idx>-1)
+			{
+				getInstance().keyUpFuns.splice(idx,1);
+			}
+		}
+		
 		/**
 		 *更新样式 
 		 * @param ui

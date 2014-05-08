@@ -19,7 +19,6 @@ package components
 	{
 		private var _textfield:TextField;
 		private var _editable:Boolean;
-		private var _text:String="";
 		private var _viewBounds:Rectangle;
 		private var _viewportMask:Shape;
 		/**
@@ -61,20 +60,20 @@ package components
 		public function set format(value:TextFormat):void
 		{
 			textField.defaultTextFormat = value;
-			textField.text=_text;
+			textField.text=textField.text;
 		}
 
 		public function get text():String
 		{
-			return _text;
+			return textField.text;
 		}
 
 		public function set text(value:String):void
 		{
-			if(_text==value)
+			if(textField.text==value)
 				return;
-			_text = value;
-			textField.text=_text;
+			textField.text = value;
+			textField.text=textField.text;
 			updateAlign();
 		}
 

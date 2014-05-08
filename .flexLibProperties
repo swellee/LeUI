@@ -60,6 +60,7 @@
     <classEntry path="components.LWindow"/>
     <classEntry path="layouts.WindowLayout"/>
     <classEntry path="components.ALert"/>
+    <classEntry path="utils.LTraceWindow"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
