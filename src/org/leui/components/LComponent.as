@@ -95,7 +95,7 @@ package org.leui.components
 			updateStyle();
 		}
 		
-		public function getDefaultStyleName():String
+		public function getDefaultStyle():String
 		{
 			return LUIManager.getClassName(this);
 		}
@@ -169,12 +169,12 @@ package org.leui.components
 		
 		public function get style():String
 		{
-			return _styleName||=getDefaultStyleName();
+			return _styleName||=getDefaultStyle();
 		}
 		
 		public function set style(value:String):void
 		{
-			value=value||getDefaultStyleName();
+			value=value||getDefaultStyle();
 			if(_styleName!=value)
 			{
 				_styleName=value;
@@ -200,7 +200,7 @@ package org.leui.components
 		}
 		public function resetStyle():void
 		{
-			style=getDefaultStyleName();
+			style=getDefaultStyle();
 		}
 		
 		public function get bounds():Rectangle

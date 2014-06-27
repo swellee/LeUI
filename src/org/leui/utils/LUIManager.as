@@ -23,7 +23,7 @@ package org.leui.utils
 
 	/**
 	 * @author swellee
-	 * 12-11-21
+	 * 13-11-21
 	 *
 	 */
 	public class LUIManager
@@ -218,7 +218,7 @@ package org.leui.utils
 				}
 				else
 				{
-					LTrace.log('can not find StyleVO named-->"'+ui.style+'",the componet ' +ui.getDefaultStyleName()+
+					LTrace.log('can not find StyleVO named-->"'+ui.style+'",the componet ' +ui.getDefaultStyle()+
 						'will resetStyle to default.');
 					ui.resetStyle();
 				}

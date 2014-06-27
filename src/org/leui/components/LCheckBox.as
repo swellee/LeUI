@@ -11,7 +11,7 @@ package org.leui.components
 		{
 			super(text);
 		}
-		override public function getDefaultStyleName():String
+		override public function getDefaultStyle():String
 		{
 			return "LCheckBox";
 		}

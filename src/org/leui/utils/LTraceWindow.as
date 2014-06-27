@@ -73,7 +73,7 @@ package org.leui.utils
 			infoTxt.appendText(str);
 		}
 		
-		override public function getDefaultStyleName():String
+		override public function getDefaultStyle():String
 		{
 			return "LWindow";
 		}

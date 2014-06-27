@@ -13,10 +13,8 @@ package org.leui.core
 		function set style(value:String):void;
 		/**
 		 *获取默认样式名 ,默认为类名
-		 * @return 
-		 * 
 		 */
-		function getDefaultStyleName():String;
+		function getDefaultStyle():String;
 		/**置回默认样式*/
 		function resetStyle():void;
 		
