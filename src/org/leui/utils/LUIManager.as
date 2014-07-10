@@ -69,6 +69,7 @@ package org.leui.utils
 			{
 				getInstance().styleSheet=styleSheet;
 				dispatchGlobalEvent(new LEvent(LEvent.STYLE_SHEET_CHANGED));
+				LFactory.disposeAssetPool();
 			}
 		}
 		

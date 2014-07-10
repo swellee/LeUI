@@ -197,6 +197,10 @@ package org.leui.utils
 		 *LTrace信息窗口的默认快捷键， 配合ctrl使用。（建议自行修改）
 		 */
 		public static var LTRACE_HOTKEY:uint=120;//F9
+		/**
+		 *组件装饰资源池最大实例数, （建议自行修改）
+		 */
+		public static var ASSET_POOL_INSTANCE_MAX:int = 15;
 		
 	}
 }

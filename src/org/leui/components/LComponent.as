@@ -2,7 +2,6 @@ package org.leui.components
 {
 	
 	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	
@@ -10,6 +9,7 @@ package org.leui.components
 	import org.leui.core.InnerContainer;
 	import org.leui.core.LSprite;
 	import org.leui.events.LEvent;
+	import org.leui.utils.LFactory;
 	import org.leui.utils.LFilters;
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.LeSpace;
@@ -318,19 +318,7 @@ package org.leui.components
 			contentMask.height=height;
 			this.scrollRect=contentMask;
 		}
-		/**递归移除所有子级显示对象*/
-		private function removeAllChild(comp:DisplayObjectContainer):void
-		{
-			var childCnt:int=comp.numChildren;
-			while(--childCnt>-1)
-			{
-				var obj:DisplayObject=comp.removeChildAt(childCnt);
-				if(obj is DisplayObjectContainer)
-				{
-					removeAllChild(obj as DisplayObjectContainer);
-				}
-			}
-		}
+		
 		public function get data():*
 		{
 			return _data;
@@ -345,7 +333,13 @@ package org.leui.components
 			if(disposed)return;
 			removeEvents();
 			removeEventListener(Event.ADDED_TO_STAGE,onActive);
-			removeAllChild(this);
+			if(bgAsset)
+			{
+				removeChildAt(0);
+				LFactory.putDisplayObj(bgAsset);
+				bgAsset = null;
+			}
+			LFactory.disposeDisplayObj(this);
 			_data=null;
 			_contentMask=null;
 			disposed=true;
