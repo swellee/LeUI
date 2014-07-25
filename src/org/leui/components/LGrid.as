@@ -1,6 +1,7 @@
 package org.leui.components
 {
 	import org.leui.layouts.GridLayout;
+	import org.leui.utils.LTrace;
 	
 	
 	/**
@@ -22,7 +23,7 @@ package org.leui.components
 		 * @param lockCols 当cols x rows !=子对象总数时，是否以列数为准。默认为true
 		 * 
 		 */
-		public function LGrid(cols:int,rows:int=1,hGap:int=0,vGap:int=0,lockCols:Boolean=true)
+		public function LGrid(cols:int=2,rows:int=2,hGap:int=0,vGap:int=0,lockCols:Boolean=true)
 		{
 			super(hGap,vGap);
 			this._cols=cols;
@@ -63,6 +64,12 @@ package org.leui.components
 		public function set lockCols(value:Boolean):void
 		{
 			_lockCols = value;
+		}
+		
+		override public function set direction(val:int):void
+		{
+			LTrace.warnning("direction setter method is unavailable in LGrid");
+			return;
 		}
 		
 		override public function getLayoutManager():Class

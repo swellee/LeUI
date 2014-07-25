@@ -51,10 +51,11 @@ package org.leui.layouts
 					eleHeight=cellHeight;
 				eleComp.setWH(cellWidth,cellHeight);
 				eleComp.setXY(curCol*(grid.hGap+cellWidth),curRow*(grid.vGap+cellHeight));
+				
+				//如果子对象不可缩放，则有可能应用布局后超出容器边界
+				if(!(eleComp.canScaleX&&eleComp.canScaleY))
+					LTrace.warnning("容器对象>>LGrid<<应用了GridLayout布局，但该容器包含不可缩放的子对象，有可能应用布局后子对象超出容器边界");
 			}
-			//如果子对象不可缩放，则有可能应用布局后超出容器边界
-			if(!(eleComp.canScaleX&&eleComp.canScaleY))
-				LTrace.warnning("容器对象>>LGrid<<应用了GridLayout布局，但该容器包含不可缩放的子对象，有可能应用布局后子对象超出容器边界");
 		}
 	}
 }

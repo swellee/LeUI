@@ -1,5 +1,7 @@
 package org.leui.vos
 {
+	import org.leui.utils.LeSpace;
+	
 
 	/**
 	 *@author swellee
@@ -20,7 +22,10 @@ package org.leui.vos
 		 *资源类（需是IDisplayObject子类） 
 		 */
 		public var assetClass:Class;
-		
+		/**
+		 *此样式信息的使用对象（此属性仅编辑器使用） 
+		 */
+		LeSpace var user:String;
 		/**
 		 *复制 
 		 * @return 一个复制的StyleVO
@@ -33,6 +38,7 @@ package org.leui.vos
 			vo.styleName = this.styleName;
 			vo.decoratorClass = this.decoratorClass;
 			vo.assetClass = this.assetClass;
+			vo.user = this.user;
 			
 			//dynamic attributes
 			for(var att:String in this)

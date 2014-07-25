@@ -101,7 +101,7 @@ package org.leui.components
 			super.append(child,layoutImmediately);
 			if(transferContainer)
 			{
-				LTrace.warnning("promote not to calll 'append/appendAll/addChild...' function of a LScrollPane, cause it's not a really container");
+				LTrace.warnning("promote not to call 'append/appendAll/addChild...' function of a LScrollPane, cause it's not a really container");
 			}
 		}
 		override protected function render():void
@@ -126,6 +126,11 @@ package org.leui.components
 		public function getViewport():IViewport
 		{
 			return ele_view_port;
+		}
+		
+		override public function get contentPane():LContainer
+		{
+			return ele_view_port as LContainer;
 		}
 		
 		/**

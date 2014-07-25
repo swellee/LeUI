@@ -1,14 +1,11 @@
 package org.leui.components
 {
-	import org.leui.events.LEvent;
-	
 	import flash.events.MouseEvent;
 	
+	import org.leui.events.LEvent;
 	import org.leui.layouts.ComboxLayout;
-	
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.UiConst;
-	
 	import org.leui.vos.ChildStyleHashVO;
 	import org.leui.vos.ComboxListVO;
 

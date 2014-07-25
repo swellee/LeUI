@@ -1,7 +1,9 @@
 package org.leui.components
 {
+	import org.leui.utils.LeSpace;
 	import org.leui.utils.UiConst;
 
+	use namespace LeSpace;
 	/**
 	 *@author swellee
 	 *2013-12-1
@@ -9,7 +11,7 @@ package org.leui.components
 	 */
 	public class LSeprator extends LComponent
 	{
-		private var isHorizon:Boolean;
+		LeSpace var isHorizon:Boolean;
 		/**
 		 *分隔线，默认为横向 
 		 * @param isHorizon 是否横向

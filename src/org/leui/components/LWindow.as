@@ -7,9 +7,11 @@ package org.leui.components
 	import org.leui.core.IPopup;
 	import org.leui.layouts.WindowLayout;
 	import org.leui.utils.LUIManager;
+	import org.leui.utils.LeSpace;
 	import org.leui.utils.UiConst;
 	import org.leui.vos.ChildStyleHashVO;
-	
+
+	use namespace LeSpace;
 	/**
 	 *视窗 由子元素：标题、关闭按钮、内容面板 组合而成；
 	 * 实现了IPopup接口,显示视窗请调用show(); 
@@ -40,6 +42,11 @@ package org.leui.components
 		 *视窗是否可拖动 默认为true
 		 */
 		private var canDrag:Boolean=true;
+		
+		/**
+		 *是否在编辑器中（普通用户忽略此属性） 
+		 */
+		LeSpace var inUIbuilder:Boolean;
 		/**
 		 *视窗   
 		 * @param title 标题文本
@@ -118,6 +125,11 @@ package org.leui.components
 			if(title) ele_title_txt.text=title;
 		}
 		
+		override public function get contentPane():LContainer
+		{
+			return ele_content_pane;
+		}
+		
 		/**
 		 *向视窗的内容面板中添加子显示对象.
 		 * 视窗的内容面板是一个LPane对象，默认布局管理器为BasicLayout(实际上什么也不做) 
@@ -139,6 +151,7 @@ package org.leui.components
 		
 		public function hide(disposeThis:Boolean=false):void
 		{
+			if(inUIbuilder)return;
 			if(parent)
 			{
 				parent.removeChild(this);

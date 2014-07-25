@@ -11,12 +11,33 @@ package org.leui.utils
 	public class LHash
 	{
 		private var _dic:Dictionary;
-		private var len:int;
+		private var _keys:Array;
+		private var _values:Array;
 		public function LHash()
 		{
 		}
 
-		protected function get dic():Dictionary
+		/**
+		 *值的集合 
+		 * @return 
+		 * 
+		 */
+		public function get values():Array
+		{
+			return _values ||= [];
+		}
+
+		/**
+		 *键的集合 
+		 * @return 
+		 * 
+		 */
+		public function get keys():Array
+		{
+			return _keys ||= [];
+		}
+
+		public function get dic():Dictionary
 		{
 			return _dic||=new Dictionary(true);
 		}
@@ -30,7 +51,8 @@ package org.leui.utils
 		public function put(key:Object,value:Object):void
 		{
 			dic[key]=value;
-			len++;
+			keys.push(key);
+			values.push(value);
 		}
 		/**
 		 *从字典里查找对象 
@@ -57,7 +79,15 @@ package org.leui.utils
 			{
 				v=dic[key];
 				delete dic[key];
-				len--;
+			}
+			var idx:int = keys.indexOf(key);
+			if(idx>-1)
+			{
+				keys.splice(idx,1);
+			}
+			if(v&&((idx= values.indexOf(v))>-1))
+			{
+				values.splice(idx,1);
 			}
 			return v;
 		}
@@ -79,7 +109,8 @@ package org.leui.utils
 		public function clear():void
 		{
 			_dic=null;
-			len=0;
+			_keys = [];
+			_values = [];
 		}
 		/**
 		 *字典长度（内容总数） 
@@ -87,7 +118,7 @@ package org.leui.utils
 		 */
 		public function get length():int
 		{
-			return len;
+			return keys.length;
 		}
 	}
 }

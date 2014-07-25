@@ -92,6 +92,7 @@ package org.leui.components
 		{
 			return _layoutManager||=BoxLayout;
 		}
+		
 		public function set direction(val:int):void
 		{
 		}

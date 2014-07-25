@@ -27,12 +27,12 @@ package org.leui.components
 		private var _nodeHeight:int;
 		/**
 		 * 树容器,初始化时必须提供根节点
-		 * @param root 根节点
+		 * @param root 根节点 如果构造函数中不提供要节点，则自动生成一个“root”标签的根节点，后续如需修改，请使用getRootNode()方法获取根节点
 		 * @param hGap 节点与子级节点的横向间距
 		 * @param vGap 节点与子级节点的竖向间距
 		 * 
 		 */
-		public function LTree(root:LTreeNode,hGap:int=10,vGap:int=2,nodeHeight:int=20)
+		public function LTree(root:LTreeNode=null,hGap:int=10,vGap:int=2,nodeHeight:int=20)
 		{
 			super();
 			this._hGap=hGap;
@@ -60,7 +60,7 @@ package org.leui.components
 		private function setRootNode(node:LTreeNode):void
 		{
 			if(rootNode)return;
-			this.rootNode=node;
+			this.rootNode=node||new LTreeNode("root");
 			rootNode.depth=0;
 			updateLayout();
 		}

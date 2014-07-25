@@ -1,17 +1,14 @@
 package org.leui.components
 {
-	import org.leui.events.LScrollBarEvent;
-	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.utils.getTimer;
 	
+	import org.leui.events.LScrollBarEvent;
 	import org.leui.layouts.ScrollbarLayout;
-	
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.LeSpace;
 	import org.leui.utils.UiConst;
-	
 	import org.leui.vos.ChildStyleHashVO;
 
 	use namespace LeSpace;
@@ -290,6 +287,9 @@ package org.leui.components
 		{
 			return _isVertical;
 		}
-
+		LeSpace function set isVertical(val:Boolean):void
+		{
+			_isVertical = val;
+		}
 	}
 }

@@ -40,6 +40,11 @@ package org.leui.components
 			return _elementStyleHash;
 		}
 		
+		public function get contentPane():LContainer
+		{
+			return null;
+		}
+		
 		public function setElementStyle(elementName:String, styleName:String):void
 		{
 			if(hasOwnProperty(elementName))

@@ -3,8 +3,10 @@ package org.leui.components
 	
 	import org.leui.core.IStyleSheet;
 	import org.leui.utils.LHash;
+	import org.leui.utils.LeSpace;
 	import org.leui.vos.StyleVO;
 	
+	use namespace LeSpace;
 	/**
 	 *@author swellee
 	 *2013-5-23
@@ -12,7 +14,7 @@ package org.leui.components
 	 */
 	public class LStyleSheet implements IStyleSheet
 	{
-		private var styleHash:LHash;
+		LeSpace var styleHash:LHash;
 		public function LStyleSheet()
 		{
 			styleHash=new LHash();

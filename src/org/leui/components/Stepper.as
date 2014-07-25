@@ -1,14 +1,11 @@
 package org.leui.components
 {
-	import org.leui.errors.LOverrideError;
-	
-	import org.leui.events.LStepperEvent;
-	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import org.leui.errors.LOverrideError;
+	import org.leui.events.LStepperEvent;
 	import org.leui.utils.UiConst;
-	
 	import org.leui.vos.ChildStyleHashVO;
 
 	/**
