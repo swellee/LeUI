@@ -67,7 +67,7 @@ package org.leui.layouts
 					{
 						LGeom.centerInCoordY(ele as DisplayObject,listContainer as DisplayObjectContainer);
 					}
-					eleLoc+=ele.bounds.width+j*margin;
+					eleLoc+=ele.bounds.width+j*margin+margin;
 				}
 				else
 				{
@@ -80,7 +80,7 @@ package org.leui.layouts
 					{
 						LGeom.centerInCoordX(ele as DisplayObject,listContainer as DisplayObjectContainer);
 					}
-					eleLoc+=ele.bounds.height+j*margin;
+					eleLoc+=ele.bounds.height+j*margin+margin;
 				}
 			}
 			

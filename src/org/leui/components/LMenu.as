@@ -1,6 +1,8 @@
 package org.leui.components
 {
 	
+	import flash.display.InteractiveObject;
+	
 	import org.leui.core.IPopup;
 	import org.leui.events.LEvent;
 	import org.leui.events.LStageEvent;
@@ -84,7 +86,7 @@ package org.leui.components
 		 * @param allowInvokerReclick 当重复点击触发者时，是否重新以单击点坐标放置菜单
 		 * 
 		 */
-		public function setInvoker(invoker:LComponent=null,allowInvokerReclick:Boolean=false):void
+		public function setInvoker(invoker:InteractiveObject=null,allowInvokerReclick:Boolean=false):void
 		{
 			if(menuInvoker)menuInvoker.dispose();
 			if(invoker)	this.menuInvoker=new MenuInvoker(invoker,this);
@@ -205,6 +207,9 @@ package org.leui.components
 
 	}
 }
+import flash.display.DisplayObjectContainer;
+import flash.display.InteractiveObject;
+
 import org.leui.components.LComponent;
 import org.leui.components.LMenu;
 import org.leui.core.IDispose;
@@ -213,26 +218,26 @@ import org.leui.utils.LUIManager;
 
 class MenuInvoker implements IDispose
 {
-	private var invoker:LComponent;
+	private var invoker:InteractiveObject;
 	private var menu:LMenu;
-	public function MenuInvoker(invoker:LComponent,menu:LMenu)
+	public function MenuInvoker(invoker:InteractiveObject,menu:LMenu)
 	{
 		setInvoker(invoker,menu);
 	}
 	
-	public function setInvoker(invoker:LComponent,menu:LMenu):void
+	public function setInvoker(invoker:InteractiveObject,menu:LMenu):void
 	{
 		this.invoker=invoker;
 		this.menu=menu;
-		invoker.addGlobalEventListener(LStageEvent.STAGE_CLICK_EVENT,onStageClick);
+		LUIManager.addGlobalEventListener(LStageEvent.STAGE_CLICK_EVENT,onStageClick);
 	}
 	
 	private function onStageClick(evt:LStageEvent):void
 	{
-		if(invoker==evt.clickTarget||invoker.contains(evt.clickTarget))
+		if(invoker==evt.clickTarget||((invoker is DisplayObjectContainer)&&(invoker as DisplayObjectContainer).contains(evt.clickTarget)))
 		{
-			menu.popX=LUIManager.uiContainer.mouseX;
-			menu.popY=LUIManager.uiContainer.mouseY;
+			menu.popX=LUIManager.stage.mouseX;
+			menu.popY=LUIManager.stage.mouseY;
 			menu.show();
 		}
 		else
@@ -244,7 +249,7 @@ class MenuInvoker implements IDispose
 	public function dispose():void
 	{
 		if(invoker)
-			invoker.removeGlobalEventListener(LStageEvent.STAGE_CLICK_EVENT,onStageClick);
+			LUIManager.removeGlobalEventListener(LStageEvent.STAGE_CLICK_EVENT,onStageClick);
 		this.invoker=null;
 		this.menu=null;
 	}
