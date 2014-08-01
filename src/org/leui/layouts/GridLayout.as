@@ -26,10 +26,16 @@ package org.leui.layouts
 			var curCol:int;
 			var curRow:int;
 			var count:int=eles.length;
+			if(count == 0)return;
 			var lockCols:Boolean=grid.lockCols;
 			var cols:int=grid.cols;
 			var rows:int=grid.rows;
-			if(!lockCols)//不以cols为准
+			if(lockCols)
+			{
+				rows = count/cols;
+				if(count%cols>0)rows++;
+			}
+			else
 			{
 				cols=count/rows;
 				if(count%rows>0)
@@ -49,7 +55,7 @@ package org.leui.layouts
 					eleWidth=cellWidth;
 				if(eleComp.canScaleY)
 					eleHeight=cellHeight;
-				eleComp.setWH(cellWidth,cellHeight);
+				eleComp.setWH(eleWidth,eleHeight);
 				eleComp.setXY(curCol*(grid.hGap+cellWidth),curRow*(grid.vGap+cellHeight));
 				
 				//如果子对象不可缩放，则有可能应用布局后超出容器边界

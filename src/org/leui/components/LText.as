@@ -35,6 +35,7 @@ package org.leui.components
 			this.editable=editable;
 			width=UiConst.TEXT_DEFAULT_WIDTH;
 			height=UiConst.TEXT_DEFAULT_HEIGHT;
+			textAlign = UiConst.TEXT_ALIGN_MIDDLE_CENTER;
 		}
 
 		/**
