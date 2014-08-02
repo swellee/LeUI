@@ -12,13 +12,12 @@ package org.leui.components
 	import org.leui.vos.MenuItemVO;
 
 	/**
-	 * LMenu 控件创建可分别选择的选项的弹出菜单，弹出菜单可以具有所需的任何数目的子菜单级别。
+	 *   LMenu 控件创建可分别选择的选项的弹出菜单，弹出菜单可以具有所需的任何数目的子菜单级别。
 	 * 菜单的及子菜单的创建通过MenuItemVO数据集实现，具体请参考例子。
 	 * 打开 Menu 控件后，此控件将一直可见，直到通过下列任一操作将其关闭：
 	 * </br>1.调用 LMenu.hide() 方法。
 	 * </br>2.用户选择已启用的菜单项。
 	 * </br>3.用户在 Menu 控件外部单击。 
-	 *2014-3-20
 	 *@author swellee
 	 */
 	public class LMenu extends LList implements IPopup
@@ -43,7 +42,7 @@ package org.leui.components
 		public var popY:int;
 
 		/**
-		 *菜单 ，推荐使用静态函数LMenu.createMenu()创建菜单。
+		 *  菜单 ，推荐使用静态函数LMenu.createMenu()创建菜单。
 		 * 若使用构造函数实例化，应手动调用以下两个函数设置菜单数据：setInvoker()、setMenuData()
 		 * @see LMenu.setInvoker()
 		 * @see LMenu.setMenuData()
@@ -81,7 +80,7 @@ package org.leui.components
 		}
 		
 		/**
-		 * 设置触发者
+		 *   设置触发者
 		 * @param invoker 触发者（通常是一个button对象），menu会为invoker自动添加点击的监听函数。
 		 * @param allowInvokerReclick 当重复点击触发者时，是否重新以单击点坐标放置菜单
 		 * 
@@ -137,7 +136,7 @@ package org.leui.components
 		}
 		
 		/**
-		 * 创建一个菜单
+		 *   创建一个菜单
 		 * @param invoker 触发者（通常是一个button对象），menu会为invoker自动添加点击的监听函数。
 		 *  @param menuItemVos 菜单数据
 		 * @param isPrimary 是否为主菜单

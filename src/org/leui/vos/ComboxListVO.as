@@ -1,8 +1,7 @@
 package org.leui.vos
 {
 	/**
-	 *下拉菜单列表项数据
-	 *2014-4-15
+	 *  下拉菜单列表项数据
 	 *@author swellee
 	 */
 	public class ComboxListVO

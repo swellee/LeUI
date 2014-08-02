@@ -6,9 +6,8 @@ package org.leui.components
 	import org.leui.core.IViewport;
 	
 	/**
+	 *  普通面板容器，实现了IViewport，可用于LScrollPane
 	 *@author swellee
-	 *2013-8-5
-	 *普通面板容器，实现了IViewport，可用于LScrollPane
 	 */
 	public class LPane extends LContainer implements IViewport
 	{

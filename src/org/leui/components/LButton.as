@@ -7,9 +7,8 @@ package org.leui.components
 	import org.leui.vos.ChildStyleHashVO;
 
 	/**
+	 *  按钮（带文本），继承自LMultiState-多状态组件，用来表现状态的组件是一个LText，因此配置状态样式需要是针对LText类型的样式
 	 *@author swellee
-	 *2013-4-10
-	 *按钮（带文本），继承自LMultiState-多状态组件，用来表现状态的组件是一个LText，因此配置状态样式需要是针对LText类型的样式
 	 */
 	public class LButton extends LMultiState
 	{
@@ -21,6 +20,11 @@ package org.leui.components
 		public static var BUTTON_STATE_SELECTED_MOUSE_OVER:String="button_state_selected_mouse_over";
 		public static var BUTTON_STATE_SELECTED_MOUSE_DOWN:String="button_state_selected_mouse_down";
 		
+		/**
+		 * 
+		 * @param text  按钮标签
+		 * 
+		 */
 		public function LButton(text:String=null)
 		{
 			super();
@@ -99,7 +103,7 @@ package org.leui.components
 		}		
 		
 		/**
-		 *设置按钮文本 
+		 * 设置按钮标签文本 
 		 * @param text
 		 * 
 		 */		

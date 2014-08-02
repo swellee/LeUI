@@ -7,9 +7,10 @@ package org.leui.components
 
 	use namespace LeSpace;
 	/**
-	 *组合UI,由多个子组件拼合而成，典型子类如LScrollBar、LScrollPane
+	 *  组合UI,由多个子组件拼合而成，请勿直接实例化此类，而应该实例化子类，典型子类如LScrollBar、LScrollPane等
+	 *  可以此为基类创建自己的新组件。
+	 *  
 	 *@author swellee
-	 *2013-4-29
 	 */
 	public class LCombine extends LContainer implements ICombine
 	{

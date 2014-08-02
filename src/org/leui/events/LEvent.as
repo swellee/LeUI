@@ -3,9 +3,8 @@ package org.leui.events
 	import flash.events.Event;
 	
 	/**
+	 *  LeUI事件
 	 *@author swellee
-	 *2012-11-28
-	 *LeUI事件
 	 */
 	public class LEvent extends Event
 	{

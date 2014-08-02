@@ -6,9 +6,8 @@ package org.leui.layouts
 	import org.leui.utils.LGeom;
 	
 	/**
+	 *  LStepperH组件布局管理器
 	 *@author swellee
-	 *2013-12-5
-	 *LStepperH组件布局管理器
 	 */
 	public class StepperHLayout implements ILayoutManager
 	{

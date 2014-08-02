@@ -3,9 +3,8 @@ package org.leui.components
 	import org.leui.layouts.StepperVLayout;
 
 	/**
+	 *  纵向步进器
 	 *@author swellee
-	 *2013-12-25
-	 *纵向步进器
 	 */
 	public class LStepperV extends Stepper
 	{

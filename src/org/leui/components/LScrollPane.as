@@ -12,9 +12,8 @@ package org.leui.components
 
 	[Event(name="scrollbar_value_change", type="org.leui.events.LScrollBarEvent")]
 	/**
+	 *   滚动面板
 	 *@author swellee
-	 *2013-7-6
-	 * 滚动面板
 	 */
 	public class LScrollPane extends LCombine
 	{
@@ -119,7 +118,7 @@ package org.leui.components
 			}
 		}
 		/**
-		 *视口 
+		 *  视口 
 		 * @return 
 		 * 
 		 */

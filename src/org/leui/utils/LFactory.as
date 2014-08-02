@@ -8,18 +8,18 @@ package org.leui.utils
 
 	use namespace LeSpace;
 	/**
+	 *  工厂类
 	 *@author swellee
-	 *2012-12-29
-	 *
 	 */
 	public class LFactory
 	{
 		private static var assetPool:Dictionary = new Dictionary(true);
 		/**
-		 *取一个显示类的实例 
+		 *  取一个显示类的实例 
+		 * 优先从缓存池中取，缓存池中无则创建一个新实例
 		 * @param ref
 		 * @return 
-		 * 优先从缓存池中取，缓存池中无则创建一个新实例
+		 * @see UiConst.ASSET_POOL_INSTANCE_MAX
 		 */
 		public static function  getDisplayObj(ref:Class):DisplayObject
 		{
@@ -40,9 +40,10 @@ package org.leui.utils
 		}
 		
 		/**
-		 *将显示对象实像放回缓存池 
-		 * @param obj
+		 *  将显示对象实像放回缓存池 
 		 * 只有从getDisplayObj（）方法出去的对象才能被重新回收,且回收对象数量有最大限值
+		 * @param obj
+		 * 	@see UiConst.ASSET_POOL_INSTANCE_MAX
 		 */
 		LeSpace static function putDisplayObj(obj:DisplayObject):void
 		{
@@ -62,7 +63,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 *销毁显示对象 
+		 *  销毁显示对象 
 		 * @param obj
 		 * 
 		 */
@@ -94,7 +95,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 *清理缓存池中的所在资源实例 
+		 *  清理缓存池中的所在资源实例 
 		 * 此方法会在更换样式表时被调用
 		 */
 		LeSpace static function disposeAssetPool():void
@@ -110,7 +111,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 *生成一个新实例 
+		 *  生成一个新实例 
 		 * @param clazz 类
 		 * @param args 构造函数的参数，最大允许有9个
 		 * @return  新实例

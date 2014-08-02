@@ -5,9 +5,8 @@ package org.leui.components
 	import org.leui.layouts.BoxLayout;
 
 	/**
+	 *  Box容器，子元素会自动根据元素数量均匀扩展尺寸到撑满box容器。
 	 *@author swellee
-	 *2014-2-23
-	 *Box容器，子元素会自动根据元素数量均匀扩展尺寸到撑满box容器。
 	 */
 	public class LBox extends LPane implements IMatirxContainer
 	{

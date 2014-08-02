@@ -5,9 +5,8 @@ package org.leui.utils
 	import org.leui.components.LComponent;
 
 	/**
+	 * 滤镜管理
 	 *@author swellee
-	 *2013-2-14
-	 *
 	 */
 	public class LFilters
 	{
@@ -19,7 +18,7 @@ package org.leui.utils
 		public static const GRAY_FILTER:ColorMatrixFilter=new ColorMatrixFilter(grayFilterMatrix);
 		
 		/**
-		 *根据组件的enabled，设置组件的灰度滤镜 
+		 *  根据组件的enabled，设置组件的灰度滤镜 
 		 * @param comp
 		 * 
 		 */

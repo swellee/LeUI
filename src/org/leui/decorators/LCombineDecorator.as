@@ -11,9 +11,8 @@ package org.leui.decorators
 	import org.leui.vos.StyleVO;
 	
 	/**
+	 *   复合组件装饰类
 	 *@author swellee
-	 *2013-5-26
-	 * 复合组件装饰类
 	 */
 	public class LCombineDecorator implements IDecorator
 	{
@@ -25,7 +24,7 @@ package org.leui.decorators
 		{
 			var combUI:LCombine=ui as LCombine;
 			if(!combUI)return;
-			
+			ui.clearBg();
 			//如果有自身配置的背景
 			if(styleVo.assetClass)
 			{

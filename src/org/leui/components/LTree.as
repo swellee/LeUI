@@ -15,9 +15,8 @@ package org.leui.components
 	use namespace LeSpace;
 
 	/**
+	 *  树容器
 	 *@author swellee
-	 *2014-2-22
-	 *树容器,初始化时必须提供根节点
 	 */
 	public class LTree extends LPane implements IMatirxContainer
 	{
@@ -26,7 +25,7 @@ package org.leui.components
 		private var _vGap:int;
 		private var _nodeHeight:int;
 		/**
-		 * 树容器,初始化时必须提供根节点
+		 *   树容器,初始化时强烈建议提供根节点，若不提供，就自动生成一个LTreeNode作为根节点，后续不可重设根节点，只能对已有的根节点修改
 		 * @param root 根节点 如果构造函数中不提供要节点，则自动生成一个“root”标签的根节点，后续如需修改，请使用getRootNode()方法获取根节点
 		 * @param hGap 节点与子级节点的横向间距
 		 * @param vGap 节点与子级节点的竖向间距
@@ -121,7 +120,7 @@ package org.leui.components
 		}
 		
 		/**
-		 *获取根节点 
+		 *  获取根节点 
 		 * @return 
 		 * 
 		 */

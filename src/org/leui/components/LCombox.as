@@ -10,8 +10,7 @@ package org.leui.components
 	import org.leui.vos.ComboxListVO;
 
 	/**
-	 *下拉菜单框
-	 *2014-4-15
+	 *  下拉菜单框
 	 *@author swellee
 	 */
 	public class LCombox extends LCombine
@@ -23,7 +22,7 @@ package org.leui.components
 		
 		
 		/**
-		 *菜单列表数据 
+		 *  菜单列表数据 
 		 */
 		private var listdatas:Vector.<ComboxListVO>;
 		/**

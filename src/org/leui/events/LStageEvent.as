@@ -5,9 +5,8 @@ package org.leui.events
 	import flash.display.DisplayObject;
 
 	/**
+	 *  LeUI舞台事件
 	 *@author swellee
-	 *2014-4-12
-	 *
 	 */
 	public class LStageEvent extends LEvent
 	{

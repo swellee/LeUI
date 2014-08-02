@@ -5,9 +5,12 @@ package org.leui.components
 	
 	
 	/**
+	 *   网格容器 LGrid会根据自身尺寸及子元素个数，对子元素尺寸进行缩放到统一的元素尺寸，
+	 * 如果不想被缩放，可设置子元素的canScaleX和canScaleY属性为false，
+	 * 但不推荐这么做，因为这将使布局后子元素显得不协调。
+	 * </br>如果添加进来的元素总数并不总等于设置的行数乘以列数，LGrid会对子元素的行列数进行修正，
+	 * 例如先设置 列数4，行数4，之后实际添加了20个元素，4x4 != 20，若设置了以列数为准，则自动修正为4列、5行。
 	 *@author swellee
-	 *2013-8-28
-	 *
 	 */
 	public class LGrid extends LList
 	{
@@ -15,7 +18,7 @@ package org.leui.components
 		private var _cols:int;
 		private var _rows:int;
 		/**
-		 * 网格容器 
+		 *   网格容器 
 		 * @param cols 列数
 		 * @param rows 行数
 		 * @param hGap 横向间距
@@ -53,7 +56,7 @@ package org.leui.components
 		}
 
 		/**
-		 *当cols x rows !=子对象总数时，是否以列数为准 
+		 *  当cols x rows !=子对象总数时，是否以列数为准 
 		 * 
 		 */
 		public function get lockCols():Boolean

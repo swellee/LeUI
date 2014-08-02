@@ -5,9 +5,8 @@ package org.leui.utils
 	import flash.ui.Keyboard;
 
 	/**
+	 *  LeUI常量枚举
 	 *@author swellee
-	 *2013-1-6
-	 *lexUI常量枚举
 	 */
 	public class UiConst
 	{

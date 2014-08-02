@@ -7,9 +7,8 @@ package org.leui.layouts
 	import org.leui.utils.LTrace;
 	
 	/**
+	 *  网格布局
 	 *@author swellee
-	 *2013-8-29
-	 *网格布局
 	 */
 	public class GridLayout implements ILayoutManager
 	{

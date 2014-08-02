@@ -12,9 +12,8 @@ package org.leui.components
 	import org.leui.vos.MenuItemVO;
 
 	/**
+	 *  菜单项
 	 *@author swellee
-	 *2014-3-17
-	 *
 	 */
 	public class LMenuItem extends LButton
 	{
@@ -42,7 +41,7 @@ package org.leui.components
 		}
 		
 		/**
-		 *菜单项VO 
+		 *  菜单项VO 
 		 * @return 
 		 * 
 		 */
@@ -52,7 +51,7 @@ package org.leui.components
 		}
 		
 		/**
-		 *是否链接有子级菜单 
+		 *  是否链接有子级菜单 
 		 */
 		public function get hasSubMenu():Boolean
 		{
@@ -66,7 +65,7 @@ package org.leui.components
 		}
 		
 		/**
-		 *设置图标 
+		 *  设置图标 
 		 * @param icon
 		 * @param offX
 		 * 

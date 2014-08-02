@@ -1,9 +1,8 @@
 package org.leui.events
 {
 	/**
+	 *  树容器 相关事件
 	 *@author swellee
-	 *2014-2-22
-	 *树容器 相关事件
 	 */
 	public class LTreeEvent extends LEvent
 	{

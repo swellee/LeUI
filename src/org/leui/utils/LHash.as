@@ -3,10 +3,10 @@ package org.leui.utils
 	import flash.utils.Dictionary;
 
 	/**
-	 *@author swellee
-	 *2012-11-7
+	 *   哈希表
 	 * @see put();
 	 * @see find();
+	 *@author swellee
 	 */
 	public class LHash
 	{
@@ -43,7 +43,7 @@ package org.leui.utils
 		}
 
 		/**
-		 *放入字典中 
+		 *  放入字典中 
 		 * @param key键名
 		 * @param value键值（对象）
 		 * 
@@ -55,7 +55,7 @@ package org.leui.utils
 			values.push(value);
 		}
 		/**
-		 *从字典里查找对象 
+		 *  从字典里查找对象 
 		 * @param key键名
 		 * @return 键值（对象）
 		 * 
@@ -67,7 +67,7 @@ package org.leui.utils
 			return null;
 		}
 		/**
-		 * 从字典里移出对象
+		 *   从字典里移出对象
 		 * @param key键名
 		 * @return 键值（对象）
 		 * 
@@ -92,7 +92,7 @@ package org.leui.utils
 			return v;
 		}
 		/**
-		 *检测是否在字典中 
+		 *  检测是否在字典中 
 		 * @param key 键名
 		 * @return 
 		 * 
@@ -104,7 +104,7 @@ package org.leui.utils
 			return false;
 		}
 		/**
-		 *清空字典 
+		 *  清空字典 
 		 */
 		public function clear():void
 		{
@@ -113,7 +113,7 @@ package org.leui.utils
 			_values = [];
 		}
 		/**
-		 *字典长度（内容总数） 
+		 *  字典长度（内容总数） 
 		 * @return 
 		 */
 		public function get length():int

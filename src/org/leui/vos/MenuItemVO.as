@@ -3,9 +3,8 @@ package org.leui.vos
 	import flash.display.DisplayObject;
 
 	/**
+	 *   菜单项数据
 	 *@author swellee
-	 *2014-3-23
-	 * 菜单项数据
 	 */
 	public class MenuItemVO
 	{

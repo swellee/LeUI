@@ -8,9 +8,8 @@ package org.leui.layouts
 	import org.leui.utils.LTrace;
 
 	/**
+	 *   滚动条布局管理
 	 *@author swellee
-	 *2013-6-3
-	 * 为滚动条提供布局管理
 	 */
 	public class ScrollbarLayout implements ILayoutManager
 	{

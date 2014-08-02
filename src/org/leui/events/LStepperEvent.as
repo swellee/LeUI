@@ -1,9 +1,8 @@
 package org.leui.events
 {
 	/**
+	 *  步进器事件
 	 *@author swellee
-	 *2013-12-5
-	 *
 	 */
 	public class LStepperEvent extends LEvent
 	{

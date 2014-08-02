@@ -14,9 +14,8 @@ package org.leui.components
 	use namespace LeSpace;
 
 	/**
+	 *   滚动条
 	 *@author swellee
-	 *2013-5-23
-	 * 滚动条
 	 */
 	public class LScrollBar extends LCombine
 	{
@@ -54,7 +53,7 @@ package org.leui.components
 		private var msDownCacheTime:int=400;
 		
 		/**
-		 *滚动条 
+		 *  滚动条 
 		 * @param vertical 是否为竖向滚动条，默认为true
 		 * 
 		 */
@@ -241,7 +240,7 @@ package org.leui.components
 		
 		/**
 		 * 
-		 * 更新滑块尺寸及位置
+		 *   更新滑块尺寸及位置
 		 */
 		public function updateSlider():void
 		{
@@ -257,7 +256,7 @@ package org.leui.components
 			relocateSlider();
 		}
 		/**
-		 * 设置滑块尺寸所占总轨道尺寸的百分比 ,若值小于等于0 ，则不作任何更改
+		 *   设置滑块尺寸所占总轨道尺寸的百分比 ,若值小于等于0 ，则不作任何更改
 		 * @param lengthPercent 百分比 值为1－100
 		 * 
 		 */

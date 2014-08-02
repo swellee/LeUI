@@ -9,9 +9,8 @@ package org.leui.components
 	import org.leui.vos.ChildStyleHashVO;
 
 	/**
+	 *   数字步进器基类（不允许直接实例化，请使用子类LStepperH和LStepperV），由一个LText、两个LButton组合而成
 	 *@author swellee
-	 *2013-12-1
-	 * 数字步进器基类（不允许直接实例化，请使用子类LStepperH和LStepperV），由一个LText、两个LButton组合而成
 	 */
 	public class Stepper extends LCombine
 	{
@@ -30,7 +29,7 @@ package org.leui.components
 		public var eleBtnSize:int;
 		
 		/**
-		 *数字步进组件 基类（不允许直接实例化）
+		 *  数字步进组件 基类（不允许直接实例化）
 		 */
 		public function Stepper(eleBtnSize:int)
 		{

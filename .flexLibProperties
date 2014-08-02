@@ -58,6 +58,7 @@
     <classEntry path="org.leui.layouts.WindowLayout"/>
     <classEntry path="org.leui.components.ALert"/>
     <classEntry path="org.leui.utils.LTraceWindow"/>
+    <classEntry path="org.leui.core.Version"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

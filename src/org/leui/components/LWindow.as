@@ -13,11 +13,9 @@ package org.leui.components
 
 	use namespace LeSpace;
 	/**
-	 *视窗 由子元素：标题、关闭按钮、内容面板 组合而成；
+	 *  视窗 由子元素：标题、关闭按钮、内容面板 组合而成；
 	 * 实现了IPopup接口,显示视窗请调用show(); 
 	 * 向视窗中添加内容时，使用addContent()方法；此方法会将参数作为显示对象添加到内容面板中。
-	 * @see 
-	 *2014-4-24
 	 *@author swellee
 	 */
 	public class LWindow extends LCombine implements IPopup
@@ -116,7 +114,7 @@ package org.leui.components
 			hide(autoDisposeOnClose);
 		}
 		/**
-		 *设置标题 
+		 *  设置标题 
 		 * @param title
 		 * 
 		 */
@@ -131,7 +129,7 @@ package org.leui.components
 		}
 		
 		/**
-		 *向视窗的内容面板中添加子显示对象.
+		 *  向视窗的内容面板中添加子显示对象.
 		 * 视窗的内容面板是一个LPane对象，默认布局管理器为BasicLayout(实际上什么也不做) 
 		 * @see LPane
 		 * @see layouts.BasicLayout

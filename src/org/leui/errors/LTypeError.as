@@ -1,9 +1,8 @@
 package org.leui.errors
 {
 	/**
+	 *  类型不匹配
 	 *@author swellee
-	 *2012-11-7
-	 *
 	 */
 	public class LTypeError extends LError
 	{

@@ -22,9 +22,8 @@ package org.leui.utils
 	use namespace LeSpace;
 
 	/**
+	 *  LeUI大总管
 	 * @author swellee
-	 * 13-11-21
-	 *
 	 */
 	public class LUIManager
 	{
@@ -36,7 +35,7 @@ package org.leui.utils
 		private var keyUpFuns:Array=[];
 		
 		/**
-		 *标准初始化 
+		 *  标准初始化 
 		 * @param root  舞台
 		 * @param uiContainer UI容器
 		 * @param styleSheet 样式表
@@ -59,7 +58,7 @@ package org.leui.utils
 			LTrace.init();
 		}
 		/**
-		 *设置样式表，设置新的样式表后，所有组件会重新渲染 
+		 *  设置样式表，设置新的样式表后，所有组件会重新渲染 
 		 * @param styleSheet
 		 * 
 		 */
@@ -73,13 +72,18 @@ package org.leui.utils
 			}
 		}
 		
+		/**
+		 * IpopUp类弹窗的父容器 
+		 * @return 
+		 * 
+		 */
 		public static function get uiContainer():DisplayObjectContainer
 		{
 			return getInstance().uiContanier;
 		}
 		
 		/**
-		 *派发全局事件 
+		 *  派发全局事件 
 		 * @param event
 		 * 
 		 */
@@ -88,7 +92,7 @@ package org.leui.utils
 			styleObserver.dispatchEvent(event);
 		}
 		/**
-		 *添加全局事件监听 
+		 *  添加全局事件监听 
 		 * @param eventType
 		 * @param listenFun
 		 * 
@@ -98,7 +102,7 @@ package org.leui.utils
 			styleObserver.addEventListener(eventType,listenFun);
 		}
 		/**
-		 *移除全局事件监听 
+		 *  移除全局事件监听 
 		 * @param eventType
 		 * @param listenFun
 		 * 
@@ -108,6 +112,11 @@ package org.leui.utils
 			styleObserver.removeEventListener(eventType,listenFun);
 		}
 
+		/**
+		 *   舞台 
+		 * @return 
+		 * 
+		 */
 		public static function get stage():Stage
 		{
 			return getInstance().stg;
@@ -135,7 +144,7 @@ package org.leui.utils
 			}
 		}
 		/**
-		 *LexUI组件共用的事件派发器，UI组件均使用此对象 监听和派发事件
+		 *  LexUI组件共用的事件派发器，UI组件均使用此对象 监听和派发事件
 		 * @param value
 		 * 
 		 */
@@ -156,7 +165,7 @@ package org.leui.utils
 		}
 	
 		/**
-		 *集中处理帧频函数 
+		 *  集中处理帧频函数 
 		 * @param fun 函数，需以事件类型为参数
 		 * </br>eg:  function aaa(e:Event):void{}
 		 */		
@@ -169,7 +178,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 * 移除对帧频函数的监听
+		 *   移除对帧频函数的监听
 		 * @param fun
 		 * 
 		 */
@@ -183,7 +192,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 *添加键盘事件（KEY_UP）
+		 *  添加键盘事件（KEY_UP）监听
 		 * @param fun 函数，需以键盘事件类型为参数
 		 * </br>eg:  function aaa(e:KeyboardEvent):void{}
 		 */
@@ -194,6 +203,11 @@ package org.leui.utils
 				getInstance().keyUpFuns.push(fun);
 			}
 		}
+		/**
+		 *   移除键盘事件监听
+		 * @param fun
+		 * 
+		 */
 		public static function removeKeyUpListener(fun:Function):void
 		{
 			var idx:int=getInstance().keyUpFuns.indexOf(fun);
@@ -204,7 +218,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 *更新样式 
+		 *  更新样式 
 		 * @param ui
 		 * 
 		 */
@@ -229,7 +243,7 @@ package org.leui.utils
 			decorator.decorate(ui,styleVo);
 		}
 		/**
-		 *更新布局 
+		 *  更新布局 
 		 * @param ui 容器
 		 * 
 		 */		
@@ -241,7 +255,7 @@ package org.leui.utils
 				layoutManager.doLayout(ui);
 			}
 		}
-		/** 获取类名*/
+		/**   获取类名*/
 		LeSpace static function getClassName(obj:*):String
 		{
 			var qName:String=getQualifiedClassName(obj);
@@ -251,7 +265,7 @@ package org.leui.utils
 			return qName;
 		}
 		/**
-		 *清除样式 此方法会resetStyle,之后从缓存池清理样式对应的装饰类实例 
+		 *  清除样式 此方法会resetStyle,之后从缓存池清理样式对应的装饰类实例 
 		 * @param ui
 		 * 
 		 */
@@ -264,7 +278,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 *在指定容器中查找符合给定属性值的子显示对象 
+		 *  在指定容器中查找符合给定属性值的子显示对象 
 		 * @param container 指定容器
 		 * @param keyAndValue 键值对，用于表示要匹配的属性名及值
 		 * @param subChild 该容器的某一子级对象，从此对象上溯查找直到容器本身

@@ -6,8 +6,7 @@ package org.leui.layouts
 	import org.leui.utils.UiConst;
 	
 	/**
-	 *LCombox布局管理器
-	 *2014-4-15
+	 *  LCombox布局管理器
 	 *@author swellee
 	 */
 	public class ComboxLayout implements ILayoutManager

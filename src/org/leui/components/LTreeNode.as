@@ -14,9 +14,8 @@ package org.leui.components
 
 	use namespace LeSpace;
 	/**
+	 *  树节点 ,由两个LToggleButton组合而成
 	 *@author swellee
-	 *2014-2-22
-	 *树节点
 	 */
 	public class LTreeNode extends LCombine implements IMatirxContainer
 	{
@@ -69,7 +68,7 @@ package org.leui.components
 		}
 
 		/**
-		 *是否为展开状态 
+		 *  是否为展开状态 
 		 * @return 
 		 * 
 		 */
@@ -125,7 +124,7 @@ package org.leui.components
 			dispatchEvent(new LTreeEvent(LTreeEvent.TREE_NODE_STATUS_CHANGED,true));
 		}
 		/**
-		 *添加子节点 
+		 *  添加子节点 
 		 * @param children LTreeNode 类型
 		 * 
 		 */
@@ -146,6 +145,11 @@ package org.leui.components
 			}
 		}
 		
+		/**
+		 *   删除子节点
+		 * @param children LTreeNode 类型
+		 * 
+		 */
 		public function removeChildrenNode(...children):void
 		{
 			for each (var node:LTreeNode in children) 
@@ -163,6 +167,11 @@ package org.leui.components
 			onChangeExtract();
 		}
 		
+		/**
+		 *  根据索引 删除子节点 
+		 * @param idx 子级节点的索引，从0开始
+		 * 
+		 */
 		public function removeChildNodeAt(idx:int):void
 		{
 			if(idx>=0&&childNodes&&childNodes.length>idx)
@@ -176,7 +185,7 @@ package org.leui.components
 			onChangeExtract();
 		}
 		/**
-		 *获取子节点列表 
+		 *  获取子节点列表 
 		 * @return 
 		 * 
 		 */
@@ -224,7 +233,7 @@ package org.leui.components
 			return 0;
 		}
 		/**
-		 *设置节点标签文本 
+		 *  设置节点标签文本 
 		 * @param text
 		 * 
 		 */

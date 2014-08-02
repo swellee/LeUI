@@ -6,8 +6,7 @@ package org.leui.layouts
 	import org.leui.utils.UiConst;
 	
 	/**
-	 *
-	 *2014-4-26
+	 *  视窗布局
 	 *@author swellee
 	 */
 	public class WindowLayout implements ILayoutManager

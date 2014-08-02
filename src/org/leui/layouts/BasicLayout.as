@@ -4,9 +4,8 @@ package org.leui.layouts
 	import org.leui.core.ILayoutManager;
 	
 	/**
+	 *   基本布局，尸位素餐，什么也不会做
 	 *@author swellee
-	 *2013-4-6
-	 * 基本布局，尸位素餐，什么也不会做
 	 */
 	public class BasicLayout implements ILayoutManager
 	{

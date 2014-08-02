@@ -1,7 +1,7 @@
 package org.leui.core
 {
 	/**
-	 * 阵列容器
+	 *   阵列容器
 	 * @author swellee
 	 * 
 	 */	
@@ -10,7 +10,7 @@ package org.leui.core
 		
 		function set direction(val:int):void;
 		/**
-		 *布局朝向，可用值为 UiConst.VERTICAL、UiConst.HORIZONTAL
+		 *  布局朝向，可用值为 UiConst.VERTICAL、UiConst.HORIZONTAL
 		 * @return 
 		 * 
 		 */
@@ -18,7 +18,7 @@ package org.leui.core
 		
 		function set hGap(val:int):void;
 		/**
-		 *布局时，子对象的横向间距（像素） 
+		 *  布局时，子对象的横向间距（像素） 
 		 * @return 
 		 * 
 		 */
@@ -26,7 +26,7 @@ package org.leui.core
 		
 		function set vGap(val:int):void;
 		/**
-		 * 布局时，子对象的竖向间距（像素）
+		 *  布局时，子对象的竖向间距（像素）
 		 * @return 
 		 * 
 		 */

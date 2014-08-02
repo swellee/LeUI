@@ -11,8 +11,7 @@ package org.leui.components
 	
 	
 	/**
-	 *信息提示弹窗
-	 *2014-4-27
+	 *  信息提示弹窗
 	 *@author swellee
 	 */
 	public class ALert extends LWindow
@@ -33,7 +32,7 @@ package org.leui.components
 		public static var NO_STR:String="No";
 		
 		/**
-		 *需要显示的按钮 仅于布局时取用
+		 *  需要显示的按钮 仅于布局时取用
 		 */
 		private var btns:Array;
 		
@@ -60,6 +59,11 @@ package org.leui.components
 			this.closeCallParas.push(callbackParamData);
 		}
 		
+		/**
+		 *  设置消息文本内容 
+		 * @param msg
+		 * 
+		 */
 		public function setMessage(msg:String):void
 		{
 			if(!msgTxt)
@@ -163,7 +167,7 @@ package org.leui.components
 		}
 		
 		/**
-		 *弹出一个消息提示框 （ALert） 
+		 *  弹出一个消息提示框 （ALert） 
 		 * @param title 标题
 		 * @param msg 消息内容
 		 * @param btns 要显示的按钮，使用常量ALert.OK、ALert.CANCEL、ALert.YES、ALert.NO，要显示多个按钮，可使用 “位与”操作符（|）联结多个常量。如ALert.OK|ALert.CANCEL

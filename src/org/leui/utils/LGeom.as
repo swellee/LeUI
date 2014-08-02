@@ -7,15 +7,14 @@ package org.leui.utils
 	import flash.geom.Rectangle;
 
 	/**
+	 *   形状与位置工具类
 	 *@author swellee
-	 *2013-1-26
-	 * 形状与位置工具类
 	 */
 	public class LGeom
 	{
 		
 		/**
-		 *将对象居中到目标坐标系
+		 *  将对象居中到目标坐标系
 		 * @param obj 对象
 		 * @param targetCoordinates 目标坐标空间
 		 */
@@ -26,7 +25,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 *将对象居中到目标坐标系的Y轴 
+		 *  将对象居中到目标坐标系的Y轴 
 		 * @param obj 对象
 		 * @param targetCoordinates 目标坐标空间
 		 * @param offSet 偏移量
@@ -39,7 +38,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 *将对象居中到目标坐标系的X轴 
+		 *  将对象居中到目标坐标系的X轴 
 		 * @param obj 对象
 		 * @param targetCoordinates 目标坐标空间
 		 * @param offSet 偏移量
@@ -52,7 +51,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 *将对象显示限定在容器尺寸内 
+		 *  将对象显示限定在容器尺寸内 
 		 * @param comp对象
 		 * @param tx对象X
 		 * @param ty对象Y

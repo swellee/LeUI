@@ -3,9 +3,8 @@ package org.leui.components
 	import flash.events.MouseEvent;
 
 	/**
+	 *  开关按钮，点击后自动切换选中状态
 	 *@author swellee
-	 *2013-5-9
-	 *
 	 */
 	public class LToggleButton extends LButton
 	{

@@ -3,16 +3,15 @@ package org.leui.utils
 	import flash.events.KeyboardEvent;
 
 	/**
+	 *   记录打印日志
 	 *@author swellee
-	 *2013-2-14
-	 * 记录打印日志
 	 */
 	public class LTrace
 	{
 		private static var _log:String;
 		private static var infoWindow:LTraceWindow;
 		/**
-		 *打印日志 
+		 *  打印日志 
 		 * @param msg
 		 * 
 		 */
@@ -27,6 +26,11 @@ package org.leui.utils
 			record(str);
 		}
 		
+		/**
+		 *  打印警告 
+		 * @param msg
+		 * 
+		 */
 		public static function warnning(...msg):void
 		{
 			msg.unshift("Warnning!-----------------------------------------");
@@ -49,13 +53,17 @@ package org.leui.utils
 			return msg is String?msg:msg.toString();
 		}
 		
+		/**
+		 *  清理缓存的日志信息 
+		 * 
+		 */
 		public static function clear():void
 		{
 			_log="";
 		}
 		
 		/**
-		 *将日志通过一个弹窗显示出来 
+		 *  将日志通过一个弹窗显示出来 
 		 * 
 		 */
 		public static function showLogFrame():void
@@ -63,6 +71,10 @@ package org.leui.utils
 			infoWindow.show();
 		}
 		
+		/**
+		 *  隐藏日志弹窗 
+		 * 
+		 */
 		public static function hideLogFrame():void
 		{
 			infoWindow.hide();

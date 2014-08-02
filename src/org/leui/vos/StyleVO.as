@@ -4,9 +4,8 @@ package org.leui.vos
 	
 
 	/**
+	 *  样式信息
 	 *@author swellee
-	 *2013-4-3
-	 *
 	 */
 	public dynamic class StyleVO
 	{

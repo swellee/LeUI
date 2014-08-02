@@ -9,9 +9,8 @@ package org.leui.layouts
 
 
 	/**
+	 *  菜单布局
 	 *@author swellee
-	 *2014-4-9
-	 *
 	 */
 	public class MenuLayout extends ListLayout
 	{

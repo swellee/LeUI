@@ -6,9 +6,8 @@ package org.leui.layouts
 	
 	
 	/**
+	 *  LStepperV布局管理器
 	 *@author swellee
-	 *2013-12-25
-	 *LStepperV布局管理器
 	 */
 	public class StepperVLayout implements ILayoutManager
 	{

@@ -5,9 +5,8 @@ package org.leui.utils
 	
 
 	/**
+	 *  实例缓存池（单例方式存储对象），仅供LexUIManager使用
 	 *@author swellee
-	 *2012-11-7
-	 *实例缓存池（单例方式存储对象），仅供LexUIManager使用
 	 */
 	internal class LPool
 	{

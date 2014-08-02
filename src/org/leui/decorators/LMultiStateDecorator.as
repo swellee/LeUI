@@ -9,8 +9,7 @@ package org.leui.decorators
 	
 	/**
 	 *@author swellee
-	 *2013-4-24
-	 *
+	 *  复态组件 装饰器
 	 */
 	public class LMultiStateDecorator implements IDecorator
 	{
@@ -23,6 +22,7 @@ package org.leui.decorators
 			var multiStateUi:LMultiState=ui as LMultiState;
 			if(!multiStateUi)
 				return;
+			ui.clearBg();
 			var childStyleHashs:Vector.<ChildStyleHashVO>=multiStateUi.stateStyleHash;
 			for (var i:int = 0; i < childStyleHashs.length; i++) 
 			{

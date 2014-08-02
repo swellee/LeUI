@@ -1,9 +1,8 @@
 package org.leui.events
 {
 	/**
+	 *  滚动条事件
 	 *@author swellee
-	 *2013-8-4
-	 *滚动条事件
 	 */
 	public class LScrollBarEvent extends LEvent
 	{

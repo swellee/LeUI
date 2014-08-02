@@ -8,9 +8,8 @@ package org.leui.decorators
 	import org.leui.vos.StyleVO;
 	
 	/**
+	 *   基础装饰器
 	 *@author swellee
-	 *2013-4-3
-	 *
 	 */
 	public class LDecorator implements IDecorator
 	{

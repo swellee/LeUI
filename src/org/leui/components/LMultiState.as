@@ -5,9 +5,8 @@ package org.leui.components
 	import org.leui.vos.ChildStyleHashVO;
 	
 	/**
+	 *  复态组件 基类 ，不要直接实例化此类，而应该使用子类，如LButton
 	 *@author swellee
-	 *2013-4-10
-	 *
 	 */
 	public class LMultiState extends LComponent implements IMultiState
 	{

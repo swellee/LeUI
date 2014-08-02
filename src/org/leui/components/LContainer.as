@@ -17,10 +17,9 @@ package org.leui.components
 	use namespace LeSpace
 	
 	/**
-	 *@author swellee
-	 *2013-4-6
-	 *容器,定义了作为容器的基本方法。
+	 *  容器基类,定义了作为容器的基本方法。
 	 *</br>推荐使用其功能封装更全面的子类，如LPane、LBox、LList、LGrid等
+	 *@author swellee
 	 */
 	public class LContainer extends LComponent implements ILayoutContainer
 	{
@@ -29,9 +28,6 @@ package org.leui.components
 		private var needRenderLayout:Boolean;
 		/**显示对象的真正容器*/
 		protected var container:InnerContainer;
-		/**
-		 *容器 
-		 */
 		public function LContainer()
 		{
 			super();

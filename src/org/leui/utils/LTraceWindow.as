@@ -11,8 +11,7 @@ package org.leui.utils
 	import flash.text.TextFieldType;
 	
 	/**
-	 *
-	 *2014-5-3
+	 *  日志弹窗
 	 *@author swellee
 	 */
 	internal class LTraceWindow extends LWindow

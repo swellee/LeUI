@@ -11,9 +11,8 @@ package org.leui.components
 	import org.leui.utils.UiConst;
 
 	/**
-	 *文本组件
+	 *  文本组件
 	 *@author swellee
-	 *2013-4-6
 	 */
 	public class LText extends LComponent
 	{
@@ -39,7 +38,7 @@ package org.leui.components
 		}
 
 		/**
-		 *设置文本内容的布局 
+		 *  设置文本内容的布局 
 		 * @param textAlign 可用值为：UiConst.TEXT_ALIGN_TOP_LEFT，UiConst.TEXT_ALIGN_TOP_CENTER……。
 		 * @param offX 偏移X
 		 * @param offY 偏移Y
@@ -97,6 +96,10 @@ package org.leui.components
 			textField.type=_editable?TextFieldType.INPUT:TextFieldType.DYNAMIC;
 		}
 		
+		/**
+		 *  内部 TextField
+		 * 
+		 */
 		public function get textField():TextField
 		{
 			if(!_textfield)
@@ -118,7 +121,9 @@ package org.leui.components
 			super.height=value;
 			updateAlign();
 		}
-		/**自动收缩尺寸到刚好显示完文本内容*/
+		/**
+		 *  自动收缩尺寸到刚好显示完文本内容
+		 * */
 		public function pack():void
 		{
 			width=textField.textWidth+textFrameSpace;

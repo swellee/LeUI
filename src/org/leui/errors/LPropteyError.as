@@ -1,9 +1,8 @@
 package org.leui.errors
 {
 	/**
+	 *  缺少属性错误
 	 *@author swellee
-	 *2012-12-29
-	 *
 	 */
 	public class LPropteyError extends LError
 	{

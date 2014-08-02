@@ -7,9 +7,8 @@ package org.leui.layouts
 	import org.leui.utils.UiConst;
 	
 	/**
+	 *  列表容器布局管理
 	 *@author swellee
-	 *2013-7-10
-	 *列表容器布局管理
 	 */
 	public class ListLayout implements ILayoutManager
 	{

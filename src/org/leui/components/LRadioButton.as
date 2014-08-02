@@ -10,11 +10,10 @@ package org.leui.components
 	import org.leui.vos.ChildStyleHashVO;
 
 	/**
-	 *@author swellee
-	 *2013-5-9
-	 *圆点按钮，由一个LToggleButton和一个LText组合而成。
+	 *  圆点按钮，由一个LToggleButton和一个LText组合而成。
 	 * </br>注意：圆点的宽高默认使用UiConst.ICON_DEFAULT_SIZE，并在垂直方向居中；
 	 * </br>文本的宽高默认为UiConst.TEXT_DEFAULT_WIDTH,UiConst.TEXT_DEFAULT_HEIGHT；
+	 *@author swellee
 	 */
 	public class LRadioButton extends LCombine implements IMatirxContainer
 	{
@@ -74,7 +73,7 @@ package org.leui.components
 			ele_btn.dispatchEvent(event);
 		}
 		/**
-		 *设置按钮文本 
+		 *  设置按钮文本 
 		 * @param text
 		 * 
 		 */		

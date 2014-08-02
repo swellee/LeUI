@@ -17,9 +17,8 @@ package org.leui.components
 	
 	use namespace LeSpace;
 	/**
+	 *   LeUI组件基类
 	 *@author swellee
-	 *2013-4-3
-	 *
 	 */
 	public class LComponent extends LSprite implements IComponent
 	{
@@ -125,7 +124,7 @@ package org.leui.components
 			return false;
 		}
 		/**
-		 *是否为复杂组件的元素对象 ，如果为true，则onActive方法中将不再自动更新样式或布局，而是由父组件在适当时候执行该子元素的更新
+		 * 是否为复杂组件的元素对象 ，如果为true，则onActive方法中将不再自动更新样式或布局，而是由父组件在适当时候执行该子元素的更新
 		 */
 		protected function get isCompElement():Boolean
 		{
@@ -228,6 +227,13 @@ package org.leui.components
 			_canScaleY=value;
 		}
 		
+		public function clearBg():void
+		{
+			if(bgAsset&&contains(bgAsset))
+			{
+				removeChild(bgAsset);
+			}
+		}
 		public function setBg(asset:DisplayObject):void
 		{
 			if(!bgAsset)// 首次调用此方法

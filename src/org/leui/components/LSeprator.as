@@ -5,15 +5,14 @@ package org.leui.components
 
 	use namespace LeSpace;
 	/**
+	 *   分隔线,作用类似于flex里的Rule,横向时高度为固定值UiConst.SEPRATOR_INIT_SIZE;，纵向时宽度为固定值UiConst.SEPRATOR_INIT_SIZE;
 	 *@author swellee
-	 *2013-12-1
-	 * 分隔线,横向时高度为固定值UiConst.SEPRATOR_INIT_SIZE;，纵向时宽度为固定值UiConst.SEPRATOR_INIT_SIZE;
 	 */
 	public class LSeprator extends LComponent
 	{
 		LeSpace var isHorizon:Boolean;
 		/**
-		 *分隔线，默认为横向 
+		 *  分隔线，默认为横向 
 		 * @param isHorizon 是否横向
 		 * 
 		 */

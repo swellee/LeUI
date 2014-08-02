@@ -12,9 +12,8 @@ package org.leui.layouts
 	import org.leui.utils.UiConst;
 
 	/**
+	 *   方形布局,可对容器内的对象进行横向或纵向排列,排列时按照加入容器的先后顺序对子对象应用分布
 	 *@author swellee
-	 *2013-5-22
-	 * 方形布局,可对容器内的对象进行横向或纵向排列,排列时按照加入容器的先后顺序对子对象应用分布
 	 */
 	public class BoxLayout extends BasicLayout
 	{

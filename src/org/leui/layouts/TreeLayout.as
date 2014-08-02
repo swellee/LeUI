@@ -8,9 +8,8 @@ package org.leui.layouts
 
 	use namespace LeSpace;
 	/**
+	 *  树容器 布局管理器
 	 *@author swellee
-	 *2014-2-22
-	 *树容器 布局管理器
 	 */
 	public class TreeLayout implements ILayoutManager
 	{

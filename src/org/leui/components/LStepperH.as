@@ -3,9 +3,8 @@ package org.leui.components
 	import org.leui.layouts.StepperHLayout;
 	
 	/**
-	 * 横向步进组件，步进按钮分布在数字框的左右两侧
+	 *   横向步进组件，步进按钮分布在数字框的左右两侧
 	 *@author swellee
-	 *2013-12-5
 	 *
 	 */
 	public class LStepperH extends Stepper

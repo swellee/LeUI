@@ -2,8 +2,6 @@ package org.leui.errors
 {
 	/**
 	 *@author swellee
-	 *2012-11-7
-	 *
 	 */
 	public class LError extends Error
 	{

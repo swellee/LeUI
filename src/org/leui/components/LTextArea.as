@@ -6,11 +6,10 @@ package org.leui.components
 	import org.leui.core.IViewport;
 
 	/**
-	 *文本域，用于大段文字及需要配合滚动面板的文本。
+	 *  文本域，用于大段文字及需要配合滚动面板的文本。
 	 * </br>注意，setAlign方法在此组件中不可用，需要文字布局的，需使用其父类LText
 	 * @see LText.setAlign()
 	 *@author swellee
-	 *2013-8-18
 	 */
 	public class LTextArea extends LText implements IViewport
 	{
@@ -58,7 +57,7 @@ package org.leui.components
 			textChangeHandler(null);
 		}
 		/**
-		 *将 newTxt 参数指定的字符串追加到文本字段的文本的末尾。此方法要比对 text 属性的加法赋值 (+=)（如 someTextField.text += moreText）更有效，对于包含大量内容的文本字段尤其有效。 
+		 *  将 newTxt 参数指定的字符串追加到文本字段的文本的末尾。此方法要比对 text 属性的加法赋值 (+=)（如 someTextField.text += moreText）更有效，对于包含大量内容的文本字段尤其有效。 
 		 * @param newTxt
 		 * 
 		 */

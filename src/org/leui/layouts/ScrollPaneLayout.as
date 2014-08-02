@@ -6,9 +6,8 @@ package org.leui.layouts
 	import org.leui.utils.UiConst;
 	
 	/**
+	 *  滚动面板布局管理
 	 *@author swellee
-	 *2013-7-6
-	 *滚动面板布局管理
 	 */
 	public class ScrollPaneLayout implements ILayoutManager
 	{

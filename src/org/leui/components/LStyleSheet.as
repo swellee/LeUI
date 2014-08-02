@@ -8,9 +8,8 @@ package org.leui.components
 	
 	use namespace LeSpace;
 	/**
+	 *  样式表基类
 	 *@author swellee
-	 *2013-5-23
-	 *样式表基类
 	 */
 	public class LStyleSheet implements IStyleSheet
 	{

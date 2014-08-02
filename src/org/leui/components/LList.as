@@ -13,16 +13,15 @@ package org.leui.components
 
 	use namespace LeSpace;
 	/**
+	 *  列表容器 子元素布局方向可选择横向或竖向,  同一时间，只能选中单一子元素
 	 *@author swellee
-	 *2013-7-10
-	 *列表容器
 	 */
 	public class LList extends LBox
 	{
 		
 		protected var _selectedItem:LComponent;
 		/**
-		 *列表容器 
+		 * 列表容器 
 		 * @param hGap 横向间距  /像素
 		 * @param vGap 竖向间距  /像素
 		 * @param vertical 是否为竖向列表，默认为true
@@ -56,10 +55,19 @@ package org.leui.components
 			if(item)	selectedItem=item;
 		}
 		
+		/**
+		 *   获取当前选中项 
+		 * 
+		 */
 		public function get selectedItem():LComponent
 		{
 			return _selectedItem;
 		}
+		/**
+		 *   设置当前选中项 
+		 * @param item
+		 * 
+		 */
 		public function set selectedItem(item:LComponent):void
 		{
 			if(!container.contains(item))
@@ -70,7 +78,7 @@ package org.leui.components
 		}
 		
 		/**
-		 *根据列表中子项的属性名-属性值 查找子项 
+		 *  根据列表中子项的属性名-属性值 查找子项 
 		 * @param propertyName 属性名
 		 * @param propertyValue 属性值
 		 * @return 按子项被添加的顺序返回第一个匹配的项

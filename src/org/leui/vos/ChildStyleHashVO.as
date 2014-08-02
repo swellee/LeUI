@@ -1,9 +1,8 @@
 package org.leui.vos
 {
 	/**
+	 *  多状态UI组件的 状态－－该状态的样式 映射
 	 *@author swellee
-	 *2013-4-7
-	 *多状态UI组件的 状态－－该状态的样式 映射
 	 */
 	public class ChildStyleHashVO
 	{
