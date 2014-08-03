@@ -47,20 +47,6 @@ package org.leui.components
 		{
 			this.viewSizeListenFun=null;
 		}
-		override public function set width(value:Number):void
-		{
-			if(value==width)return;
-			
-			super.width=value;
-			callViewListenFun();
-		}
-		override public function set height(value:Number):void
-		{
-			if(value==height)return;
-			
-			super.height=value;
-			callViewListenFun();
-		}
 		
 		override public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
 		{

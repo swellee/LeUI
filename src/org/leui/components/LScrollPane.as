@@ -35,7 +35,7 @@ package org.leui.components
 		private var transferContainer:Boolean;
 		private var needRenderScrollBar:Boolean;
 		/**
-		 *滚动面板 
+		 *  滚动面板 
 		 * @param viewPort 视口对象
 		 * @param hsbPolicy 横向滚动条显示规则，默认为UiConst.SCROLL_BAR_POLICY_AUTO
 		 * @param vsbPolicy 纵向滚动条显示规则，默认为UiConst.SCROLL_BAR_POLICY_AUTO
@@ -53,6 +53,7 @@ package org.leui.components
 		{
 			if(!ele_view_port)
 				ele_view_port=new LPane();
+			ele_view_port.setXY(0,0);
 			ele_v_scroll_bar=new LScrollBar();
 			ele_h_scroll_bar=new LScrollBar(false);
 			ele_v_scroll_bar.visible=ele_h_scroll_bar.visible=false;
@@ -100,7 +101,8 @@ package org.leui.components
 			super.append(child,layoutImmediately);
 			if(transferContainer)
 			{
-				LTrace.warnning("promote not to call 'append/appendAll/addChild...' function of a LScrollPane, cause it's not a really container");
+				LTrace.warnning("promote not to call 'append/appendAll/addChild...' function of a LScrollPane," +
+					"displayObject won't be added, cause it's not a really container");
 			}
 		}
 		override protected function render():void

@@ -35,9 +35,17 @@ package org.leui.components
 		private var _data:*;
 		protected var disposed:Boolean;
 		/**
-		 *是否改变过尺寸 
+		 *  是否改变过尺寸 
 		 */
 		protected var resized:Boolean;
+		/**
+		 *  是否正在添加bg图（因为LContainer覆写了addChildAt()方法，为保证bg的正确呈现，加此标识） 
+		 */		
+		protected var addingBgAsset:Boolean;
+		/**
+		 *  是否正在移除bg图（因为LContainer覆写了removeChildAt()方法，为保证bg的正确移除，加此标识） 
+		 */		
+		protected var removingBgAsset:Boolean;
 		public function LComponent()
 		{
 			super();
@@ -45,7 +53,7 @@ package org.leui.components
 			addEventListener(Event.ADDED_TO_STAGE,onActive);
 		}
 		
-		/**初次被添加到显示列表时，激活*/
+		/**  初次被添加到显示列表时，激活*/
 		protected function onActive(event:Event):void
 		{
 			addEvents();
@@ -57,14 +65,14 @@ package org.leui.components
 		}
 		
 		/**
-		 *组件被激活时调用，用于初始化，子类重写 
+		 *  组件被激活时调用，用于初始化，子类重写 
 		 * 
 		 */		
 		protected function init():void
 		{
 		}
 		/**
-		 *构造函数中调用，用于添加交互事件监听 
+		 *  构造函数中调用，用于添加交互事件监听 
 		 * 
 		 */		
 		protected function addEvents():void
@@ -73,7 +81,7 @@ package org.leui.components
 			addGlobalEventListener(LEvent.STYLE_SHEET_CHANGED,onStyleSheetChange);
 		}
 		/**
-		 *销毁时调用，用于移除事件监听 
+		 *  销毁时调用，用于移除事件监听 
 		 * 
 		 */		
 		protected function removeEvents():void
@@ -81,14 +89,14 @@ package org.leui.components
 			removeEventListener(Event.REMOVED_FROM_STAGE,onDeactive);
 			removeGlobalEventListener(LEvent.STYLE_SHEET_CHANGED,onStyleSheetChange);
 		}
-		/**当被移出显示列表时，停止所有事件侦听*/
+		/**  当被移出显示列表时，停止所有事件侦听*/
 		protected function onDeactive(event:Event):void
 		{
 			removeEvents();
 			addEventListener(Event.ADDED_TO_STAGE,onActive);
 		}
 		
-		/**样式表变化时，更新样式*/
+		/**  样式表变化时，更新样式*/
 		private function onStyleSheetChange(evt:LEvent):void
 		{
 			updateStyle();
@@ -238,6 +246,7 @@ package org.leui.components
 		{
 			if(!bgAsset)// 首次调用此方法
 			{
+				addingBgAsset = true;
 				addChildAt(asset,0);
 				asset.width=_width;
 				asset.height=_height;
@@ -256,7 +265,9 @@ package org.leui.components
 		{
 			if(bgAsset)
 			{
+				removingBgAsset = true;
 				removeChildAt(0);
+				addingBgAsset = true;
 				addChildAt(bgAsset,0);
 				bgAsset.width=_width;
 				bgAsset.height=_height;
@@ -341,6 +352,7 @@ package org.leui.components
 			removeEventListener(Event.ADDED_TO_STAGE,onActive);
 			if(bgAsset)
 			{
+				removingBgAsset = true;
 				removeChildAt(0);
 				LFactory.putDisplayObj(bgAsset);
 				bgAsset = null;

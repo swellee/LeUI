@@ -119,6 +119,11 @@ package org.leui.components
 		}
 		override public function addChildAt(child:DisplayObject, index:int):DisplayObject
 		{
+			if(addingBgAsset)
+			{
+				addingBgAsset = false;
+				return super.addChildAt(child,index);
+			}
 			checkAndPushElement(child);
 			container.addChildAt(child,index);
 			updateLayout();
@@ -126,10 +131,17 @@ package org.leui.components
 		}
 		override public function removeChild(child:DisplayObject):DisplayObject
 		{
+			if(container.contains(child))
+				return container.removeChild(child);
 			return remove(child);
 		}
 		override public function  removeChildAt(index:int):DisplayObject
 		{
+			if(removingBgAsset)
+			{
+				removingBgAsset = false;
+				return super.removeChildAt(index);
+			}
 			var child:DisplayObject=container.removeChildAt(index);
 			checkAndPopElement(child);
 			updateLayout();
