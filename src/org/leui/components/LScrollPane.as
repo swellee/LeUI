@@ -145,7 +145,7 @@ package org.leui.components
 			{
 				var contentWidth:int=ele_view_port.viewWidth;
 				var viewWidth:int=width-UiConst.SCROLLPANE_BAR_INIT_SIZE;
-				if(contentWidth>viewWidth)
+				if(contentWidth>viewWidth||hsbPolicy == UiConst.SCROLLPANE_BAR_POLICY_ALWAYS)
 				{
 					lengthPercent=Number(viewWidth/contentWidth)*100;
 					ele_h_scroll_bar.visible=true;
@@ -161,7 +161,7 @@ package org.leui.components
 			{
 				var contentHeight:int=ele_view_port.viewHeight;
 				var viewHeight:int=height-UiConst.SCROLLPANE_BAR_INIT_SIZE;
-				if(contentHeight>viewHeight)
+				if(contentHeight>viewHeight || vsbPolicy == UiConst.SCROLLPANE_BAR_POLICY_ALWAYS)
 				{
 					lengthPercent=Number(viewHeight/contentHeight)*100;
 					ele_v_scroll_bar.visible=true;

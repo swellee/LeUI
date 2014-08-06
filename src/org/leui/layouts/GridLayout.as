@@ -29,16 +29,20 @@ package org.leui.layouts
 			var lockCols:Boolean=grid.lockCols;
 			var cols:int=grid.cols;
 			var rows:int=grid.rows;
-			if(lockCols)
+			//如果自动绽放子对象，则首先根据子元素数，修正行列数
+			if(grid.canScaleElement)
 			{
-				rows = count/cols;
-				if(count%cols>0)rows++;
-			}
-			else
-			{
-				cols=count/rows;
-				if(count%rows>0)
-					cols++;
+				if(lockCols)
+				{
+					rows = count/cols;
+					if(count%cols>0)rows++;
+				}
+				else
+				{
+					cols=count/rows;
+					if(count%rows>0)
+						cols++;
+				}
 			}
 			var cellWidth:int = (grid.width-grid.hGap*(cols-1))/cols;
 			var cellHeight:int = (grid.height-grid.vGap*(rows-1))/rows;
@@ -48,18 +52,25 @@ package org.leui.layouts
 				curRow=i/cols;
 				curCol=i%cols;
 				var eleComp:ILayoutElement=eles[i];
-				var eleWidth:int=-1;
-				var eleHeight:int=-1;
-				if(eleComp.canScaleX)
-					eleWidth=cellWidth;
-				if(eleComp.canScaleY)
-					eleHeight=cellHeight;
-				eleComp.setWH(eleWidth,eleHeight);
-				eleComp.setXY(curCol*(grid.hGap+cellWidth),curRow*(grid.vGap+cellHeight));
+				if(grid.canScaleElement)
+				{
+					var eleWidth:int=-1;
+					var eleHeight:int=-1;
+					if(eleComp.canScaleX)
+						eleWidth=cellWidth;
+					if(eleComp.canScaleY)
+						eleHeight=cellHeight;
+					eleComp.setWH(eleWidth,eleHeight);
+					eleComp.setXY(curCol*(grid.hGap+cellWidth),curRow*(grid.vGap+cellHeight));
+					//如果子对象不可缩放，则有可能应用布局后超出容器边界
+					if(!(eleComp.canScaleX&&eleComp.canScaleY))
+						LTrace.warnning("容器对象>>LGrid<<应用了GridLayout布局，但该容器包含不可缩放的子对象，有可能应用布局后子对象超出容器边界");
+				}
+				else
+				{
+					eleComp.setXY(curCol*grid.hGap,curRow*grid.vGap);
+				}
 				
-				//如果子对象不可缩放，则有可能应用布局后超出容器边界
-				if(!(eleComp.canScaleX&&eleComp.canScaleY))
-					LTrace.warnning("容器对象>>LGrid<<应用了GridLayout布局，但该容器包含不可缩放的子对象，有可能应用布局后子对象超出容器边界");
 			}
 		}
 	}
