@@ -92,12 +92,12 @@ package org.leui.components
 		}
 		public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
 		{
+			container.addChild(child);
 			checkAndPushElement(child);
 			if(layoutImmediately)
 			{
 				updateLayout();
 			}
-			container.addChild(child);
 		}
 		public function appendAll(...elements):void
 		{
@@ -205,7 +205,7 @@ package org.leui.components
 			renderLayout();
 		}
 		/**重绘时检测更新布局*/
-		private function renderLayout():void
+		protected function renderLayout():void
 		{
 			if(!stage)return;
 			if(width==UiConst.UI_MIN_SIZE||height==UiConst.UI_MIN_SIZE)return;

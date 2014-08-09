@@ -1,8 +1,6 @@
 package org.leui.components
 {
 	
-	import flash.display.DisplayObject;
-	
 	import org.leui.core.IViewport;
 	
 	/**
@@ -48,24 +46,11 @@ package org.leui.components
 			this.viewSizeListenFun=null;
 		}
 		
-		override public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
+		override protected function renderLayout():void
 		{
-			super.append(child,layoutImmediately);
+			super.renderLayout();
 			callViewListenFun();
 		}
-		override public function remove(child:DisplayObject, dispose:Boolean=true):DisplayObject
-		{
-			super.remove(child,dispose);
-			callViewListenFun();
-			return child;
-		}
-		override public function removeChildAt(index:int):DisplayObject
-		{
-			var child:DisplayObject=super.removeChildAt(index);
-			callViewListenFun();
-			return child;
-		}
-		
 		private function callViewListenFun():void
 		{
 			if(viewHeight<=height)container.y=0;
