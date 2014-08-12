@@ -6,9 +6,9 @@ package org.leui.components
 	 */
 	public class LCheckBox extends LRadioButton
 	{
-		public function LCheckBox(text:String=null)
+		public function LCheckBox(txt:String=null)
 		{
-			super(text);
+			super(txt);
 		}
 		override public function getDefaultStyle():String
 		{

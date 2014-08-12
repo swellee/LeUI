@@ -37,5 +37,11 @@ package org.leui.components
 			}
 			super.height=value;
 		}
+		
+		override public function getDefaultStyle():String
+		{
+			if(isHorizon)return "LSeprator";
+			else return "LSepratorV";
+		}
 	}
 }

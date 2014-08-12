@@ -114,8 +114,8 @@ package org.leui.components
 			{
 				appendAll.apply(null,items);
 			}			
-			
 			LUIManager.uiContainer.addChild(this);
+			pack();
 		}
 		
 		protected function onMouseOverItem(event:LEvent):void
@@ -144,7 +144,7 @@ package org.leui.components
 		 * @return menu实例
 		 * 
 		 */
-		public static function createMenu(invoker:LComponent, menuItemVos:Vector.<MenuItemVO>,isPrimary:Boolean=true,  itemClickHandler:Function=null):LMenu
+		public static function createMenu(invoker:InteractiveObject, menuItemVos:Vector.<MenuItemVO>,isPrimary:Boolean=true,  itemClickHandler:Function=null):LMenu
 		{
 			var menu:LMenu=new LMenu();
 			menu.setInvoker(invoker);
@@ -209,7 +209,6 @@ package org.leui.components
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
 
-import org.leui.components.LComponent;
 import org.leui.components.LMenu;
 import org.leui.core.IDispose;
 import org.leui.events.LStageEvent;

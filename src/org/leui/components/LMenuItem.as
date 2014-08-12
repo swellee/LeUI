@@ -1,12 +1,11 @@
 package org.leui.components
 {
-	import org.leui.events.LEvent;
-	
 	import flash.display.DisplayObject;
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import flash.events.MouseEvent;
 	
+	import org.leui.events.LEvent;
 	import org.leui.utils.LGeom;
 	import org.leui.utils.UiConst;
 	import org.leui.vos.MenuItemVO;
@@ -91,9 +90,9 @@ package org.leui.components
 				var g:Graphics=tag.graphics;
 				g.clear();
 				g.lineStyle(2,UiConst.MENU_ITEM_SUB_TAG_COLOR);
-				g.moveTo(width-15,6);
+				g.moveTo(width-14,7);
 				g.lineTo(width-10,height/2);
-				g.lineTo(width-15,height-6);
+				g.lineTo(width-14,height-7);
 				g.endFill();
 				addChild(tag);
 			}

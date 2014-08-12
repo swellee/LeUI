@@ -23,6 +23,10 @@ package org.leui.utils
 		 */
 		public static const ICON_DEFAULT_SIZE:int=20;
 		/**
+		 *树节点图标组件的默认尺寸 
+		 */
+		public static const TREENODE_EXTRA_BTN_SIZE:int=12;
+		/**
 		 *文本的默认宽度 
 		 */
 		public static const TEXT_DEFAULT_WIDTH:int=50;

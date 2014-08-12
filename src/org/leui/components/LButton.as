@@ -25,12 +25,12 @@ package org.leui.components
 		 * @param text  按钮标签
 		 * 
 		 */
-		public function LButton(text:String=null)
+		public function LButton(txt:String=null)
 		{
 			super();
-			if(text)
+			if(txt)
 			{
-				setText(text);
+				this.text = txt;
 			}
 		}
 		
@@ -102,22 +102,17 @@ package org.leui.components
 			onMouseOutHandler(event);
 		}		
 		
-		/**
-		 * 设置按钮标签文本 
-		 * @param text
-		 * 
-		 */		
-		public function setText(text:String):void
+		public function set text(val:String):void
 		{
-			LText(stateUI).text=text;
+			LText(stateUI).text=val;
 		}
 		
 		/**
-		 *获取标签文本 
+		 *  标签文本 
 		 * @return 
 		 * 
 		 */
-		public function getText():String
+		public function get text():String
 		{
 			return LText(stateUI).text;
 		}

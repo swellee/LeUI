@@ -7,6 +7,7 @@ package org.leui.components
 	import org.leui.events.LScrollBarEvent;
 	import org.leui.layouts.ScrollPaneLayout;
 	import org.leui.utils.LTrace;
+	import org.leui.utils.LUIManager;
 	import org.leui.utils.UiConst;
 	import org.leui.vos.ChildStyleHashVO;
 
@@ -141,13 +142,20 @@ package org.leui.components
 		private function updateScrollBar():void
 		{
 			var lengthPercent:int;
+			var contentWidth:int=ele_view_port.viewWidth;
+			var contentHeight:int=ele_view_port.viewHeight;
+			//如果当前帧刚刚添加了子对象，取viewWidth、viewHeight的值必然是0，不知道adobe是怎么想的。。。 因此如果是这种情况，延迟一帧处理
+			if(contentWidth==0||contentHeight==0)
+			{
+				LUIManager.nextFrameCall(updateScrollBar);
+				return;
+			}
 			if(hsbPolicy!=UiConst.SCROLLPANE_BAR_POLICY_NEVER)//是否显示横向滚动条
 			{
-				var contentWidth:int=ele_view_port.viewWidth;
-				var viewWidth:int=width-UiConst.SCROLLPANE_BAR_INIT_SIZE;
-				if(contentWidth>viewWidth||hsbPolicy == UiConst.SCROLLPANE_BAR_POLICY_ALWAYS)
+				var viewportWidth:int=width-UiConst.SCROLLPANE_BAR_INIT_SIZE;
+				if(contentWidth>viewportWidth||hsbPolicy == UiConst.SCROLLPANE_BAR_POLICY_ALWAYS)
 				{
-					lengthPercent=Number(viewWidth/contentWidth)*100;
+					lengthPercent=Number(viewportWidth/contentWidth)*100;
 					ele_h_scroll_bar.visible=true;
 					ele_h_scroll_bar.sliderLength=lengthPercent;
 				}
@@ -159,11 +167,10 @@ package org.leui.components
 			}
 			if(vsbPolicy!=UiConst.SCROLLPANE_BAR_POLICY_NEVER)//竖向滚动条
 			{
-				var contentHeight:int=ele_view_port.viewHeight;
-				var viewHeight:int=height-UiConst.SCROLLPANE_BAR_INIT_SIZE;
-				if(contentHeight>viewHeight || vsbPolicy == UiConst.SCROLLPANE_BAR_POLICY_ALWAYS)
+				var viewportHeight:int=height-UiConst.SCROLLPANE_BAR_INIT_SIZE;
+				if(contentHeight>viewportHeight || vsbPolicy == UiConst.SCROLLPANE_BAR_POLICY_ALWAYS)
 				{
-					lengthPercent=Number(viewHeight/contentHeight)*100;
+					lengthPercent=Number(viewportHeight/contentHeight)*100;
 					ele_v_scroll_bar.visible=true;
 					ele_v_scroll_bar.sliderLength=lengthPercent;
 				}

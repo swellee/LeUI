@@ -25,19 +25,23 @@ package org.leui.components
 		private var _hGap:int;
 		private var childNodes:Vector.<LTreeNode>;
 		private var _depth:int;
+		/**
+		 *  父节点 
+		 */
+		public var parentNode:LTreeNode;
 		private var autoHideExtraBtn:Boolean;
 		/**
 		 * 
 		 * @param text 节点标签文本
 		 * 
 		 */
-		public function LTreeNode(text:String=null,autoHideExtraBtn:Boolean=true)
+		public function LTreeNode(txt:String=null,autoHideExtraBtn:Boolean=true)
 		{
 			super();
 			this.autoHideExtraBtn=autoHideExtraBtn;
-			if(text)
+			if(txt)
 			{
-				setText(text);
+				text = txt;
 			}
 		}
 		
@@ -86,14 +90,14 @@ package org.leui.components
 		override protected function initElements():void
 		{
 			ele_extra_btn=new LToggleButton();
-			ele_extra_btn.setWH(UiConst.ICON_DEFAULT_SIZE,UiConst.ICON_DEFAULT_SIZE);
+			ele_extra_btn.setWH(UiConst.TREENODE_EXTRA_BTN_SIZE,UiConst.TREENODE_EXTRA_BTN_SIZE);
 			ele_extra_btn.canScaleX=false;
 			ele_extra_btn.canScaleY=false;
 			ele_extra_btn.visible=false;
 			ele_label_btn=new LToggleButton();
 			super.append(ele_extra_btn);
 			super.append(ele_label_btn);
-			setWH(UiConst.ICON_DEFAULT_SIZE+UiConst.TEXT_DEFAULT_WIDTH,UiConst.ICON_DEFAULT_SIZE);
+			setWH(UiConst.TREENODE_EXTRA_BTN_SIZE+UiConst.TEXT_DEFAULT_WIDTH,UiConst.ICON_DEFAULT_SIZE);
 		}
 		
 		override protected function initElementStyleHash():void
@@ -106,22 +110,33 @@ package org.leui.components
 		override protected function addEvents():void
 		{
 			super.addEvents();
+			ele_label_btn.addEventListener(MouseEvent.CLICK,onClickLabel);
 			ele_extra_btn.addEventListener(MouseEvent.CLICK,onChangeExtract);
 		}
 		override protected function removeEvents():void
 		{
 			super.removeEvents();
+			ele_label_btn.removeEventListener(MouseEvent.CLICK,onClickLabel);
 			ele_extra_btn.removeEventListener(MouseEvent.CLICK,onChangeExtract);
 		}
 		
 		/**
-		 *切换展开/闭合 
+		 *  切换展开/闭合 
 		 * @param event
 		 * 
 		 */
 		protected function onChangeExtract(event:MouseEvent=null):void
 		{
 			dispatchEvent(new LTreeEvent(LTreeEvent.TREE_NODE_STATUS_CHANGED,true));
+		}
+		/**
+		 *  点击标签文本
+		 * @param event
+		 * 
+		 */
+		protected function onClickLabel(event:MouseEvent=null):void
+		{
+			dispatchEvent(new LTreeEvent(LTreeEvent.TREE_NODE_SELECTED_CHANGED,true));
 		}
 		/**
 		 *  添加子节点 
@@ -136,6 +151,7 @@ package org.leui.components
 				var node:LTreeNode=children.shift() as LTreeNode;
 				if(!node)continue;
 				node.depth=this.depth+1;
+				node.parentNode = this;
 				childNodes.push(node);
 			}
 			if(childNodes.length>0)
@@ -158,6 +174,7 @@ package org.leui.components
 				if(idx>-1)
 				{
 					childNodes.splice(idx,1);
+					node.parentNode = null;
 				}
 			}
 			if(childNodes.length==0)
@@ -233,13 +250,17 @@ package org.leui.components
 			return 0;
 		}
 		/**
-		 *  设置节点标签文本 
+		 *   节点标签文本 
 		 * @param text
 		 * 
 		 */
-		public function setText(text:String):void
+		public function set text(txt:String):void
 		{
-			ele_label_btn.setText(text);
+			ele_label_btn.text = txt;
+		}
+		public function get text():String
+		{
+			return ele_label_btn.text ;
 		}
 		
 		override public function dispose():void

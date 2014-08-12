@@ -90,7 +90,7 @@ package org.leui.components
 				{
 					var vo:ComboxListVO=listdatas[i];
 					var btn:LButton=new LButton();
-					btn.setText(vo.label);
+					btn.text = vo.label;
 					btn.data=vo.data;
 					btn.style=listCellStyle;
 					btn.setWH(width-UiConst.SCROLLPANE_BAR_INIT_SIZE*2,UiConst.MENU_ITEM_HEIGHT);
@@ -117,7 +117,7 @@ package org.leui.components
 			
 			if(itemList.selectedItem)
 			{
-				ele_text.text=LButton(itemList.selectedItem).getText();
+				ele_text.text=LButton(itemList.selectedItem).text;
 				if(null!=selectItemCallFun)
 				selectItemCallFun(itemList.selectedItem.data);
 				ele_btn.selected=false;

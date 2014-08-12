@@ -30,7 +30,7 @@ package org.leui.layouts
 		{
 			//add this node to tree display
 			var offx:int=node.depth*tree.hGap;;
-			node.setWH(-1,tree.nodeHeight);
+			node.setWH(tree.nodeWidth,tree.nodeHeight);
 			if(!isRoot)	node.setXY(offx,tree.getDisplayNodesCount()*(tree.nodeHeight+tree.vGap));
 			tree.addChild(node);
 			

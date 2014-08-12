@@ -23,23 +23,81 @@ package org.leui.components
 		private var rootNode:LTreeNode;
 		private var _hGap:int;
 		private var _vGap:int;
+		private var _nodeWidth:int;
 		private var _nodeHeight:int;
+		private var _selectedNode:LTreeNode;
+		/**
+		 * 选中节点更换时的回调函数 
+		 */
+		private var selectedChangeFun:Function;
 		/**
 		 *   树容器,初始化时强烈建议提供根节点，若不提供，就自动生成一个LTreeNode作为根节点，后续不可重设根节点，只能对已有的根节点修改
 		 * @param root 根节点 如果构造函数中不提供要节点，则自动生成一个“root”标签的根节点，后续如需修改，请使用getRootNode()方法获取根节点
 		 * @param hGap 节点与子级节点的横向间距
 		 * @param vGap 节点与子级节点的竖向间距
+		 * @param nodeWidth 节点统一宽度
+		 * @param nodeHeight 节点统一高度
 		 * 
 		 */
-		public function LTree(root:LTreeNode=null,hGap:int=10,vGap:int=2,nodeHeight:int=20)
+		public function LTree(root:LTreeNode=null,hGap:int=10,vGap:int=2,nodeWidth:int = 80, nodeHeight:int=20)
 		{
 			super();
 			this._hGap=hGap;
 			this._vGap=vGap;
+			this.nodeWidth=nodeWidth;
 			this._nodeHeight=nodeHeight;
 			setRootNode(root);
 		}
 		
+		/**
+		 *  选中的节点 
+		 */
+		public function get selectedNode():LTreeNode
+		{
+			return _selectedNode;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set selectedNode(value:LTreeNode):void
+		{
+			if(_selectedNode == value)return;
+			//清除旧的选中状态
+			if(_selectedNode)_selectedNode.ele_label_btn.selected = false;
+			_selectedNode = value;
+			//设置新的选中状态
+			_selectedNode.ele_label_btn.selected = true;
+			//如果设置的该节点尚未显示，则使其显示
+			if(!_selectedNode.parent)
+			{
+				if(_selectedNode.parentNode)
+					_selectedNode.parentNode.extracted = true;
+			}
+			//执行回调
+			if(selectedChangeFun!=null)selectedChangeFun();
+		}
+
+		/**
+		 *  节点统一宽度 
+		 * @return 
+		 * 
+		 */
+		public function get nodeWidth():int
+		{
+			return _nodeWidth;
+		}
+
+		public function set nodeWidth(value:int):void
+		{
+			_nodeWidth = value;
+		}
+
+		/**
+		 *  节点统一高度 
+		 * @return 
+		 * 
+		 */
 		public function get nodeHeight():int
 		{
 			return _nodeHeight;
@@ -51,6 +109,16 @@ package org.leui.components
 			updateLayout();
 		}
 		
+		public function listenSelectedNodeChange(fun:Function):void
+		{
+			this.selectedChangeFun = fun;
+		}
+		
+		/**
+		 *  显示中的节点总数 
+		 * @return 
+		 * 
+		 */
 		public function getDisplayNodesCount():int
 		{
 			return container.numChildren;
@@ -61,22 +129,32 @@ package org.leui.components
 			if(rootNode)return;
 			this.rootNode=node||new LTreeNode("root");
 			rootNode.depth=0;
-			updateLayout();
 		}
 		
 		override protected function addEvents():void
 		{
 			super.addEvents();
 			addEventListener(LTreeEvent.TREE_NODE_STATUS_CHANGED,onTreeNodeStatusChange);
+			addEventListener(LTreeEvent.TREE_NODE_SELECTED_CHANGED,onTreeNodeSelectedChange);
 		}
 		
 		override protected function removeEvents():void
 		{
 			super.removeEvents();
+			removeEventListener(LTreeEvent.TREE_NODE_SELECTED_CHANGED,onTreeNodeSelectedChange);
 			removeEventListener(LTreeEvent.TREE_NODE_STATUS_CHANGED,onTreeNodeStatusChange);
 		}
 		
-		protected function onTreeNodeStatusChange(event:Event):void
+		protected function onTreeNodeSelectedChange(event:LTreeEvent):void
+		{
+			var node:LTreeNode = event.target as LTreeNode;
+			if(node)
+			{
+				selectedNode = node;
+			}
+		}
+		
+		protected function onTreeNodeStatusChange(event:LTreeEvent):void
 		{
 			updateLayout();
 		}
@@ -86,6 +164,11 @@ package org.leui.components
 			return _layoutManager||=TreeLayout;
 		}
 		
+		/**
+		 *  此值无效 
+		 * @param val
+		 * 
+		 */
 		public function set direction(val:int):void
 		{
 		}
@@ -120,7 +203,7 @@ package org.leui.components
 		}
 		
 		/**
-		 *  获取根节点 
+		 *   获取根节点 
 		 * @return 
 		 * 
 		 */
@@ -129,7 +212,7 @@ package org.leui.components
 			return rootNode;
 		}
 		
-		// restrict these follow functions to avoid be used as container
+		// restrict these follow functions to avoid be used as container-----------------------
 		override public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
 		{
 			throw new LError("cannot use 'append' function in this class");
@@ -138,7 +221,8 @@ package org.leui.components
 		{
 			throw new LError("cannot use 'appendAll' function in this class");
 		}
-		
+		///---------------------------------------------------------------------------------------
+		//override these functions to avoid updatelayout---------------------------------------
 		override public function addChild(child:DisplayObject):DisplayObject
 		{
 			container.addChild(child);
@@ -175,7 +259,7 @@ package org.leui.components
 			var child:DisplayObject=container.removeChildAt(index);
 			return child;
 		}
-		
+		///---------------------------------------------------------------------------------------------
 		override public function dispose():void
 		{
 			rootNode=null;

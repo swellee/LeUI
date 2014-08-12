@@ -111,6 +111,17 @@ package org.leui.utils
 		{
 			styleObserver.removeEventListener(eventType,listenFun);
 		}
+		
+		/**
+		 * 下一帧执行一次目标函数
+		 * @param fun目标函数
+		 * @param funPara目标函数的参数
+		 * 
+		 */
+		public static function nextFrameCall(fun:Function,...funPara):void
+		{
+			addEnterFrameListener(function():void{fun.apply(null,funPara);removeEnterFrameListener(arguments.callee)});
+		}
 
 		/**
 		 *   舞台 

@@ -21,13 +21,13 @@ package org.leui.components
 		public var ele_text:LText;
 		private var _hGap:int;
 		
-		public function LRadioButton(text:String=null,margin:int=4)
+		public function LRadioButton(txt:String=null,margin:int=4)
 		{
 			super();
 			this.hGap=margin;
-			if(text)
+			if(txt)
 			{
-				ele_text.text=text;
+				ele_text.text=txt;
 			}
 		}
 		override protected function initElements():void
@@ -73,13 +73,16 @@ package org.leui.components
 			ele_btn.dispatchEvent(event);
 		}
 		/**
-		 *  设置按钮文本 
-		 * @param text
+		 *  按钮文本 
 		 * 
 		 */		
-		public function setText(text:String):void
+		public function set text(txt:String):void
 		{
-			ele_text.text=text;
+			ele_text.text=txt;
+		}
+		public function get text():String
+		{
+			return ele_text.text;
 		}
 		public function get textField():TextField
 		{
