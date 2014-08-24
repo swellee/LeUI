@@ -211,14 +211,14 @@ package org.leui.components
 			return childNodes;
 		}
 		
-		// restrict these follow functions to avoid be used as container
+		// restrict these follow functions to accept only LTreeNode child
 		override public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
 		{
-			throw new LError("cannot use 'append' function in this class");
+			appendChildrenNode(child);
 		}
 		override public function appendAll(...elements):void
 		{
-			throw new LError("cannot use 'appendAll' function in this class");
+			appendChildrenNode.apply(this,elements);
 		}
 		override public function getLayoutManager():Class
 		{

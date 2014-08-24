@@ -344,7 +344,15 @@ package org.leui.components
 		{
 			_data=val;
 		}
-		
+		/**
+		 *  背景是否为空 （这个属性主要给编辑器用） 
+		 * @return 
+		 * 
+		 */
+		LeSpace function isBlankBg():Boolean
+		{
+			return bgAsset == null;
+		}
 		public function dispose():void
 		{
 			if(disposed)return;
