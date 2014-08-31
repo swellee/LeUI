@@ -289,5 +289,14 @@ package org.leui.components
 			_isVertical = val;
 			updateLayout();
 		}
+		/**
+		 *   重写默认样式名，改为根据朝向，竖向为LScrollBar，横向为LScrollBarH
+		 * @return 
+		 * 
+		 */
+		override public function getDefaultStyle():String
+		{
+			return isVertical?"LScrollBar":"LScrollBarH";
+		}
 	}
 }

@@ -42,10 +42,6 @@ package org.leui.components
 		private var canDrag:Boolean=true;
 		
 		/**
-		 *是否在编辑器中（普通用户忽略此属性） 
-		 */
-		LeSpace var inUIbuilder:Boolean;
-		/**
 		 *视窗   
 		 * @param title 标题文本
 		 * @param autoDisposeOnClose 点击关闭按键时，是否在隐藏视窗时自动销毁 
@@ -149,7 +145,6 @@ package org.leui.components
 		
 		public function hide(disposeThis:Boolean=false):void
 		{
-			if(inUIbuilder)return;
 			if(parent)
 			{
 				parent.removeChild(this);
