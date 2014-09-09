@@ -267,7 +267,7 @@ package org.leui.utils
 			}
 		}
 		/**   获取类名*/
-		LeSpace static function getClassName(obj:*):String
+		public static function getClassName(obj:*):String
 		{
 			var qName:String=getQualifiedClassName(obj);
 			var idx:int=qName.lastIndexOf(":");

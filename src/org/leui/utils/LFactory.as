@@ -6,7 +6,6 @@ package org.leui.utils
 	import flash.display.MovieClip;
 	import flash.utils.Dictionary;
 
-	use namespace LeSpace;
 	/**
 	 *  工厂类
 	 *@author swellee
