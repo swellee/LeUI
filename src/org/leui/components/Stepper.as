@@ -23,10 +23,7 @@ package org.leui.components
 		private var _curValue:int;
 		private var _maxValue:int=int.MAX_VALUE;
 		private var _minValue:int=0;
-		/**
-		 * 步进按钮的最大尺寸
-		 */
-		public var eleBtnSize:int;
+		private var _eleBtnSize:int;
 		
 		/**
 		 *  数字步进组件 基类（不允许直接实例化）
@@ -34,7 +31,25 @@ package org.leui.components
 		public function Stepper(eleBtnSize:int)
 		{
 			super();
-			this.eleBtnSize=eleBtnSize;
+			this._eleBtnSize=eleBtnSize;
+		}
+
+		/**
+		 * 步进按钮的最大尺寸
+		 */
+		public function get eleBtnSize():int
+		{
+			return _eleBtnSize;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set eleBtnSize(value:int):void
+		{
+			if(value == _eleBtnSize)return;
+			_eleBtnSize = value;
+			updateLayout();
 		}
 
 		/**
