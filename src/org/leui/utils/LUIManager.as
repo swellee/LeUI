@@ -33,6 +33,8 @@ package org.leui.utils
 		private var _styleObserver:EventDispatcher;
 		private var enterFrameFuns:Array=[];
 		private var keyUpFuns:Array=[];
+		private var keyDownFuns:Array=[];
+		private var keyEnabled:Boolean = true;
 		
 		/**
 		 *  标准初始化 
@@ -50,6 +52,7 @@ package org.leui.utils
 			getInstance().stg.addEventListener(Event.ENTER_FRAME,onEnterFrame);
 			getInstance().stg.addEventListener(MouseEvent.CLICK,onMouseClick);
 			getInstance().stg.addEventListener(KeyboardEvent.KEY_UP,onKeyUp);
+			getInstance().stg.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 			getInstance().uiContanier=uiContainer;
 			
 			setStyleSheet(styleSheet);
@@ -148,12 +151,24 @@ package org.leui.utils
 		
 		private static function onKeyUp(event:KeyboardEvent):void
 		{
+			if(!getInstance().keyEnabled)return;
 			var funs:Array=getInstance().keyUpFuns;
 			for each (var fun:Function in funs)
 			{
 				fun.call(null,event);
 			}
 		}
+		
+		private static function onKeyDown(event:KeyboardEvent):void
+		{
+			if(!getInstance().keyEnabled)return;
+			var funs:Array=getInstance().keyDownFuns;
+			for each (var fun:Function in funs)
+			{
+				fun.call(null,event);
+			}
+		}
+		
 		/**
 		 *  LexUI组件共用的事件派发器，UI组件均使用此对象 监听和派发事件
 		 * @param value
@@ -195,11 +210,22 @@ package org.leui.utils
 		 */
 		public static function removeEnterFrameListener(fun:Function):void
 		{
-			var idx:int=getInstance().enterFrameFuns.indexOf(fun);
+			var funs:Array = getInstance().enterFrameFuns; 
+			var idx:int=funs.indexOf(fun);
 			if(idx>-1)
 			{
-				getInstance().enterFrameFuns.splice(idx,1);
+				funs.splice(idx,1);
 			}
+		}
+		
+		/**
+		 * 设置键盘监听是否生效 
+		 * @param val
+		 * 
+		 */
+		public static function setKeyEnable(val:Boolean):void
+		{
+			getInstance().keyEnabled = val;
 		}
 		
 		/**
@@ -214,6 +240,19 @@ package org.leui.utils
 				getInstance().keyUpFuns.push(fun);
 			}
 		}
+		
+		/**
+		 *  添加键盘事件（KEY_DOWN）监听
+		 * @param fun 函数，需以键盘事件类型为参数
+		 * </br>eg:  function aaa(e:KeyboardEvent):void{}
+		 */
+		public static function addKeyDownListener(fun:Function):void
+		{
+			if(getInstance().keyDownFuns.indexOf(fun)==-1)
+			{
+				getInstance().keyDownFuns.push(fun);
+			}
+		}
 		/**
 		 *   移除键盘事件监听
 		 * @param fun
@@ -225,6 +264,20 @@ package org.leui.utils
 			if(idx>-1)
 			{
 				getInstance().keyUpFuns.splice(idx,1);
+			}
+		}
+		
+		/**
+		 *   移除键盘事件监听
+		 * @param fun
+		 * 
+		 */
+		public static function removeKeyDownListener(fun:Function):void
+		{
+			var idx:int=getInstance().keyDownFuns.indexOf(fun);
+			if(idx>-1)
+			{
+				getInstance().keyDownFuns.splice(idx,1);
 			}
 		}
 		

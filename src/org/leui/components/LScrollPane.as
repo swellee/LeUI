@@ -35,6 +35,7 @@ package org.leui.components
 		 */
 		private var transferContainer:Boolean;
 		private var needRenderScrollBar:Boolean;
+		private var hasDelayUpdateScrollBar:Boolean;
 		/**
 		 *  滚动面板 
 		 * @param viewPort 视口对象
@@ -147,8 +148,13 @@ package org.leui.components
 			//如果当前帧刚刚添加了子对象，取viewWidth、viewHeight的值必然是0，不知道adobe是怎么想的。。。 因此如果是这种情况，延迟一帧处理
 			if(contentWidth==0||contentHeight==0)
 			{
-				LUIManager.nextFrameCall(updateScrollBar);
-				return;
+				if(!hasDelayUpdateScrollBar)//避免死循环
+				{
+					LUIManager.nextFrameCall(updateScrollBar);
+					hasDelayUpdateScrollBar = true;
+					return;
+				}
+				hasDelayUpdateScrollBar = false;
 			}
 			if(hsbPolicy!=UiConst.SCROLLPANE_BAR_POLICY_NEVER)//是否显示横向滚动条
 			{
