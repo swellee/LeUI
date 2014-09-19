@@ -219,7 +219,7 @@ package org.leui.utils
 		}
 		
 		/**
-		 * 设置键盘监听是否生效 
+		 *  设置键盘监听是否生效 
 		 * @param val
 		 * 
 		 */
