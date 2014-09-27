@@ -29,6 +29,10 @@ package org.leui.components
 		 *  父节点 
 		 */
 		public var parentNode:LTreeNode;
+		/**
+		 * 所在的树 
+		 */
+		public var parentTree:LTree;
 		private var autoHideExtraBtn:Boolean;
 		/**
 		 * 
@@ -220,6 +224,18 @@ package org.leui.components
 		{
 			appendChildrenNode.apply(this,elements);
 		}
+		override public function remove(child:DisplayObject, dispose:Boolean=true):DisplayObject
+		{
+			if(child is LTreeNode)
+			{
+				removeChildrenNode(child);
+			}
+			else
+			{
+				super.remove(child);
+			}
+			return child;
+		}
 		override public function getLayoutManager():Class
 		{
 			return _layoutManager||=BoxLayout;
@@ -261,6 +277,11 @@ package org.leui.components
 		public function get text():String
 		{
 			return ele_label_btn.text ;
+		}
+		
+		override public function get contentPane():LContainer
+		{
+			return this;
 		}
 		
 		override public function dispose():void

@@ -2,12 +2,10 @@ package org.leui.components
 {
 	
 	import flash.display.DisplayObject;
-	import flash.events.Event;
 	
 	import org.leui.core.IDispose;
 	import org.leui.core.ILayoutElement;
 	import org.leui.core.IMatirxContainer;
-	import org.leui.errors.LError;
 	import org.leui.events.LTreeEvent;
 	import org.leui.layouts.TreeLayout;
 	import org.leui.utils.LeSpace;
@@ -256,6 +254,10 @@ package org.leui.components
 		}
 		override public function  removeChildAt(index:int):DisplayObject
 		{
+			if(removingBgAsset)
+			{
+				return super.removeChildAt(index);
+			}
 			var child:DisplayObject=container.removeChildAt(index);
 			return child;
 		}

@@ -113,8 +113,10 @@ package org.leui.components
 		
 		public function set enabled(value:Boolean):void
 		{
+			if(_enable == value)return;
 			_enable = value;
 			LFilters.setEnableFilter(this);
+			value?onActive(null):onDeactive(null);
 		}
 		
 		public function get selected():Boolean
