@@ -3,8 +3,6 @@ package org.leui.components
 	
 	import flash.display.DisplayObject;
 	
-	import org.leui.core.IDispose;
-	import org.leui.core.ILayoutElement;
 	import org.leui.core.IMatirxContainer;
 	import org.leui.events.LTreeEvent;
 	import org.leui.layouts.TreeLayout;
@@ -107,7 +105,18 @@ package org.leui.components
 			updateLayout();
 		}
 		
-		public function listenSelectedNodeChange(fun:Function):void
+		/**
+		 *  设置 选中子项时的回调函数（无参数） 
+		 * @param fun 无参数的函数,可在此函数中通过tree的selectedNode获取被点选的项
+		 * </br>eg. 
+		 * </br> tree.onSelectedChange(xxx);
+		 * </br>function xxx():void
+		 * </br>{
+		 * </br>		trace(tree.selectedNode.data);
+		 * </br>}
+		 * 
+		 */
+		public function onSelectedChange(fun:Function):void
 		{
 			this.selectedChangeFun = fun;
 		}
@@ -127,6 +136,7 @@ package org.leui.components
 			if(rootNode)return;
 			this.rootNode=node||new LTreeNode("root");
 			rootNode.depth=0;
+			rootNode.parentTree =this;
 		}
 		
 		override protected function addEvents():void
@@ -210,56 +220,28 @@ package org.leui.components
 			return rootNode;
 		}
 		
-		// restrict these follow functions to accept only LTreeNode child----------------------
+		// override this function to accept only LTreeNode , will call updatelayout what ever
 		override public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
 		{
 			getRootNode().appendChildrenNode(child);
 		}
+		// override this function to accept only LTreeNode 
 		override public function appendAll(...elements):void
 		{
 			getRootNode().appendChildrenNode.apply(null,elements);
 		}
-		///---------------------------------------------------------------------------------------
-		//override these functions to avoid updatelayout---------------------------------------
-		override public function addChild(child:DisplayObject):DisplayObject
+		//override this function to remove ltreeNode from its parentNode
+		override internal function removeDisplay(child:DisplayObject):void
 		{
-			container.addChild(child);
-			return child;
-		}
-		override public function addChildAt(child:DisplayObject, index:int):DisplayObject
-		{
-			container.addChildAt(child,index);
-			return child;
-		}
-		override public function removeAll(dispose:Boolean=true):void
-		{
-			while(container.numChildren)
+			if(child is LTreeNode)
 			{
-				var child:ILayoutElement=container.removeChildAt(0)as ILayoutElement;
-				if(dispose&&child)
+				var node:LTreeNode = child as LTreeNode;
+				if(node.parentNode)
 				{
-					child.dispose();
+					node.parentNode.removeNode(node,false);
 				}
 			}
-		}
-		
-		override public function remove(child:DisplayObject, dispose:Boolean=true):DisplayObject
-		{
-			container.removeChild(child);
-			if(dispose&&(child is IDispose))
-			{
-				(child as IDispose).dispose();
-			}
-			return child;
-		}
-		override public function  removeChildAt(index:int):DisplayObject
-		{
-			if(removingBgAsset)
-			{
-				return super.removeChildAt(index);
-			}
-			var child:DisplayObject=container.removeChildAt(index);
-			return child;
+			super.removeDisplay(child);
 		}
 		///---------------------------------------------------------------------------------------------
 		override public function dispose():void

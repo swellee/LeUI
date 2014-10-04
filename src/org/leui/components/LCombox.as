@@ -2,7 +2,6 @@ package org.leui.components
 {
 	import flash.events.MouseEvent;
 	
-	import org.leui.events.LEvent;
 	import org.leui.layouts.ComboxLayout;
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.UiConst;
@@ -42,6 +41,7 @@ package org.leui.components
 			ele_scrollPane=new LScrollPane(itemList=new LList());
 			ele_text.setAlign(UiConst.TEXT_ALIGN_MIDDLE_CENTER,-UiConst.SCROLLPANE_BAR_INIT_SIZE);
 			appendAll(ele_text,ele_btn);
+			itemList.onSelectedChange(onSelectInList);
 		}
 		override protected function initElementStyleHash():void
 		{
@@ -60,7 +60,6 @@ package org.leui.components
 			ele_text.addEventListener(MouseEvent.MOUSE_UP,shareMouseEventHandler);
 			ele_text.addEventListener(MouseEvent.CLICK,shareMouseEventHandler);
 			ele_btn.addEventListener(MouseEvent.CLICK,onMouseClickHandler);
-			itemList.addEventListener(LEvent.SELECTED_IN_LIST,onSelectInList);
 		}
 		override protected function removeEvents():void
 		{
@@ -71,7 +70,6 @@ package org.leui.components
 			ele_text.removeEventListener(MouseEvent.MOUSE_UP,shareMouseEventHandler);
 			ele_text.removeEventListener(MouseEvent.CLICK,shareMouseEventHandler);
 			ele_btn.removeEventListener(MouseEvent.CLICK,onMouseClickHandler);
-			itemList.removeEventListener(LEvent.SELECTED_IN_LIST,onSelectInList);
 		}
 		
 		protected function shareMouseEventHandler(event:MouseEvent):void
@@ -112,7 +110,7 @@ package org.leui.components
 			}
 		}
 		
-		protected function onSelectInList(event:LEvent):void
+		protected function onSelectInList():void
 		{
 			
 			if(itemList.selectedItem)

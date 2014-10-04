@@ -13,10 +13,6 @@ package org.leui.events
 		 */
 		public static const STYLE_SHEET_CHANGED:String="leui_style_sheet_changed";
 		/**
-		 *列表项被选中 
-		 */
-		public static const SELECTED_IN_LIST:String = "leui_selected_in_list";
-		/**
 		 *菜单项鼠标悬停 
 		 */
 		public static const MOUSE_OVER_MENU_ITEM:String="leui_mouse_over_menu_item";

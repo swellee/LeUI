@@ -5,7 +5,6 @@ package org.leui.components
 	import flash.events.MouseEvent;
 	
 	import org.leui.core.IMatirxContainer;
-	import org.leui.errors.LError;
 	import org.leui.events.LTreeEvent;
 	import org.leui.layouts.BoxLayout;
 	import org.leui.utils.LeSpace;
@@ -23,16 +22,13 @@ package org.leui.components
 		public var ele_extra_btn:LToggleButton;
 		public var ele_label_btn:LToggleButton;
 		private var _hGap:int;
-		private var childNodes:Vector.<LTreeNode>;
+		private var _childNodes:Array;
 		private var _depth:int;
 		/**
 		 *  父节点 
 		 */
 		public var parentNode:LTreeNode;
-		/**
-		 * 所在的树 
-		 */
-		public var parentTree:LTree;
+		private var _parentTree:LTree;
 		private var autoHideExtraBtn:Boolean;
 		/**
 		 * 
@@ -49,6 +45,40 @@ package org.leui.components
 			}
 		}
 		
+		/**
+		 * 子节点列表  
+		 */
+		public function get childNodes():Array
+		{
+			return _childNodes;
+		}
+
+		/**
+		 * 所在的树 
+		 */
+		public function get parentTree():LTree
+		{
+			return _parentTree;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set parentTree(value:LTree):void
+		{
+			if(_parentTree == value)return;
+			_parentTree = value;
+			_parentTree.addDisplay(this);
+			if(childNodes&&childNodes.length)
+			{
+				for each (var node:LTreeNode in childNodes) 
+				{
+					node.parentTree = _parentTree;
+				}
+			}
+			onChangeExtract();
+		}
+
 		/**
 		 *在树中的层级深度（深度从0开始，0深度的节点为根节点） 
 		 * 此值通过命名空间限定访问权限
@@ -99,8 +129,8 @@ package org.leui.components
 			ele_extra_btn.canScaleY=false;
 			ele_extra_btn.visible=false;
 			ele_label_btn=new LToggleButton();
-			super.append(ele_extra_btn);
-			super.append(ele_label_btn);
+			addDisplay(ele_extra_btn);
+			addDisplay(ele_label_btn);
 			setWH(UiConst.TREENODE_EXTRA_BTN_SIZE+UiConst.TEXT_DEFAULT_WIDTH,UiConst.ICON_DEFAULT_SIZE);
 		}
 		
@@ -149,18 +179,38 @@ package org.leui.components
 		 */
 		public function appendChildrenNode(...children):void
 		{
-			if(!childNodes)	childNodes=new Vector.<LTreeNode>();
+			_childNodes ||= [];
 			while(children.length)
 			{
 				var node:LTreeNode=children.shift() as LTreeNode;
 				if(!node)continue;
+				if(childNodes.indexOf(node)>-1)continue;
+				
 				node.depth=this.depth+1;
 				node.parentNode = this;
+				node.parentTree = this.parentTree;
 				childNodes.push(node);
 			}
-			if(childNodes.length>0)
+			ele_extra_btn.visible=childNodes.length>0;
+			onChangeExtract();
+		}
+		
+		public function removeNode(node:LTreeNode,layoutImmediately:Boolean = true):void
+		{
+			if(!node)return;
+			if(!childNodes)return;
+			var idx:int = childNodes.indexOf(node);
+			if(idx ==-1)return;
+			
+			childNodes.splice(idx,1);
+			ele_extra_btn.visible=childNodes.length>0;
+			
+			if(layoutImmediately)
 			{
-				ele_extra_btn.visible=true;
+				if(childNodes.length==0)
+				{
+					ele_extra_btn.visible=false;
+				}
 				onChangeExtract();
 			}
 		}
@@ -174,17 +224,9 @@ package org.leui.components
 		{
 			for each (var node:LTreeNode in children) 
 			{
-				var idx:int=childNodes.indexOf(node);
-				if(idx>-1)
-				{
-					childNodes.splice(idx,1);
-					node.parentNode = null;
-				}
+				removeNode(node,false);
 			}
-			if(childNodes.length==0)
-			{
-				ele_extra_btn.visible=false;
-			}
+
 			onChangeExtract();
 		}
 		
@@ -199,20 +241,8 @@ package org.leui.components
 			{
 				childNodes.splice(idx,1);
 			}
-			if(childNodes.length==0)
-			{
-				ele_extra_btn.visible=false;
-			}
+			ele_extra_btn.visible=childNodes.length>0;
 			onChangeExtract();
-		}
-		/**
-		 *  获取子节点列表 
-		 * @return 
-		 * 
-		 */
-		public function getChildrenNodes():Vector.<LTreeNode>
-		{
-			return childNodes;
 		}
 		
 		// restrict these follow functions to accept only LTreeNode child
@@ -223,18 +253,6 @@ package org.leui.components
 		override public function appendAll(...elements):void
 		{
 			appendChildrenNode.apply(this,elements);
-		}
-		override public function remove(child:DisplayObject, dispose:Boolean=true):DisplayObject
-		{
-			if(child is LTreeNode)
-			{
-				removeChildrenNode(child);
-			}
-			else
-			{
-				super.remove(child);
-			}
-			return child;
 		}
 		override public function getLayoutManager():Class
 		{
@@ -279,6 +297,7 @@ package org.leui.components
 			return ele_label_btn.text ;
 		}
 		
+		//override this function to accept subNodes by calling append/appendAll
 		override public function get contentPane():LContainer
 		{
 			return this;
@@ -286,7 +305,9 @@ package org.leui.components
 		
 		override public function dispose():void
 		{
-			childNodes=null;
+			_childNodes=null;
+			_parentTree = null;
+			parentNode = null;
 			super.dispose();
 		}
 	}

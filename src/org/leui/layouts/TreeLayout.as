@@ -19,35 +19,34 @@ package org.leui.layouts
 		
 		public function doLayout(contianer:ILayoutContainer):void
 		{
-			var tree:LTree=contianer as LTree;
-			if(!tree)return;
+			var treeUI:LTree=contianer as LTree;
+			if(!treeUI)return;
 			
-			tree.removeAll(false);
-			layoutChildren(tree,tree.getRootNode(),true);
-		}
-		
-		private function layoutChildren(tree:LTree,node:LTreeNode,isRoot:Boolean=false):void
-		{
-			//add this node to tree display
-			var offx:int=node.depth*tree.hGap;;
-			node.setWH(tree.nodeWidth,tree.nodeHeight);
-			if(!isRoot)	node.setXY(offx,tree.getDisplayNodesCount()*(tree.nodeHeight+tree.vGap));
-			tree.addChild(node);
-			
-			//deal with this node's children
-			if(node.extracted)//if node is extracted ,layout its children
+			var locX:int;
+			var locY:int;
+			layoutNode(treeUI.getRootNode());
+			// use anonymous function to store locY's value
+			function layoutNode(node:LTreeNode):void
 			{
-				var children:Vector.<LTreeNode>=node.getChildrenNodes();
-				if(children&&children.length)
+				var tree:LTree = node.parentTree;
+				if(!tree)return;
+				locX = node.depth*tree.hGap;
+				node.setXY(locX,locY);
+				node.setWH(tree.nodeWidth,tree.nodeHeight);
+				node.visible = node.enabled =node.depth ==0 || node.parentNode.extracted;
+				locY += node.visible? (tree.vGap +tree.nodeHeight):0;
+				//sub nodes
+				if(node.childNodes&&node.childNodes.length)
 				{
-					for (var i:int = 0; i < children.length; i++) 
+					var len:int = node.childNodes.length;
+					for (var i:int = 0; i < len; i++) 
 					{
-						var child:LTreeNode=children[i];
-						layoutChildren(tree,child);
+						layoutNode(node.childNodes[i]);
 					}
+					
 				}
-				
 			}
 		}
+		
 	}
 }

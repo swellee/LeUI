@@ -13,17 +13,15 @@ package org.leui.components
 
 	/**
 	 *   LMenu 控件创建可分别选择的选项的弹出菜单，弹出菜单可以具有所需的任何数目的子菜单级别。
-	 * 菜单的及子菜单的创建通过MenuItemVO数据集实现，具体请参考例子。
+	 * 菜单及子菜单的创建通过MenuItemVO数据集实现，具体请参考LeUI-book中的示例。
 	 * 打开 Menu 控件后，此控件将一直可见，直到通过下列任一操作将其关闭：
 	 * </br>1.调用 LMenu.hide() 方法。
-	 * </br>2.用户选择已启用的菜单项。
+	 * </br>2.用户点选已启用的菜单项。
 	 * </br>3.用户在 Menu 控件外部单击。 
 	 *@author swellee
 	 */
 	public class LMenu extends LList implements IPopup
 	{
-
-		private var itemClickHandler:Function;
 		private var _isPrimary:Boolean;
 		private var menuItemVos:Vector.<MenuItemVO>;
 		private var subMenu:LMenu;
@@ -40,6 +38,7 @@ package org.leui.components
 		 *弹出点坐标Y 
 		 */
 		public var popY:int;
+		private var menuItemClickHandler:Function;
 
 		/**
 		 *  菜单 ，推荐使用静态函数LMenu.createMenu()创建菜单。
@@ -98,14 +97,10 @@ package org.leui.components
 			if(!allowInvokerReclick&&isShowing)return;
 			if(!menuItemVos)return;
 			removeAll();
-			if(itemClickHandler!=null)
-			{
-				addEventListener(LEvent.SELECTED_IN_LIST,onScelectedItemHandler);
-			}
 			var items:Array=[];
 			for (var i:int = 0; i < menuItemVos.length; i++) 
 			{
-				var item:LMenuItem=new LMenuItem(menuItemVos[i],itemClickHandler);
+				var item:LMenuItem=new LMenuItem(menuItemVos[i]);
 				item.addEventListener(LEvent.MOUSE_OVER_MENU_ITEM,onMouseOverItem)
 				item.setWH(isPrimary?UiConst.MENU_PRIMARY_WIDTH:UiConst.MENU_SUB_WIDTH,UiConst.MENU_ITEM_HEIGHT);
 				items.push(item);
@@ -127,7 +122,7 @@ package org.leui.components
 				if(item.hasSubMenu)
 				{
 					subMenu=new LMenu();
-					subMenu.setMenuData(item.vo.subMenuItemVos,false,itemClickHandler);
+					subMenu.setMenuData(item.vo.subMenuItemVos,false,menuItemClickHandler);
 					subMenu.popX=this.x+item.width-8;
 					subMenu.popY=this.y+item.y;
 					subMenu.show();
@@ -140,15 +135,19 @@ package org.leui.components
 		 * @param invoker 触发者（通常是一个button对象），menu会为invoker自动添加点击的监听函数。
 		 *  @param menuItemVos 菜单数据
 		 * @param isPrimary 是否为主菜单
-		 * @param itemClickHandler 菜单项点击回调函数，形式为：function(vo:MenuItemVO):void{xxx....};函数形参为被点击项的数据
-		 * @return menu实例
+		 * @param menuItemClickHandler 选中菜单项时的回调函数（参数:MenuItemVO）
+		 * </br>eg. 
+		 * </br>function xxx(vo:MenuItemVO):void
+		 * </br>{
+		 * </br>		trace(vo.text);
+		 * </br>}
 		 * 
 		 */
-		public static function createMenu(invoker:InteractiveObject, menuItemVos:Vector.<MenuItemVO>,isPrimary:Boolean=true,  itemClickHandler:Function=null):LMenu
+		public static function createMenu(invoker:InteractiveObject, menuItemVos:Vector.<MenuItemVO>,isPrimary:Boolean=true,  menuItemClickHandler:Function=null):LMenu
 		{
 			var menu:LMenu=new LMenu();
 			menu.setInvoker(invoker);
-			menu.setMenuData(menuItemVos,isPrimary,itemClickHandler);
+			menu.setMenuData(menuItemVos,isPrimary,menuItemClickHandler);
 			return menu;
 		}
 		
@@ -158,25 +157,11 @@ package org.leui.components
 		}
 		
 		/**
-		 *选中菜单项时回调 
-		 * @param event
-		 * 
-		 */
-		protected function onScelectedItemHandler(event:LEvent):void
-		{
-			if(null!=itemClickHandler)
-			{
-				itemClickHandler.call(null,getSelectedItem().vo);
-			}
-		}
-		
-		
-		/**
-		 *获取 点中的菜单项 
+		 * 获取选中的菜单项 
 		 * @return 
 		 * 
-		 */
-		private function getSelectedItem():LMenuItem
+		 */		
+		public function get selectedMenuItem():LMenuItem
 		{
 			return selectedItem as LMenuItem;
 		}
@@ -185,18 +170,28 @@ package org.leui.components
 		 *设置菜单数据 
 		 * @param menuItemVos 菜单数据
 		 * @param isPrimary 是否为主菜单
-		 * @param itemClickHandler 菜单项点击回调函数，形式为：function(vo:MenuItemVO):void{xxx....};函数形参为被点击项的数据
+		 * @param menuItemClickHandler 选中菜单项时的回调函数（参数:MenuItemVO）
+		 * </br>eg. 
+		 * </br>function xxx(vo:MenuItemVO):void
+		 * </br>{
+		 * </br>		trace(vo.text);
+		 * </br>}
 		 */
-		public function setMenuData(menuItemVos:Vector.<MenuItemVO>, isPrimary:Boolean, itemClickHandler:Function=null):void
+		public function setMenuData(menuItemVos:Vector.<MenuItemVO>, isPrimary:Boolean, menuItemClickHandler:Function=null):void
 		{
 			_isPrimary=isPrimary;
 			this.menuItemVos=menuItemVos;
-			this.itemClickHandler=itemClickHandler;
+			this.menuItemClickHandler = menuItemClickHandler;
+			this.onSelectedChange(onMenuItemClick);
+		}
+		
+		private function onMenuItemClick():void
+		{
+			if(menuItemClickHandler != null)menuItemClickHandler(selectedMenuItem.vo);
 		}
 		
 		override public function dispose():void
 		{
-			this.itemClickHandler=null;
 			this.menuItemVos=null;
 			if(menuInvoker)menuInvoker.dispose();
 			this.menuInvoker=null;

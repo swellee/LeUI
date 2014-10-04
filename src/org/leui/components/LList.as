@@ -5,7 +5,6 @@ package org.leui.components
 	import flash.events.MouseEvent;
 	
 	import org.leui.core.ILayoutElement;
-	import org.leui.events.LEvent;
 	import org.leui.layouts.ListLayout;
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.LeSpace;
@@ -20,6 +19,8 @@ package org.leui.components
 	{
 		
 		protected var _selectedItem:LComponent;
+		protected var itemClickHandler:Function;
+
 		/**
 		 * 列表容器 
 		 * @param hGap 横向间距  /像素
@@ -32,7 +33,6 @@ package org.leui.components
 			super(hGap,vGap);
 			container.isListContainer=true;
 			this._direction=vertical?UiConst.VERTICAL:UiConst.HORIZONTAL;
-			
 		}
 		override protected function addEvents():void
 		{
@@ -74,7 +74,23 @@ package org.leui.components
 				return;
 			if(_selectedItem==item)return;
 			_selectedItem=item;
-			dispatchEvent(new LEvent(LEvent.SELECTED_IN_LIST));
+			if(itemClickHandler != null)itemClickHandler();
+		}
+		
+		/**
+		 *  设置 选中子项时的回调函数（无参数） 
+		 * @param fun 无参数的函数,可在此函数中通过list的selectedItem获取被点选的项
+		 * </br>eg. 
+		 * </br> list.onSelectedChange(xxx);
+		 * </br>function xxx():void
+		 * </br>{
+		 * </br>		trace(list.selectedItem.data);
+		 * </br>}
+		 * 
+		 */
+		public function onSelectedChange(fun:Function):void
+		{
+			this.itemClickHandler = fun;
 		}
 		
 		/**
@@ -101,6 +117,7 @@ package org.leui.components
 		override public function dispose():void
 		{
 			_selectedItem=null;
+			itemClickHandler = null;
 			super.dispose();
 		}
 

@@ -145,7 +145,7 @@ package org.leui.components
 			var lengthPercent:int;
 			var contentWidth:int=ele_view_port.viewWidth;
 			var contentHeight:int=ele_view_port.viewHeight;
-			//如果当前帧刚刚添加了子对象，取viewWidth、viewHeight的值必然是0，不知道adobe是怎么想的。。。 因此如果是这种情况，延迟一帧处理
+			//如果当前帧刚刚添加了子对象，取viewWidth、viewHeight的值必然是0，因此如果是这种情况，延迟一帧处理
 			if(contentWidth==0||contentHeight==0)
 			{
 				if(!hasDelayUpdateScrollBar)//避免死循环

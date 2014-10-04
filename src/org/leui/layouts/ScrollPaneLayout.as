@@ -22,7 +22,9 @@ package org.leui.layouts
 			
 			//viewport
 			var scrBarSize:int=UiConst.SCROLLPANE_BAR_INIT_SIZE;
-			scrPane.ele_view_port.setWH(scrPane.width-scrBarSize,scrPane.height-scrBarSize);
+			var viewW:int = /*scrPane.ele_v_scroll_bar.visible?*/scrPane.width-scrBarSize/*:scrPane.width*/;
+			var viewH:int = /*scrPane.ele_h_scroll_bar.visible?*/scrPane.height-scrBarSize/*:scrPane.height*/;
+			scrPane.ele_view_port.setWH(viewW,viewH);
 			// scrollbar
 			scrPane.ele_h_scroll_bar.setWH(scrPane.width-scrBarSize,scrBarSize);
 			scrPane.ele_v_scroll_bar.setWH(scrBarSize,scrPane.height-scrBarSize);

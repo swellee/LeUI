@@ -18,14 +18,12 @@ package org.leui.components
 	{
 		private var itemIcon:DisplayObject;
 		private var _vo:MenuItemVO;
-		private var itemClickHandler:Function;
-		public function LMenuItem(menuItemVo:MenuItemVO,itemClickHandler:Function=null)
+		public function LMenuItem(menuItemVo:MenuItemVO)
 		{
 			super(menuItemVo.text);
 			this._vo=menuItemVo;
 			this.style=menuItemVo.style;
 			this.data=menuItemVo.data;
-			this.itemClickHandler=itemClickHandler;
 		}
 		
 		override protected function addEvents():void
@@ -125,7 +123,6 @@ package org.leui.components
 		{
 			_vo=null;
 			itemIcon=null;
-			itemClickHandler=null;
 			super.dispose();
 		}
 	}

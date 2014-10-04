@@ -46,10 +46,11 @@ package org.leui.core
 		 *  将子元素从显示列表和子元素列表中移除
 		 * @param element 子元素
 		 * @param dispose 是否销毁
+		 * @param layoutImmediately 是否立即更新布局
 		 * @return 被移除的子元素（子元素内部数据可能已销毁）
 		 * 
 		 */
-		function remove(child:DisplayObject,dispose:Boolean=true):DisplayObject;
+		function remove(child:DisplayObject,dispose:Boolean=true, layoutImmediately:Boolean=true):DisplayObject;
 		/**
 		 *  移除全部子元素 
 		 * @param dispose 是否销毁

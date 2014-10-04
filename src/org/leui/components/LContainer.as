@@ -67,15 +67,17 @@ package org.leui.components
 		{
 			return _layoutElements||=new Vector.<ILayoutElement>();
 		}
-		public function remove(child:DisplayObject,dispose:Boolean=true):DisplayObject
+		public function remove(child:DisplayObject,dispose:Boolean=true, layoutImmediately:Boolean=true):DisplayObject
 		{
-			checkAndPopElement(child);
-			if(container.contains(child))	container.removeChild(child);
+			removeDisplay(child);
 			if(dispose&&(child is IDispose))
 			{
 				(child as IDispose).dispose();
 			}
-			updateLayout();
+			if(layoutImmediately)
+			{
+				updateLayout();
+			}
 			return child;
 		}
 		public function removeAll(dispose:Boolean=true):void
@@ -83,17 +85,35 @@ package org.leui.components
 			while(layoutElements.length>0)
 			{
 				var ele:ILayoutElement=layoutElements[0] ;
-				remove(ele as DisplayObject);
-				if(ele&&dispose)
-				{
-					ele.dispose();
-				}
+				remove(ele as DisplayObject,dispose,false);
+				updateLayout();
 			}
 		}
-		public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
+		
+		/**
+		 *  从容器中移除显示对象 
+		 * @param child
+		 * 
+		 */
+		internal function removeDisplay(child:DisplayObject):void
+		{
+			checkAndPopElement(child);
+			if(container.contains(child))	container.removeChild(child);
+		}
+		
+		/**
+		 * 向容器中添加显示对象 
+		 * @param child
+		 * 
+		 */
+		internal function addDisplay(child:DisplayObject):void
 		{
 			container.addChild(child);
 			checkAndPushElement(child);
+		}
+		public function append(child:DisplayObject, layoutImmediately:Boolean=true):void
+		{
+			addDisplay(child);
 			if(layoutImmediately)
 			{
 				updateLayout();
@@ -114,7 +134,8 @@ package org.leui.components
 		
 		override public function addChild(child:DisplayObject):DisplayObject
 		{
-			append(child);
+			addDisplay(child);
+			updateLayout();
 			return child;
 		}
 		override public function addChildAt(child:DisplayObject, index:int):DisplayObject
@@ -131,9 +152,9 @@ package org.leui.components
 		}
 		override public function removeChild(child:DisplayObject):DisplayObject
 		{
-			if(container.contains(child))
-				return container.removeChild(child);
-			return remove(child);
+			removeDisplay(child);
+			updateLayout();
+			return child;
 		}
 		override public function  removeChildAt(index:int):DisplayObject
 		{
@@ -228,8 +249,7 @@ package org.leui.components
 		
 		public function pack():void
 		{
-			width=container.width;
-			height=container.height;
+			setWH(container.width,container.height);
 		}
 
 		override public function dispose():void
