@@ -7,7 +7,7 @@ package org.leui.core
 	 */
 	public class Version
 	{
-		public static const VERSION:String = "1.0.0";
+		public static const VERSION:String = "1.1.0";
 		public static const licence:String ="http://rem.mit-license.org/";
 	}
 }
