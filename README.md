@@ -3,7 +3,7 @@ LeUI
 
 as3 ui framework
 
-this is a open source actionScript3.0 UI framework. 
+this is an open source actionScript3.0 UI framework. 
 designed mainly for the use of quick development of webGame based on flash. 
 
 
