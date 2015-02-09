@@ -1,19 +1,31 @@
 package org.leui.components
 {
 	
+	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
-	import flash.events.Event;
+	import flash.display.Sprite;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.utils.getTimer;
 	
 	import org.leui.core.IComponent;
 	import org.leui.core.InnerContainer;
 	import org.leui.core.LSprite;
 	import org.leui.events.LEvent;
+	import org.leui.events.LStageEvent;
+	import org.leui.events.MouseEvent;
 	import org.leui.utils.LFactory;
 	import org.leui.utils.LFilters;
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.LeSpace;
 	import org.leui.utils.UiConst;
+	
+	import starling.display.Image;
+	import starling.events.Event;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
+	import starling.textures.Texture;
 	
 	use namespace LeSpace;
 	/**
@@ -25,6 +37,7 @@ package org.leui.components
 		private var _styleName:String;
 		private var _contentMask:Rectangle;
 		private var bgAsset:DisplayObject;
+		private var bgImg:Image;
 		private var needRenderBg:Boolean;
 		private var _width:int=UiConst.UI_MIN_SIZE;
 		private var _height:int=UiConst.UI_MIN_SIZE;
@@ -34,6 +47,7 @@ package org.leui.components
 		private var _canScaleY:Boolean=true;
 		private var _data:*;
 		protected var disposed:Boolean;
+		private var msLoc:Point;
 		/**
 		 *  是否改变过尺寸 
 		 */
@@ -46,6 +60,9 @@ package org.leui.components
 		 *  是否正在移除bg图（因为LContainer覆写了removeChildAt()方法，为保证bg的正确移除，加此标识） 
 		 */		
 		protected var removingBgAsset:Boolean;
+		private var lastTouchPhase:String;
+		private var lastTouchStmp:int;//上次touch事件时间点
+		private var lastClickStmp:int;//上次CLICK事件时间点
 		public function LComponent()
 		{
 			super();
@@ -78,7 +95,9 @@ package org.leui.components
 		protected function addEvents():void
 		{
 			addEventListener(Event.REMOVED_FROM_STAGE,onDeactive);
+			addEventListener(TouchEvent.TOUCH,onTounch);
 			addGlobalEventListener(LEvent.STYLE_SHEET_CHANGED,onStyleSheetChange);
+			addGlobalEventListener(LStageEvent.STAGE_HOVER_CHANGE_EVENT,onStgHoverChange);
 		}
 		/**
 		 *  销毁时调用，用于移除事件监听 
@@ -87,7 +106,9 @@ package org.leui.components
 		protected function removeEvents():void
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE,onDeactive);
+			removeEventListener(TouchEvent.TOUCH,onTounch);
 			removeGlobalEventListener(LEvent.STYLE_SHEET_CHANGED,onStyleSheetChange);
+			removeGlobalEventListener(LStageEvent.STAGE_HOVER_CHANGE_EVENT,onStgHoverChange);
 		}
 		/**  当被移出显示列表时，停止所有事件侦听*/
 		protected function onDeactive(event:Event):void
@@ -102,6 +123,61 @@ package org.leui.components
 			updateStyle();
 		}
 		
+		//下面这两个方法，用以模拟被starling干掉的部分MouseEvent------------------------
+		private function onTounch(evt:TouchEvent):void
+		{
+			evt.stopImmediatePropagation();
+			var touch:Touch = evt.getTouch(this);
+			if(touch)
+			{
+				var msEvtType:String;
+				switch(touch.phase)
+				{
+					case TouchPhase.HOVER:
+						msEvtType = MouseEvent.ROLL_OVER;
+						break;
+					case TouchPhase.BEGAN:
+						msEvtType = MouseEvent.MOUSE_DOWN;
+						break;
+					case TouchPhase.ENDED:
+						msEvtType = MouseEvent.MOUSE_UP;
+						break;
+				}
+				if(msEvtType)
+				{
+					dispatchEvent(new MouseEvent(msEvtType));//先不冒泡
+				}
+				//判断是否需要触发一次CLICK事件
+				var now:int = getTimer();
+				if(lastTouchPhase == TouchPhase.BEGAN
+					&& touch.phase == TouchPhase.ENDED
+					&& now-lastTouchStmp <600)
+				{
+					msEvtType = MouseEvent.CLICK;
+					dispatchEvent(new MouseEvent(msEvtType));
+					
+					//判断是否需要触发一次DOUBLE_CLICK
+					if(lastClickStmp>0
+						&& now - lastClickStmp<800)
+					{
+						msEvtType = MouseEvent.DOUBLE_CLICK;
+						dispatchEvent(new MouseEvent(msEvtType));
+					}
+					lastClickStmp = now;
+				}
+				lastTouchPhase = touch.phase;
+				lastTouchStmp = now;
+			}
+		}
+		private function onStgHoverChange(evt:LStageEvent):void
+		{
+			this.globalToLocal(LUIManager.mouseStagePosition,msLoc);
+			if(evt.mouseTarget != this)
+			{
+				this.dispatchEvent(new MouseEvent(MouseEvent.ROLL_OUT));//先不冒泡
+			}
+		}
+		///-----------------------------------------------------------------------------
 		public function getDefaultStyle():String
 		{
 			return LUIManager.getClassName(this);
@@ -133,6 +209,16 @@ package org.leui.components
 				return(parent as InnerContainer).isListContainer;
 			return false;
 		}
+		
+		public function get mouseX():Number
+		{
+			return msLoc.x;
+		}
+		public function get mouseY():Number
+		{
+			return msLoc.y;
+		}
+		
 		/**
 		 * 是否为复杂组件的元素对象 ，如果为true，则onActive方法中将不再自动更新样式或布局，而是由父组件在适当时候执行该子元素的更新
 		 */
@@ -193,11 +279,11 @@ package org.leui.components
 		private function onRenderHandler(evt:LEvent):void
 		{
 			if(!stage)return;
-			render();
+			renderUI();
 		}
 		
 		/**舞台重绘处理函数，可在此函数中执行样式变更*/
-		protected function render():void
+		protected function renderUI():void
 		{
 			renderBg();
 		}
@@ -212,7 +298,7 @@ package org.leui.components
 			style=getDefaultStyle();
 		}
 		
-		public function get bounds():Rectangle
+		override public function get bounds():Rectangle
 		{
 			return new Rectangle(x,y,width,height);
 		}
@@ -239,50 +325,55 @@ package org.leui.components
 		
 		public function clearBg():void
 		{
-			if(bgAsset&&contains(bgAsset))
+			if(bgImg&&contains(bgImg))
 			{
-				removeChild(bgAsset);
+				removeChild(bgImg);
+				bgImg = null;
 			}
 		}
 		public function setBg(asset:DisplayObject):void
 		{
-			if(!bgAsset)// 首次调用此方法
+			needRenderBg=true;
+			if(bgAsset != asset)
 			{
-				addingBgAsset = true;
-				addChildAt(asset,0);
-				asset.width=_width;
-				asset.height=_height;
-				resizeMask();
-				bgAsset=asset;
+				clearBg();
+			}
+			bgAsset=asset;
+			renderUI();
+		}
+		
+		/**
+		 * 将背景资源绘制到img上（使用九宫格） 
+		 */
+		private function drawBg():void
+		{
+			var s:Sprite = new Sprite();
+			s.addChild(bgAsset);
+			bgAsset.width = _width;
+			bgAsset.height = _height;
+			var bmd:BitmapData = new BitmapData(_width,_height,true,0);
+			bmd.draw(s);
+			if(!bgImg)
+			{
+				bgImg = new Image(Texture.fromBitmapData(bmd));
+				addChildAt(bgImg,0);
 			}
 			else
 			{
-				needRenderBg=true;
-				bgAsset=asset;
-				render();
+				bgImg.texture = Texture.fromBitmapData(bmd);
 			}
 		}
-		/**重置背景图尺寸*/
-		private function resizeBgAsset():void
-		{
-			if(bgAsset)
-			{
-				removingBgAsset = true;
-				removeChildAt(0);
-				addingBgAsset = true;
-				addChildAt(bgAsset,0);
-				bgAsset.width=_width;
-				bgAsset.height=_height;
-			}
-		}
-
+		
 		/**重绘时检测更新背景*/
 		private function renderBg():void
 		{
 			if(needRenderBg)
 			{
 				needRenderBg=false;
-				resizeBgAsset();
+				if(bgAsset)
+				{
+					drawBg();
+				}
 				resizeMask();
 			}
 		}
@@ -295,7 +386,7 @@ package org.leui.components
 			if(!_contentMask)
 			{
 				_contentMask=new Rectangle(0,0,width,height);
-				this.scrollRect=_contentMask;
+				this.clipRect=_contentMask;
 			}
 			return _contentMask;
 		}
@@ -318,7 +409,7 @@ package org.leui.components
 			_width=value;
 			resized=true;
 			needRenderBg=true;
-			render();
+			renderUI();
 		}
 		override public function set height(value:Number):void
 		{
@@ -328,14 +419,14 @@ package org.leui.components
 			_height=value;
 			resized=true;
 			needRenderBg=true;
-			render();
+			renderUI();
 		}
 		/**重置遮罩尺寸*/
 		protected function resizeMask():void
 		{
 			contentMask.width=width;
 			contentMask.height=height;
-			this.scrollRect=contentMask;
+			this.clipRect=contentMask;
 		}
 		
 		public function get data():*
@@ -355,7 +446,7 @@ package org.leui.components
 		{
 			return bgAsset == null;
 		}
-		public function dispose():void
+		override public function dispose():void
 		{
 			if(disposed)return;
 			removeEvents();
@@ -367,9 +458,11 @@ package org.leui.components
 				LFactory.putDisplayObj(bgAsset);
 				bgAsset = null;
 			}
-			LFactory.disposeDisplayObj(this);
+//			LFactory.disposeDisplayObj(this);
 			_data=null;
 			_contentMask=null;
+			bgImg = null;
+			super.dispose();
 			disposed=true;
 		}
 	}

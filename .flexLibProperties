@@ -59,6 +59,7 @@
     <classEntry path="org.leui.components.ALert"/>
     <classEntry path="org.leui.utils.LTraceWindow"/>
     <classEntry path="org.leui.core.Version"/>
+    <classEntry path="org.leui.events.MouseEvent"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

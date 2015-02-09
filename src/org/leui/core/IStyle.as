@@ -1,6 +1,7 @@
 package org.leui.core
 {
 	import flash.display.DisplayObject;
+
 	/**
 	 *  可使用样式的组件 
 	 * @author swellee

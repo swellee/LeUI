@@ -1,7 +1,7 @@
 package org.leui.components
 {
-	import flash.events.MouseEvent;
 	
+	import org.leui.events.MouseEvent;
 	import org.leui.layouts.ComboxLayout;
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.UiConst;

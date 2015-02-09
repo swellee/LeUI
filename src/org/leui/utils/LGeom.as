@@ -1,10 +1,10 @@
 package org.leui.utils
 {
+	import flash.geom.Rectangle;
+	
 	import org.leui.components.LComponent;
 	
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.geom.Rectangle;
+	import starling.display.DisplayObjectContainer;
 
 	/**
 	 *   形状与位置工具类
@@ -18,7 +18,7 @@ package org.leui.utils
 		 * @param obj 对象
 		 * @param targetCoordinates 目标坐标空间
 		 */
-		public static function center(obj:DisplayObject, targetCoordinates:DisplayObjectContainer):void
+		public static function center(obj:*, targetCoordinates:DisplayObjectContainer):void
 		{
 			centerInCoordX(obj,targetCoordinates);
 			centerInCoordY(obj,targetCoordinates);
@@ -31,7 +31,7 @@ package org.leui.utils
 		 * @param offSet 偏移量
 		 * 
 		 */
-		public static function centerInCoordY(obj:DisplayObject, targetCoordinates:DisplayObjectContainer, offSet:int=0):void
+		public static function centerInCoordY(obj:*, targetCoordinates:DisplayObjectContainer, offSet:int=0):void
 		{
 			obj.y=(targetCoordinates.height-obj.height)/2;
 			obj.y +=offSet;
@@ -44,7 +44,7 @@ package org.leui.utils
 		 * @param offSet 偏移量
 		 * 
 		 */
-		public static function centerInCoordX(obj:DisplayObject, targetCoordinates:DisplayObjectContainer,  offSet:int=0):void
+		public static function centerInCoordX(obj:*, targetCoordinates:DisplayObjectContainer,  offSet:int=0):void
 		{
 			obj.x=(targetCoordinates.width-obj.width)/2;
 			obj.x +=offSet;

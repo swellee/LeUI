@@ -79,8 +79,8 @@ package org.leui.components
 			ele_close_btn.addEventListener(MouseEvent.CLICK,onCloseHandler);
 			if(canDrag)
 			{
-				this.addEventListener(MouseEvent.MOUSE_DOWN,dragStart,true,0,true);
-				this.addEventListener(MouseEvent.MOUSE_UP,dragEnd,true,0,true);
+				this.addEventListener(MouseEvent.MOUSE_DOWN,dragStart);
+				this.addEventListener(MouseEvent.MOUSE_UP,dragEnd);
 			}
 		}
 		
@@ -104,6 +104,16 @@ package org.leui.components
 			{
 				startDrag(false,new Rectangle(0,0,stage.stageWidth-width,stage.stageHeight-height));
 			}
+		}
+		
+		private function startDrag(locCenter:Boolean, limitRect:Rectangle):void
+		{
+			
+		}
+		
+		private function stopDrag():void
+		{
+			
 		}
 		protected function onCloseHandler(event:MouseEvent):void
 		{

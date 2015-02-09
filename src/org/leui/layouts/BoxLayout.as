@@ -1,7 +1,5 @@
 package org.leui.layouts
 {
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	import flash.geom.Rectangle;
 	
 	import org.leui.core.ILayoutContainer;
@@ -10,6 +8,9 @@ package org.leui.layouts
 	import org.leui.errors.LTypeError;
 	import org.leui.utils.LGeom;
 	import org.leui.utils.UiConst;
+	
+	import starling.display.DisplayObject;
+	import starling.display.DisplayObjectContainer;
 
 	/**
 	 *   方形布局,可对容器内的对象进行横向或纵向排列,排列时按照加入容器的先后顺序对子对象应用分布

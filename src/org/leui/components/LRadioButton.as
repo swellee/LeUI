@@ -1,10 +1,10 @@
 package org.leui.components
 {
 	
-	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	
 	import org.leui.core.IMatirxContainer;
+	import org.leui.events.MouseEvent;
 	import org.leui.layouts.BoxLayout;
 	import org.leui.utils.UiConst;
 	import org.leui.vos.ChildStyleHashVO;
@@ -38,7 +38,6 @@ package org.leui.components
 			ele_btn.canScaleX=false;
 			ele_btn.canScaleY=false;
 			ele_text=new LText("",false);
-			ele_text.setAlign(UiConst.TEXT_ALIGN_MIDDLE_CENTER);
 			appendAll(ele_btn,ele_text);
 		}
 		

@@ -1,6 +1,6 @@
 package org.leui.components
 {
-	import flash.events.MouseEvent;
+	import org.leui.events.MouseEvent;
 
 	/**
 	 *  开关按钮，点击后自动切换选中状态

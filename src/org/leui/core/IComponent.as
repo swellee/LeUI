@@ -1,6 +1,6 @@
 package org.leui.core
 {
-	import flash.events.Event;
+	import starling.events.Event;
 
 	/**
 	 *  UI组件其类接口

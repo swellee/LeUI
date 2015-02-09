@@ -3,8 +3,9 @@ package org.leui.utils
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
-	import flash.display.MovieClip;
 	import flash.utils.Dictionary;
+	
+	import starling.display.MovieClip;
 
 	/**
 	 *  工厂类
@@ -32,7 +33,7 @@ package org.leui.utils
 				else
 				{
 					assetPool[clsName] ||= [];
-					return new ref()as DisplayObject;
+					return new ref();
 				}
 			}
 			return null;

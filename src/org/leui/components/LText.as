@@ -1,14 +1,27 @@
 package org.leui.components
 {
+	import flash.display.BitmapData;
 	import flash.display.Shape;
+	import flash.events.Event;
+	import flash.geom.Matrix;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
+	import flash.ui.Mouse;
+	import flash.ui.MouseCursor;
 	
+	import org.leui.events.LStageEvent;
+	import org.leui.events.MouseEvent;
 	import org.leui.utils.LGeom;
+	import org.leui.utils.LUIManager;
 	import org.leui.utils.UiConst;
+	
+	import starling.display.Image;
+	import starling.textures.Texture;
+	
 
 	/**
 	 *  文本组件
@@ -24,14 +37,20 @@ package org.leui.components
 		 *文字与外框边距 
 		 */
 		protected static const textFrameSpace:Number=4;
+		protected static const textHelper:TextField = new TextField();
+		protected static const locHelper:Point = new Point();
+		protected var textHelpeMe:Boolean;
 		private var textOffX:int;
 		private var textOffY:int;
 		private var textAlign:int;
+		private var textBmd:BitmapData;
+		private var textImg:Image;
 		public function LText(text:String="",editable:Boolean=true)
 		{
 			super();
 			this.text=text;
 			this.editable=editable;
+			this.touchGroup = true;
 			width=UiConst.TEXT_DEFAULT_WIDTH;
 			height=UiConst.TEXT_DEFAULT_HEIGHT;
 			textAlign = UiConst.TEXT_ALIGN_MIDDLE_CENTER;
@@ -73,7 +92,6 @@ package org.leui.components
 			if(textField.text==value)
 				return;
 			textField.text = value;
-			textField.text=textField.text;
 			updateAlign();
 		}
 
@@ -94,6 +112,94 @@ package org.leui.components
 			textField.mouseEnabled=_editable;
 			textField.selectable=_editable;
 			textField.type=_editable?TextFieldType.INPUT:TextFieldType.DYNAMIC;
+			
+			if(value)
+			{
+				this.addEventListener(MouseEvent.ROLL_OVER,onTextInputMsOver);
+				this.addEventListener(MouseEvent.ROLL_OUT,onTextInputMsOut);
+				this.addGlobalEventListener(LStageEvent.STAGE_CLICK_EVENT,onStgClick);
+			}
+			else
+			{
+				this.removeEventListener(MouseEvent.ROLL_OVER,onTextInputMsOver);
+				this.removeEventListener(MouseEvent.ROLL_OUT,onTextInputMsOut);
+				this.removeGlobalEventListener(LStageEvent.STAGE_CLICK_EVENT,onStgClick);
+			}
+		}
+		
+		override protected function removeEvents():void
+		{
+			this.removeEventListener(MouseEvent.ROLL_OVER,onTextInputMsOver);
+			this.removeEventListener(MouseEvent.ROLL_OUT,onTextInputMsOut);
+			this.removeGlobalEventListener(LStageEvent.STAGE_CLICK_EVENT,onStgClick);
+			super.removeEvents();
+		}
+		
+		private function onTextInputMsOver():void
+		{
+			Mouse.cursor = MouseCursor.IBEAM;
+		}
+		
+		private function onTextInputMsOut():void
+		{
+			Mouse.cursor = MouseCursor.AUTO;
+			if(textHelpeMe)
+			{
+				text = textHelper.text;
+			}
+		}
+		
+		protected function onTextHelperStrChange(event:Event):void
+		{
+			if(textHelpeMe)
+			{
+				text = textHelper.text;
+			}
+		}
+		
+		/**
+		 *  
+		 * @param evt
+		 * 
+		 */
+		private function onStgClick(evt:LStageEvent):void
+		{
+			if(evt.mouseTarget == this)
+			{
+				textHelper.defaultTextFormat = textField.defaultTextFormat;
+				textHelper.textColor = textField.textColor;
+				textHelper.type = TextFieldType.INPUT;
+				textHelper.autoSize = TextFieldAutoSize.LEFT;
+				textHelper.text = textField.text;
+				locHelper.setTo(textField.x,textField.y);
+				this.localToGlobal(locHelper,locHelper);
+				textHelper.x = locHelper.x;
+				textHelper.y = locHelper.y;
+				textHelpeMe = true;
+				textImg.visible = false;
+				textField.autoSize = TextFieldAutoSize.NONE;
+				LUIManager.starling.nativeStage.addChild(textHelper);
+				textHelper.addEventListener(Event.CHANGE,onTextHelperStrChange);
+				LUIManager.starling.nativeStage.focus = textHelper;
+			}
+			else
+			{
+				textHelper.removeEventListener(Event.CHANGE,onTextHelperStrChange);
+				textHelpeMe = false;
+				textImg.visible = true;
+				textField.autoSize = TextFieldAutoSize.LEFT;
+				updateAlign();
+				
+				var isLtext:Boolean = evt.mouseTarget is LText;
+				if(!isLtext || (isLtext&&!(evt.mouseTarget as LText).editable))
+				{
+					if(textHelper.parent)
+					{
+						textHelper.parent.removeChild(textHelper);
+					}
+				}
+			}
+			
 		}
 		
 		/**
@@ -106,7 +212,9 @@ package org.leui.components
 			{
 				_textfield=new TextField();
 				_textfield.autoSize=TextFieldAutoSize.LEFT;
-				addChild(_textfield);
+				textBmd = new BitmapData(_textfield.width,_textfield.height,true,0x0);
+				textImg = new Image(Texture.fromBitmapData(textBmd));
+				addChild(textImg);
 			}
 			return _textfield;
 		}
@@ -126,8 +234,8 @@ package org.leui.components
 		 * */
 		public function pack():void
 		{
-			width=textField.textWidth+textFrameSpace;
-			height=textField.textHeight+textFrameSpace;
+			width = textField.width;
+			height = textField.height;
 		}
 		
 		protected function updateAlign():void
@@ -171,6 +279,14 @@ package org.leui.components
 			}
 			textField.x+=textOffX;
 			textField.y+=textOffY;
+			
+			textBmd.dispose();
+			textBmd = new BitmapData(width,height,true,0);
+			textBmd.draw(textField,new Matrix(1,0,0,1,textField.x,textField.y));
+			
+			textImg.width = width;
+			textImg.height = height;
+			textImg.texture = Texture.fromBitmapData(textBmd);
 		}
 	}
 }

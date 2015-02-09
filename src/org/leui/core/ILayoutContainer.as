@@ -1,7 +1,8 @@
 package org.leui.core
 {
-	import flash.display.DisplayObject;
 	import flash.geom.Rectangle;
+	
+	import starling.display.DisplayObject;
 
 	/**
 	 *   可布局的容器 

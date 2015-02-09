@@ -1,12 +1,12 @@
 package org.leui.components
 {
 	
-	import flash.display.DisplayObject;
-	
 	import org.leui.core.IMatirxContainer;
 	import org.leui.events.LTreeEvent;
 	import org.leui.layouts.TreeLayout;
 	import org.leui.utils.LeSpace;
+	
+	import starling.display.DisplayObject;
 
 	use namespace LeSpace;
 
@@ -231,7 +231,7 @@ package org.leui.components
 			getRootNode().appendChildrenNode.apply(null,elements);
 		}
 		//override this function to remove ltreeNode from its parentNode
-		override internal function removeDisplay(child:DisplayObject):void
+		override internal function removeDisplay(child:DisplayObject, dispose:Boolean=false):void
 		{
 			if(child is LTreeNode)
 			{
@@ -241,7 +241,7 @@ package org.leui.components
 					node.parentNode.removeNode(node,false);
 				}
 			}
-			super.removeDisplay(child);
+			super.removeDisplay(child,dispose);
 		}
 		///---------------------------------------------------------------------------------------------
 		override public function dispose():void

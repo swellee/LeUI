@@ -1,8 +1,6 @@
 package org.leui.components
 {
 	
-	import flash.display.DisplayObject;
-	
 	import org.leui.core.IViewport;
 	import org.leui.events.LScrollBarEvent;
 	import org.leui.layouts.ScrollPaneLayout;
@@ -10,6 +8,8 @@ package org.leui.components
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.UiConst;
 	import org.leui.vos.ChildStyleHashVO;
+	
+	import starling.display.DisplayObject;
 
 	[Event(name="scrollbar_value_change", type="org.leui.events.LScrollBarEvent")]
 	/**
@@ -87,7 +87,7 @@ package org.leui.components
 		private function listenViewSizeChange():void
 		{
 			needRenderScrollBar=true;
-			render();
+			renderUI();
 			onScrollbarValueChange(null);
 		}
 		protected function onScrollbarValueChange(event:LScrollBarEvent):void
@@ -107,9 +107,9 @@ package org.leui.components
 					"displayObject won't be added, cause it's not a really container");
 			}
 		}
-		override protected function render():void
+		override protected function renderUI():void
 		{
-			super.render();
+			super.renderUI();
 			renderScrollBar();
 		}
 		/**重绘滚动条*/

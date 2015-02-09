@@ -1,5 +1,6 @@
 package org.leui.decorators
 {
+	
 	import flash.display.DisplayObject;
 	
 	import org.leui.components.LCombine;
@@ -9,6 +10,7 @@ package org.leui.decorators
 	import org.leui.utils.LTrace;
 	import org.leui.vos.ChildStyleHashVO;
 	import org.leui.vos.StyleVO;
+	
 	
 	/**
 	 *   复合组件装饰类

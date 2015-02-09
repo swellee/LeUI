@@ -1,8 +1,7 @@
 package org.leui.events
 {
-	import org.leui.components.LComponent;
+	import starling.display.DisplayObject;
 	
-	import flash.display.DisplayObject;
 
 	/**
 	 *  LeUI舞台事件
@@ -16,9 +15,13 @@ package org.leui.events
 		 */
 		public static var STAGE_CLICK_EVENT:String="leui_stage_click_event";
 		/**
+		 * 舞台鼠标滑过物体变更事件 
+		 */
+		public static var STAGE_HOVER_CHANGE_EVENT:String="leui_stage_hover_change_event";
+		/**
 		 *舞台上的鼠标直接对象 
 		 */
-		public var clickTarget:DisplayObject;
+		public var mouseTarget:DisplayObject;
 		/**
 		 *LUI舞台事件 通常用作全局派发
 		 * @param type 事件类型
@@ -28,8 +31,8 @@ package org.leui.events
 		 */
 		public function LStageEvent(type:String, clickTarget:DisplayObject, bubbles:Boolean=false)
 		{
-			super(type, bubbles, false);
-			this.clickTarget=clickTarget;
+			super(type, bubbles);
+			this.mouseTarget=clickTarget;
 		}
 	}
 }

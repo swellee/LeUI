@@ -1,8 +1,9 @@
 package org.leui.utils
 {
-	import flash.filters.ColorMatrixFilter;
 	
 	import org.leui.components.LComponent;
+	
+	import starling.filters.ColorMatrixFilter;
 
 	/**
 	 * 滤镜管理
@@ -11,7 +12,7 @@ package org.leui.utils
 	public class LFilters
 	{
 		
-		private static const grayFilterMatrix:Array = [0.3, 0.6, 0.1, 0, 0, 0.3, 0.6, 0.1, 0, 0, 0.3, 0.6, 0.1, 0, 0, 0, 0, 0, 1, 0];
+		private static const grayFilterMatrix:Vector.<Number> = new <Number>[0.3, 0.6, 0.1, 0, 0, 0.3, 0.6, 0.1, 0, 0, 0.3, 0.6, 0.1, 0, 0, 0, 0, 0, 1, 0];
 		/**
 		 * 灰度滤镜
 		 */
@@ -26,38 +27,16 @@ package org.leui.utils
 		{
 			if(!comp.enabled)
 			{
-				comp.filters=comp.filters.concat(LFilters.GRAY_FILTER);
-				comp.mouseChildren=false;
-				comp.mouseEnabled=false;
+				comp.filter=LFilters.GRAY_FILTER;
+				comp.touchGroup=true;
+				comp.touchable=false;
 			}
 			else
 			{
-				comp.mouseChildren=true;
-				comp.mouseEnabled=true;
-				var cache:Array=comp.filters.concat();
-				for (var i:int = 0; i < cache.length; i++) 
-				{
-					var f:ColorMatrixFilter=cache[i]as ColorMatrixFilter;
-					if(f)
-					{
-						if(similarToGrayFilter(f.matrix))
-						{
-							cache.splice(i,1);
-							break;
-						}
-					}
-				}
-				comp.filters=cache;
+				comp.touchGroup=false;
+				comp.touchable=true;
+				comp.filter=null;
 			}
-		}
-		
-		private static function similarToGrayFilter(fMatrix:Array):Boolean
-		{
-			var grayMatrix:Array=LFilters.GRAY_FILTER.matrix;
-			if(int(fMatrix[1]/fMatrix[0])==int(grayMatrix[1]/grayMatrix[0])
-				&& int(fMatrix[1]/fMatrix[2])==int(grayMatrix[1]/grayMatrix[2]))
-				return true;
-			return false;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 package org.leui.vos
 {
-	import flash.display.DisplayObject;
+	import starling.display.DisplayObject;
 
 	/**
 	 *   菜单项数据

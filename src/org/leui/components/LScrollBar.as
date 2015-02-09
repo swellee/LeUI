@@ -1,14 +1,19 @@
 package org.leui.components
 {
-	import flash.events.Event;
-	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.utils.getTimer;
 	
 	import org.leui.events.LScrollBarEvent;
+	import org.leui.events.MouseEvent;
 	import org.leui.layouts.ScrollbarLayout;
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.UiConst;
 	import org.leui.vos.ChildStyleHashVO;
+	
+	import starling.events.Event;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 
 
 	/**
@@ -74,10 +79,10 @@ package org.leui.components
 			ele_decrease_btn=new LButton();
 			ele_increase_btn=new LButton();
 			ele_slider=new LButton();
-			ele_bg.mouseChildren=false;
-			ele_decrease_btn.mouseChildren=false;
-			ele_increase_btn.mouseChildren=false;
-			ele_slider.mouseChildren=false;
+			ele_bg.touchGroup=true;
+			ele_decrease_btn.touchGroup=true;
+			ele_increase_btn.touchGroup=true;
+			ele_slider.touchGroup=true;
 			//ScrollbarLayout将以下面的顺序定位各功能组件：背景条>减量按键>滑块>增量按键
 			appendAll(ele_bg,ele_decrease_btn,ele_slider,ele_increase_btn);
 		}
@@ -114,10 +119,11 @@ package org.leui.components
 		override protected function onActive(event:Event):void
 		{
 			super.onActive(event);
-			stage.addEventListener(MouseEvent.MOUSE_UP,onMsUpHandler);
+			stage.addEventListener(TouchEvent.TOUCH,onMsUpHandler);
 		}
 		protected function onMsDownHandler(e:MouseEvent):void
 		{
+			
 			var ele:LComponent=e.target as LComponent;
 			eleMsDownStamp=getTimer();
 			if(ele)
@@ -127,7 +133,7 @@ package org.leui.components
 				switch(ele)
 				{
 					case ele_bg:
-						var msLoc:Number=isVertical?e.localY-width:e.localX-height;
+						var msLoc:Number=isVertical?mouseX-width:mouseY-height;
 						targetValue=msLoc*valueCeiling/sliderMoveRange;
 						stepMultiple=2;
 						eleMsDownStamp-=msDownCacheTime*.8;
@@ -140,7 +146,7 @@ package org.leui.components
 						break;
 					case ele_slider:
 						eleMsDownStamp-=msDownCacheTime;
-						sliderMsOff=isVertical?e.localY:e.localX;
+						sliderMsOff=isVertical?mouseY:mouseX;
 						break;
 				}
 				msValueStep=valueStep*stepMultiple;

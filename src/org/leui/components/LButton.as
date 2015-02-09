@@ -1,9 +1,8 @@
 package org.leui.components
 {
-	import flash.events.MouseEvent;
 	
+	import org.leui.events.MouseEvent;
 	import org.leui.utils.UiConst;
-	
 	import org.leui.vos.ChildStyleHashVO;
 
 	/**
@@ -39,7 +38,7 @@ package org.leui.components
 			if(!stateUI)
 			{
 				stateUI=new LText("",false);
-				stateUI.mouseChildren=false;
+				stateUI.touchGroup=true;
 				LText(stateUI).setAlign(UiConst.TEXT_ALIGN_MIDDLE_CENTER,0,-2);
 				addChild(stateUI);
 			}

@@ -1,14 +1,19 @@
 package org.leui.components
 {
-	import flash.display.DisplayObject;
+	import flash.display.BitmapData;
 	import flash.display.Graphics;
 	import flash.display.Shape;
-	import flash.events.MouseEvent;
 	
 	import org.leui.events.LEvent;
+	import org.leui.events.MouseEvent;
 	import org.leui.utils.LGeom;
 	import org.leui.utils.UiConst;
 	import org.leui.vos.MenuItemVO;
+	
+	import starling.display.DisplayObject;
+	import starling.display.Image;
+	import starling.display.Quad;
+	import starling.textures.Texture;
 
 	/**
 	 *  菜单项
@@ -92,7 +97,10 @@ package org.leui.components
 				g.lineTo(width-10,height/2);
 				g.lineTo(width-14,height-7);
 				g.endFill();
-				addChild(tag);
+				
+				var bmd:BitmapData = new BitmapData(tag.width,tag.height,true,0);
+				var img:Image = new Image(Texture.fromBitmapData(bmd));
+				addChild(img);
 			}
 		}
 		
@@ -113,9 +121,9 @@ package org.leui.components
 			super.data=val;
 			if(_vo)_vo.data=val;
 		}
-		override protected function render():void
+		override protected function renderUI():void
 		{
-			super.render();
+			super.renderUI();
 			if(itemIcon)	LGeom.centerInCoordY(itemIcon,this);
 		}
 		

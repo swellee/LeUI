@@ -1,8 +1,6 @@
 package org.leui.components
 {
 	
-	import flash.display.DisplayObject;
-	import flash.events.Event;
 	import flash.geom.Rectangle;
 	
 	import org.leui.core.IDispose;
@@ -13,6 +11,9 @@ package org.leui.components
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.LeSpace;
 	import org.leui.utils.UiConst;
+	
+	import starling.display.DisplayObject;
+	import starling.events.Event;
 
 	use namespace LeSpace
 	
@@ -40,8 +41,8 @@ package org.leui.components
 			if(!container)
 			{
 				container=new InnerContainer();
-				container.scrollRect=null;
-				super.addChild(container);
+				container.clipRect=null;
+				super.addChildAt(container,0);
 			}
 		}
 		override protected function onActive(event:Event):void
@@ -69,11 +70,7 @@ package org.leui.components
 		}
 		public function remove(child:DisplayObject,dispose:Boolean=true, layoutImmediately:Boolean=true):DisplayObject
 		{
-			removeDisplay(child);
-			if(dispose&&(child is IDispose))
-			{
-				(child as IDispose).dispose();
-			}
+			removeDisplay(child,dispose);
 			if(layoutImmediately)
 			{
 				updateLayout();
@@ -95,10 +92,10 @@ package org.leui.components
 		 * @param child
 		 * 
 		 */
-		internal function removeDisplay(child:DisplayObject):void
+		internal function removeDisplay(child:DisplayObject, dispose:Boolean=false):void
 		{
 			checkAndPopElement(child);
-			if(container.contains(child))	container.removeChild(child);
+			if(container.contains(child))	container.removeChild(child,dispose);
 		}
 		
 		/**
@@ -150,20 +147,20 @@ package org.leui.components
 			updateLayout();
 			return child;
 		}
-		override public function removeChild(child:DisplayObject):DisplayObject
+		override  public function removeChild(child:DisplayObject, dispose:Boolean=false):DisplayObject
 		{
-			removeDisplay(child);
+			removeDisplay(child,dispose);
 			updateLayout();
 			return child;
 		}
-		override public function  removeChildAt(index:int):DisplayObject
+		override public function removeChildAt(index:int, dispose:Boolean=false):DisplayObject
 		{
 			if(removingBgAsset)
 			{
 				removingBgAsset = false;
-				return super.removeChildAt(index);
+				return super.removeChildAt(index,dispose);
 			}
-			var child:DisplayObject=container.removeChildAt(index);
+			var child:DisplayObject=container.removeChildAt(index,dispose);
 			checkAndPopElement(child);
 			updateLayout();
 			return child;
@@ -220,9 +217,9 @@ package org.leui.components
 				layoutElements.splice(idx,1);
 			}
 		}
-		override protected function render():void
+		override protected function renderUI():void
 		{
-			super.render();
+			super.renderUI();
 			renderLayout();
 		}
 		/**重绘时检测更新布局*/
@@ -239,7 +236,7 @@ package org.leui.components
 		public function updateLayout():void
 		{
 			needRenderLayout=true;
-			render();
+			renderUI();
 		}
 		
 		public function getContentBounds():Rectangle

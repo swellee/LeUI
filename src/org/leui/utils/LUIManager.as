@@ -1,13 +1,7 @@
 package org.leui.utils
 {
 	
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.Stage;
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.KeyboardEvent;
-	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.utils.getQualifiedClassName;
 	
 	import org.leui.core.IDecorator;
@@ -18,6 +12,17 @@ package org.leui.utils
 	import org.leui.events.LEvent;
 	import org.leui.events.LStageEvent;
 	import org.leui.vos.StyleVO;
+	
+	import starling.core.Starling;
+	import starling.display.DisplayObject;
+	import starling.display.DisplayObjectContainer;
+	import starling.display.Stage;
+	import starling.events.Event;
+	import starling.events.EventDispatcher;
+	import starling.events.KeyboardEvent;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 
 	use namespace LeSpace;
 
@@ -27,6 +32,7 @@ package org.leui.utils
 	 */
 	public class LUIManager
 	{
+		private var starl:Starling;
 		private var stg:Stage;
 		private var uiContanier:DisplayObjectContainer;
 		private var styleSheet:IStyleSheet;
@@ -35,6 +41,9 @@ package org.leui.utils
 		private var keyUpFuns:Array=[];
 		private var keyDownFuns:Array=[];
 		private var keyEnabled:Boolean = true;
+		private var msPoint:Point = new Point();
+		
+		private static var lastStgHoverObj:DisplayObject;
 		
 		/**
 		 *  标准初始化 
@@ -44,13 +53,14 @@ package org.leui.utils
 		 * @param SharedEventDispatcher UI组件共享的事件派发/监听对象
 		 * 
 		 */
-		public static function initAsStandard(root:Stage,uiContainer:DisplayObjectContainer,
+		public static function initAsStandard(starl:Starling,uiContainer:DisplayObjectContainer,
 											  styleSheet:IStyleSheet,
 											  SharedEventDispatcher:EventDispatcher=null):void
 		{
-			getInstance().stg=root;
+			getInstance().starl=starl;
+			getInstance().stg=starl.stage;
 			getInstance().stg.addEventListener(Event.ENTER_FRAME,onEnterFrame);
-			getInstance().stg.addEventListener(MouseEvent.CLICK,onMouseClick);
+			getInstance().stg.addEventListener(TouchEvent.TOUCH,onStgTouch);
 			getInstance().stg.addEventListener(KeyboardEvent.KEY_UP,onKeyUp);
 			getInstance().stg.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 			getInstance().uiContanier=uiContainer;
@@ -73,6 +83,16 @@ package org.leui.utils
 				dispatchGlobalEvent(new LEvent(LEvent.STYLE_SHEET_CHANGED));
 				LFactory.disposeAssetPool();
 			}
+		}
+		
+		/**
+		 * 获取starling实例 
+		 * @return 
+		 * 
+		 */
+		public static function get starling():Starling
+		{
+			return getInstance().starl;
 		}
 		
 		/**
@@ -143,10 +163,26 @@ package org.leui.utils
 				fun.call(null,event);
 			}
 		}
-		private static function onMouseClick(event:MouseEvent):void
+		private static function onStgTouch(event:TouchEvent):void
 		{
+			var touch:Touch = event.getTouch(stage);
+			if(!touch)return;
+			event.stopImmediatePropagation();
+			getInstance().updateMsPoint(touch);
 			var comp:DisplayObject=event.target as DisplayObject;
-			if(comp) 	dispatchGlobalEvent(new LStageEvent(LStageEvent.STAGE_CLICK_EVENT,comp));
+			switch(touch.phase)
+			{
+				case TouchPhase.ENDED:
+					dispatchGlobalEvent(new LStageEvent(LStageEvent.STAGE_CLICK_EVENT,comp));
+					break;
+				case TouchPhase.HOVER:
+					if(lastStgHoverObj != event.target)
+					{
+						lastStgHoverObj = event.target as DisplayObject;
+						dispatchGlobalEvent(new LStageEvent(LStageEvent.STAGE_HOVER_CHANGE_EVENT,lastStgHoverObj));
+					}
+					break;
+			}
 		}
 		
 		private static function onKeyUp(event:KeyboardEvent):void
@@ -188,6 +224,25 @@ package org.leui.utils
 		private static function getInstance():LUIManager
 		{
 			return LPool.find(LUIManager) as LUIManager;
+		}
+		
+		/**
+		 * 更新鼠标在stage上的坐标信息 
+		 * @param touch
+		 * 
+		 */
+		private function updateMsPoint(touch:Touch):void
+		{
+			touch.getLocation(stg,msPoint);
+		}
+		
+		/**
+		 * 获取鼠标在舞台上的坐标点 
+		 * 
+		 */
+		public static function get mouseStagePosition():Point
+		{
+			return getInstance().msPoint;
 		}
 	
 		/**

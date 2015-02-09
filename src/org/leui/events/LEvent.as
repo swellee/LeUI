@@ -1,6 +1,6 @@
 package org.leui.events
 {
-	import flash.events.Event;
+	import starling.events.Event;
 	
 	/**
 	 *  LeUI事件
@@ -16,13 +16,10 @@ package org.leui.events
 		 *菜单项鼠标悬停 
 		 */
 		public static const MOUSE_OVER_MENU_ITEM:String="leui_mouse_over_menu_item";
-		/**
-		 *事件附带的数据 
-		 */
-		public var data:*;
-		public function LEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
+		public function LEvent(type:String, bubbles:Boolean=false, data:*=null)
 		{
-			super(type, bubbles, cancelable);
+			super(type, bubbles, data);
 		}
+		
 	}
 }

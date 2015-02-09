@@ -1,8 +1,6 @@
 package org.leui.components
 {
 	
-	import flash.display.InteractiveObject;
-	
 	import org.leui.core.IPopup;
 	import org.leui.events.LEvent;
 	import org.leui.events.LStageEvent;
@@ -10,6 +8,8 @@ package org.leui.components
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.UiConst;
 	import org.leui.vos.MenuItemVO;
+	
+	import starling.display.DisplayObject;
 
 	/**
 	 *   LMenu 控件创建可分别选择的选项的弹出菜单，弹出菜单可以具有所需的任何数目的子菜单级别。
@@ -84,7 +84,7 @@ package org.leui.components
 		 * @param allowInvokerReclick 当重复点击触发者时，是否重新以单击点坐标放置菜单
 		 * 
 		 */
-		public function setInvoker(invoker:InteractiveObject=null,allowInvokerReclick:Boolean=false):void
+		public function setInvoker(invoker:DisplayObject=null,allowInvokerReclick:Boolean=false):void
 		{
 			if(menuInvoker)menuInvoker.dispose();
 			if(invoker)	this.menuInvoker=new MenuInvoker(invoker,this);
@@ -143,7 +143,7 @@ package org.leui.components
 		 * </br>}
 		 * 
 		 */
-		public static function createMenu(invoker:InteractiveObject, menuItemVos:Vector.<MenuItemVO>,isPrimary:Boolean=true,  menuItemClickHandler:Function=null):LMenu
+		public static function createMenu(invoker:DisplayObject, menuItemVos:Vector.<MenuItemVO>,isPrimary:Boolean=true,  menuItemClickHandler:Function=null):LMenu
 		{
 			var menu:LMenu=new LMenu();
 			menu.setInvoker(invoker);
@@ -201,24 +201,25 @@ package org.leui.components
 
 	}
 }
-import flash.display.DisplayObjectContainer;
-import flash.display.InteractiveObject;
 
 import org.leui.components.LMenu;
 import org.leui.core.IDispose;
 import org.leui.events.LStageEvent;
 import org.leui.utils.LUIManager;
 
+import starling.display.DisplayObject;
+import starling.display.DisplayObjectContainer;
+
 class MenuInvoker implements IDispose
 {
-	private var invoker:InteractiveObject;
+	private var invoker:DisplayObject;
 	private var menu:LMenu;
-	public function MenuInvoker(invoker:InteractiveObject,menu:LMenu)
+	public function MenuInvoker(invoker:DisplayObject,menu:LMenu)
 	{
 		setInvoker(invoker,menu);
 	}
 	
-	public function setInvoker(invoker:InteractiveObject,menu:LMenu):void
+	public function setInvoker(invoker:DisplayObject,menu:LMenu):void
 	{
 		this.invoker=invoker;
 		this.menu=menu;
@@ -227,10 +228,10 @@ class MenuInvoker implements IDispose
 	
 	private function onStageClick(evt:LStageEvent):void
 	{
-		if(invoker==evt.clickTarget||((invoker is DisplayObjectContainer)&&(invoker as DisplayObjectContainer).contains(evt.clickTarget)))
+		if(invoker==evt.mouseTarget||((invoker is DisplayObjectContainer)&&(invoker as DisplayObjectContainer).contains(evt.mouseTarget)))
 		{
-			menu.popX=LUIManager.stage.mouseX;
-			menu.popY=LUIManager.stage.mouseY;
+			menu.popX=LUIManager.mouseStagePosition.x;
+			menu.popY=LUIManager.mouseStagePosition.y;
 			menu.show();
 		}
 		else

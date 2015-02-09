@@ -1,14 +1,14 @@
 package org.leui.components
 {
 	
-	import flash.display.DisplayObject;
-	import flash.events.MouseEvent;
-	
 	import org.leui.core.ILayoutElement;
+	import org.leui.events.MouseEvent;
 	import org.leui.layouts.ListLayout;
 	import org.leui.utils.LUIManager;
 	import org.leui.utils.LeSpace;
 	import org.leui.utils.UiConst;
+	
+	import starling.display.DisplayObject;
 
 	use namespace LeSpace;
 	/**
@@ -51,7 +51,7 @@ package org.leui.components
 
 		protected function mouseClickHandler(event:MouseEvent):void
 		{
-			var item:LComponent=LUIManager.findChildByProperty(container,{isListCell:true},event.target as DisplayObject);
+			var item:LComponent = LUIManager.findChildByProperty(container,{isListCell:true},event.target as DisplayObject);
 			if(item)	selectedItem=item;
 		}
 		

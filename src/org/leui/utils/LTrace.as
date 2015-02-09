@@ -1,6 +1,6 @@
 package org.leui.utils
 {
-	import flash.events.KeyboardEvent;
+	import starling.events.KeyboardEvent;
 
 	/**
 	 *   记录打印日志

@@ -7,6 +7,7 @@ package org.leui.decorators
 	import org.leui.utils.LFactory;
 	import org.leui.vos.StyleVO;
 	
+	
 	/**
 	 *   基础装饰器
 	 *@author swellee
